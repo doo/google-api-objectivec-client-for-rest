@@ -9,3 +9,6 @@
 [submodule "Deps/GTMAppAuth"]
 	path = Deps/GTMAppAuth
 	url = https://github.com/google/GTMAppAuth.git
+[submodule "Deps/AppAuthFork"]
+	path = Deps/AppAuthFork
+	url = git@github.com:doo/AppAuth-iOS.git
