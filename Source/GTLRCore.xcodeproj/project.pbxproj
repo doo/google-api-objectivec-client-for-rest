@@ -993,7 +993,7 @@
 				479B98621E8EB6FB00C0149B /* OIDURLQueryComponent.h */,
 			);
 			name = AppAuthHeaders;
-			path = ../Deps/AppAuth/Source;
+			path = ../Deps/AppAuthFork/Source;
 			sourceTree = SOURCE_ROOT;
 		};
 		345D0D791DDF80A50044C585 /* iOS */ = {
