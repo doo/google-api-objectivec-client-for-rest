@@ -876,6 +876,7 @@
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 				F4A872741DAD1ED800D69E09 /* Frameworks */,
+				44BB93101F167A6600A1FFF6 /* Recovered References */,
 			);
 			name = GoogleBundle;
 			sourceTree = "<group>";
@@ -1040,6 +1041,14 @@
 				34F2718F1D6AB67B004A4FC7 /* GTMKeychain_macOS.m */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		44BB93101F167A6600A1FFF6 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				4F6F2E701C615492001065A5 /* Drive1BatchCorrupt.response.txt */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		479B980A1E8EB59700C0149B /* Products */ = {
