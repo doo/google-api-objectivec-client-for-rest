@@ -1708,7 +1708,8 @@ NSString * const kGTLRSlides_Video_Source_Youtube           = @"YOUTUBE";
 
 @implementation GTLRSlides_TextStyle
 @dynamic backgroundColor, baselineOffset, bold, fontFamily, fontSize,
-         foregroundColor, italic, link, smallCaps, strikethrough, underline;
+         foregroundColor, italic, link, smallCaps, strikethrough, underline,
+         weightedFontFamily;
 @end
 
 
@@ -1719,6 +1720,16 @@ NSString * const kGTLRSlides_Video_Source_Youtube           = @"YOUTUBE";
 
 @implementation GTLRSlides_ThemeColorPair
 @dynamic color, type;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSlides_Thumbnail
+//
+
+@implementation GTLRSlides_Thumbnail
+@dynamic contentUrl, height, width;
 @end
 
 
@@ -1852,6 +1863,16 @@ NSString * const kGTLRSlides_Video_Source_Youtube           = @"YOUTUBE";
 
 @implementation GTLRSlides_VideoProperties
 @dynamic outline;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSlides_WeightedFontFamily
+//
+
+@implementation GTLRSlides_WeightedFontFamily
+@dynamic fontFamily, weight;
 @end
 
 
