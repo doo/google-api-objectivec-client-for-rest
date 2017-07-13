@@ -2,70 +2,23 @@
 
 set -eu
 
-if [[ "$#" -ne 2 ]]; then
-  echo "Usage: $0 {iOS|OSX|tvOS} {Debug|Release|Both}"
+if [[ "$#" -lt 2 ]]; then
+  echo "Usage: $0 {Xcode|Pod} [Test type specific parameters]"
   exit 10
 fi
 
-readonly BUILD_MODE="$1"
-readonly BUILD_CFG="$2"
+readonly TEST_TYPE="$1"
+shift
 
-# Default to "build", based on BUILD_MODE below.
-XCODEBUILD_ACTION="build"
-
-# Report then run the build
-RunXcodeBuild() {
-  echo xcodebuild "$@"
-  xcodebuild "$@"
-}
-
-case "${BUILD_MODE}" in
-  iOSCore)
-    CMD_BUILDER+=(
-      -project Source/GTLRCore.xcodeproj
-      -scheme "iOS Framework and Tests"
-      -destination "platform=iOS Simulator,name=iPhone 6,OS=latest"
-    )
-    XCODEBUILD_ACTION="test"
+case "${TEST_TYPE}" in
+  Xcode)
+    exec Tests/xcode_tests.sh "$@"
     ;;
-  OSXCore)
-    CMD_BUILDER+=(
-      -project Source/GTLRCore.xcodeproj
-      -scheme "OS X Framework and Tests"
-    )
-    XCODEBUILD_ACTION="test"
-    ;;
-  tvOSCore)
-    CMD_BUILDER+=(
-      -project Source/GTLRCore.xcodeproj
-      -scheme "tvOS Framework and Tests"
-      -destination "platform=tvOS Simulator,name=Apple TV 1080p,OS=latest"
-    )
-    XCODEBUILD_ACTION="test"
-    ;;
-  Example_*)
-    EXAMPLE_NAME="${BUILD_MODE/Example_/}"
-    CMD_BUILDER+=(
-      -project "Examples/${EXAMPLE_NAME}/${EXAMPLE_NAME}.xcodeproj"
-      -scheme "${EXAMPLE_NAME}"
-    )
+  Pod)
+    exec Tests/pod_integration_tests.sh "$@"
     ;;
   *)
-    echo "Unknown BUILD_MODE: ${BUILD_MODE}"
+    echo "Unknown TEST_TYPE: ${TEST_TYPE}"
     exit 11
-    ;;
-esac
-
-case "${BUILD_CFG}" in
-  Debug|Release)
-    RunXcodeBuild "${CMD_BUILDER[@]}" -configuration "${BUILD_CFG}" "${XCODEBUILD_ACTION}"
-    ;;
-  Both)
-    RunXcodeBuild "${CMD_BUILDER[@]}" -configuration Debug "${XCODEBUILD_ACTION}"
-    RunXcodeBuild "${CMD_BUILDER[@]}" -configuration Release "${XCODEBUILD_ACTION}"
-    ;;
-  *)
-    echo "Unknown BUILD_CFG: ${BUILD_CFG}"
-    exit 12
     ;;
 esac

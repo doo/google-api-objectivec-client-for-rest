@@ -878,10 +878,11 @@
          creationTime, customerId, customSchemas, deletionTime, emails, ETag,
          externalIds, hashFunction, identifier, ims, includeInGlobalAddressList,
          ipWhitelisted, isAdmin, isDelegatedAdmin, isEnforcedIn2Sv,
-         isEnrolledIn2Sv, isMailboxSetup, kind, lastLoginTime, name,
-         nonEditableAliases, notes, organizations, orgUnitPath, password,
-         phones, primaryEmail, relations, suspended, suspensionReason,
-         thumbnailPhotoEtag, thumbnailPhotoUrl, websites;
+         isEnrolledIn2Sv, isMailboxSetup, kind, languages, lastLoginTime,
+         locations, name, nonEditableAliases, notes, organizations, orgUnitPath,
+         password, phones, posixAccounts, primaryEmail, relations,
+         sshPublicKeys, suspended, suspensionReason, thumbnailPhotoEtag,
+         thumbnailPhotoUrl, websites;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   NSDictionary<NSString *, NSString *> *map = @{
@@ -984,6 +985,26 @@
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRDirectory_UserLanguage
+//
+
+@implementation GTLRDirectory_UserLanguage
+@dynamic customLanguage, languageCode;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDirectory_UserLocation
+//
+
+@implementation GTLRDirectory_UserLocation
+@dynamic area, buildingId, customType, deskCode, floorName, floorSection, type;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRDirectory_UserMakeAdmin
 //
 
@@ -1009,7 +1030,7 @@
 
 @implementation GTLRDirectory_UserOrganization
 @dynamic costCenter, customType, department, descriptionProperty, domain,
-         location, name, primary, symbol, title, type;
+         fullTimeEquivalent, location, name, primary, symbol, title, type;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
@@ -1050,6 +1071,16 @@
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRDirectory_UserPosixAccount
+//
+
+@implementation GTLRDirectory_UserPosixAccount
+@dynamic gecos, gid, homeDirectory, primary, shell, systemId, uid, username;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRDirectory_UserRelation
 //
 
@@ -1085,6 +1116,16 @@
   return @"users";
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDirectory_UserSshPublicKey
+//
+
+@implementation GTLRDirectory_UserSshPublicKey
+@dynamic expirationTimeUsec, fingerprint, key;
 @end
 
 

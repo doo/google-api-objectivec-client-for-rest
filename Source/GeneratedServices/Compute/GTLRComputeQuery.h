@@ -25,12 +25,14 @@
 @class GTLRCompute_BackendBucket;
 @class GTLRCompute_BackendService;
 @class GTLRCompute_CacheInvalidationRule;
+@class GTLRCompute_Commitment;
 @class GTLRCompute_DeprecationStatus;
 @class GTLRCompute_Disk;
 @class GTLRCompute_DiskMoveRequest;
 @class GTLRCompute_DisksResizeRequest;
 @class GTLRCompute_Firewall;
 @class GTLRCompute_ForwardingRule;
+@class GTLRCompute_GlobalSetLabelsRequest;
 @class GTLRCompute_HealthCheck;
 @class GTLRCompute_HttpHealthCheck;
 @class GTLRCompute_HttpsHealthCheck;
@@ -49,12 +51,19 @@
 @class GTLRCompute_InstanceGroupsSetNamedPortsRequest;
 @class GTLRCompute_InstanceMoveRequest;
 @class GTLRCompute_InstanceReference;
+@class GTLRCompute_InstancesSetLabelsRequest;
+@class GTLRCompute_InstancesSetMachineResourcesRequest;
 @class GTLRCompute_InstancesSetMachineTypeRequest;
 @class GTLRCompute_InstancesSetServiceAccountRequest;
 @class GTLRCompute_InstancesStartWithEncryptionKeyRequest;
 @class GTLRCompute_InstanceTemplate;
 @class GTLRCompute_Metadata;
 @class GTLRCompute_Network;
+@class GTLRCompute_NetworksAddPeeringRequest;
+@class GTLRCompute_NetworksRemovePeeringRequest;
+@class GTLRCompute_ProjectsDisableXpnResourceRequest;
+@class GTLRCompute_ProjectsEnableXpnResourceRequest;
+@class GTLRCompute_ProjectsListXpnHostsRequest;
 @class GTLRCompute_RegionInstanceGroupManagersAbandonInstancesRequest;
 @class GTLRCompute_RegionInstanceGroupManagersDeleteInstancesRequest;
 @class GTLRCompute_RegionInstanceGroupManagersRecreateRequest;
@@ -70,6 +79,7 @@
 @class GTLRCompute_SslCertificate;
 @class GTLRCompute_Subnetwork;
 @class GTLRCompute_SubnetworksExpandIpCidrRangeRequest;
+@class GTLRCompute_SubnetworksSetPrivateIpGoogleAccessRequest;
 @class GTLRCompute_Tags;
 @class GTLRCompute_TargetHttpProxy;
 @class GTLRCompute_TargetHttpsProxiesSetSslCertificatesRequest;
@@ -85,12 +95,16 @@
 @class GTLRCompute_TargetSslProxiesSetProxyHeaderRequest;
 @class GTLRCompute_TargetSslProxiesSetSslCertificatesRequest;
 @class GTLRCompute_TargetSslProxy;
+@class GTLRCompute_TargetTcpProxiesSetBackendServiceRequest;
+@class GTLRCompute_TargetTcpProxiesSetProxyHeaderRequest;
+@class GTLRCompute_TargetTcpProxy;
 @class GTLRCompute_TargetVpnGateway;
 @class GTLRCompute_UrlMap;
 @class GTLRCompute_UrlMapReference;
 @class GTLRCompute_UrlMapsValidateRequest;
 @class GTLRCompute_UsageExportLocation;
 @class GTLRCompute_VpnTunnel;
+@class GTLRCompute_ZoneSetLabelsRequest;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -101,6 +115,229 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Selector specifying which fields to include in a partial response. */
 @property(nonatomic, copy, nullable) NSString *fields;
+
+@end
+
+/**
+ *  Retrieves an aggregated list of accelerator types.
+ *
+ *  Method: compute.acceleratorTypes.aggregatedList
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_AcceleratorTypesAggregatedList : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForAcceleratorTypesAggregatedListWithproject:]
+
+/**
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
+ *  The field_name is the name of the field you want to compare. Only atomic
+ *  field types are supported (string, number, boolean). The comparison_string
+ *  must be either eq (equals) or ne (not equals). The literal_string is the
+ *  string value to filter to. The literal value must be valid for the type of
+ *  field you are filtering by (string, number, boolean). For string fields, the
+ *  literal value is interpreted as a regular expression using RE2 syntax. The
+ *  literal value must match the entire field.
+ *  For example, to filter for instances that do not have a name of
+ *  example-instance, you would use name ne example-instance.
+ *  You can filter on nested fields. For example, you could filter on instances
+ *  that have set the scheduling.automaticRestart field to true. Use filtering
+ *  on nested fields to take advantage of labels to organize and search for
+ *  results based on label values.
+ *  To filter on multiple expressions, provide each separate expression within
+ *  parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+ *  us-central1-f). Multiple expressions are treated as AND expressions, meaning
+ *  that resources must match all expressions to pass the filters.
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  The maximum number of results per page that should be returned. If the
+ *  number of available results is larger than maxResults, Compute Engine
+ *  returns a nextPageToken that can be used to get the next page of results in
+ *  subsequent list requests. Acceptable values are 0 to 500, inclusive.
+ *  (Default: 500)
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+/**
+ *  Sorts list results by a certain order. By default, results are returned in
+ *  alphanumerical order based on the resource name.
+ *  You can also sort results in descending order based on the creation
+ *  timestamp using orderBy="creationTimestamp desc". This sorts results based
+ *  on the creationTimestamp field in reverse chronological order (newest result
+ *  first). Use this to sort resources like operations so that the newest
+ *  operation is returned first.
+ *  Currently, only sorting by name or creationTimestamp desc is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+/**
+ *  Specifies a page token to use. Set pageToken to the nextPageToken returned
+ *  by a previous list request to get the next page of results.
+ */
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_AcceleratorTypeAggregatedList.
+ *
+ *  Retrieves an aggregated list of accelerator types.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_AcceleratorTypesAggregatedList
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Returns the specified accelerator type. Get a list of available accelerator
+ *  types by making a list() request.
+ *
+ *  Method: compute.acceleratorTypes.get
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_AcceleratorTypesGet : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForAcceleratorTypesGetWithproject:zoneProperty:acceleratorType:]
+
+/** Name of the accelerator type to return. */
+@property(nonatomic, copy, nullable) NSString *acceleratorType;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  The name of the zone for this request.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRCompute_AcceleratorType.
+ *
+ *  Returns the specified accelerator type. Get a list of available accelerator
+ *  types by making a list() request.
+ *
+ *  @param project Project ID for this request.
+ *  @param zoneProperty The name of the zone for this request.
+ *  @param acceleratorType Name of the accelerator type to return.
+ *
+ *  @returns GTLRComputeQuery_AcceleratorTypesGet
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                    zoneProperty:(NSString *)zoneProperty
+                 acceleratorType:(NSString *)acceleratorType;
+
+@end
+
+/**
+ *  Retrieves a list of accelerator types available to the specified project.
+ *
+ *  Method: compute.acceleratorTypes.list
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_AcceleratorTypesList : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForAcceleratorTypesListWithproject:zoneProperty:]
+
+/**
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
+ *  The field_name is the name of the field you want to compare. Only atomic
+ *  field types are supported (string, number, boolean). The comparison_string
+ *  must be either eq (equals) or ne (not equals). The literal_string is the
+ *  string value to filter to. The literal value must be valid for the type of
+ *  field you are filtering by (string, number, boolean). For string fields, the
+ *  literal value is interpreted as a regular expression using RE2 syntax. The
+ *  literal value must match the entire field.
+ *  For example, to filter for instances that do not have a name of
+ *  example-instance, you would use name ne example-instance.
+ *  You can filter on nested fields. For example, you could filter on instances
+ *  that have set the scheduling.automaticRestart field to true. Use filtering
+ *  on nested fields to take advantage of labels to organize and search for
+ *  results based on label values.
+ *  To filter on multiple expressions, provide each separate expression within
+ *  parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+ *  us-central1-f). Multiple expressions are treated as AND expressions, meaning
+ *  that resources must match all expressions to pass the filters.
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  The maximum number of results per page that should be returned. If the
+ *  number of available results is larger than maxResults, Compute Engine
+ *  returns a nextPageToken that can be used to get the next page of results in
+ *  subsequent list requests. Acceptable values are 0 to 500, inclusive.
+ *  (Default: 500)
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+/**
+ *  Sorts list results by a certain order. By default, results are returned in
+ *  alphanumerical order based on the resource name.
+ *  You can also sort results in descending order based on the creation
+ *  timestamp using orderBy="creationTimestamp desc". This sorts results based
+ *  on the creationTimestamp field in reverse chronological order (newest result
+ *  first). Use this to sort resources like operations so that the newest
+ *  operation is returned first.
+ *  Currently, only sorting by name or creationTimestamp desc is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+/**
+ *  Specifies a page token to use. Set pageToken to the nextPageToken returned
+ *  by a previous list request to get the next page of results.
+ */
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  The name of the zone for this request.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRCompute_AcceleratorTypeList.
+ *
+ *  Retrieves a list of accelerator types available to the specified project.
+ *
+ *  @param project Project ID for this request.
+ *  @param zoneProperty The name of the zone for this request.
+ *
+ *  @returns GTLRComputeQuery_AcceleratorTypesList
+ *
+ *  @note Automatic pagination will be done when @c shouldFetchNextPages is
+ *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
+ *        information.
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                    zoneProperty:(NSString *)zoneProperty;
 
 @end
 
@@ -119,9 +356,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForAddressesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -130,7 +366,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -319,9 +555,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForAddressesListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -330,7 +565,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -411,9 +646,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForAutoscalersAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -422,7 +656,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -625,9 +859,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForAutoscalersListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -636,7 +869,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -708,19 +941,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates an autoscaler in the specified project using the data included in
- *  the request. This method supports patch semantics.
+ *  the request. This method supports PATCH semantics and uses the JSON merge
+ *  patch format and processing rules.
  *
  *  Method: compute.autoscalers.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_AutoscalersPatch : GTLRComputeQuery
 // Previous library name was
-//   +[GTLQueryCompute queryForAutoscalersPatchWithObject:project:zoneProperty:autoscaler:]
+//   +[GTLQueryCompute queryForAutoscalersPatchWithObject:project:zoneProperty:]
 
-/** Name of the autoscaler to update. */
+/** Name of the autoscaler to patch. */
 @property(nonatomic, copy, nullable) NSString *autoscaler;
 
 /** Project ID for this request. */
@@ -737,19 +972,18 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates an autoscaler in the specified project using the data included in
- *  the request. This method supports patch semantics.
+ *  the request. This method supports PATCH semantics and uses the JSON merge
+ *  patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_Autoscaler to include in the query.
  *  @param project Project ID for this request.
  *  @param zoneProperty Name of the zone for this request.
- *  @param autoscaler Name of the autoscaler to update.
  *
  *  @returns GTLRComputeQuery_AutoscalersPatch
  */
 + (instancetype)queryWithObject:(GTLRCompute_Autoscaler *)object
                         project:(NSString *)project
-                   zoneProperty:(NSString *)zoneProperty
-                     autoscaler:(NSString *)autoscaler;
+                   zoneProperty:(NSString *)zoneProperty;
 
 @end
 
@@ -918,9 +1152,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForBackendBucketsListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -929,7 +1162,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -993,19 +1226,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates the specified BackendBucket resource with the data included in the
- *  request. This method supports patch semantics.
+ *  request. This method supports PATCH semantics and uses the JSON merge patch
+ *  format and processing rules.
  *
  *  Method: compute.backendBuckets.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_BackendBucketsPatch : GTLRComputeQuery
 // Previous library name was
 //   +[GTLQueryCompute queryForBackendBucketsPatchWithObject:project:backendBucket:]
 
-/** Name of the BackendBucket resource to update. */
+/** Name of the BackendBucket resource to patch. */
 @property(nonatomic, copy, nullable) NSString *backendBucket;
 
 /** Project ID for this request. */
@@ -1015,11 +1250,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates the specified BackendBucket resource with the data included in the
- *  request. This method supports patch semantics.
+ *  request. This method supports PATCH semantics and uses the JSON merge patch
+ *  format and processing rules.
  *
  *  @param object The @c GTLRCompute_BackendBucket to include in the query.
  *  @param project Project ID for this request.
- *  @param backendBucket Name of the BackendBucket resource to update.
+ *  @param backendBucket Name of the BackendBucket resource to patch.
  *
  *  @returns GTLRComputeQuery_BackendBucketsPatch
  */
@@ -1083,9 +1319,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForBackendServicesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -1094,7 +1329,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -1316,9 +1551,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForBackendServicesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -1327,7 +1561,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -1390,22 +1624,24 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Updates the specified BackendService resource with the data included in the
+ *  Patches the specified BackendService resource with the data included in the
  *  request. There are several restrictions and guidelines to keep in mind when
  *  updating a backend service. Read Restrictions and Guidelines for more
- *  information. This method supports patch semantics.
+ *  information. This method supports PATCH semantics and uses the JSON merge
+ *  patch format and processing rules.
  *
  *  Method: compute.backendServices.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_BackendServicesPatch : GTLRComputeQuery
 // Previous library name was
 //   +[GTLQueryCompute queryForBackendServicesPatchWithObject:project:backendService:]
 
-/** Name of the BackendService resource to update. */
+/** Name of the BackendService resource to patch. */
 @property(nonatomic, copy, nullable) NSString *backendService;
 
 /** Project ID for this request. */
@@ -1414,14 +1650,15 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Updates the specified BackendService resource with the data included in the
+ *  Patches the specified BackendService resource with the data included in the
  *  request. There are several restrictions and guidelines to keep in mind when
  *  updating a backend service. Read Restrictions and Guidelines for more
- *  information. This method supports patch semantics.
+ *  information. This method supports PATCH semantics and uses the JSON merge
+ *  patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_BackendService to include in the query.
  *  @param project Project ID for this request.
- *  @param backendService Name of the BackendService resource to update.
+ *  @param backendService Name of the BackendService resource to patch.
  *
  *  @returns GTLRComputeQuery_BackendServicesPatch
  */
@@ -1488,9 +1725,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForDisksAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -1499,7 +1735,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -1764,9 +2000,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForDisksListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -1775,7 +2010,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -1891,6 +2126,54 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Sets the labels on a disk. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  Method: compute.disks.setLabels
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_DisksSetLabels : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForDisksSetLabelsWithObject:project:zoneProperty:resource:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the resource for this request. */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  The name of the zone for this request.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Sets the labels on a disk. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  @param object The @c GTLRCompute_ZoneSetLabelsRequest to include in the
+ *    query.
+ *  @param project Project ID for this request.
+ *  @param zoneProperty The name of the zone for this request.
+ *  @param resource Name of the resource for this request.
+ *
+ *  @returns GTLRComputeQuery_DisksSetLabels
+ */
++ (instancetype)queryWithObject:(GTLRCompute_ZoneSetLabelsRequest *)object
+                        project:(NSString *)project
+                   zoneProperty:(NSString *)zoneProperty
+                       resource:(NSString *)resource;
+
+@end
+
+/**
  *  Retrieves an aggregated list of disk types.
  *
  *  Method: compute.diskTypes.aggregatedList
@@ -1905,9 +2188,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForDiskTypesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -1916,7 +2198,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -2034,9 +2316,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForDiskTypesListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -2045,7 +2326,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -2232,9 +2513,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForFirewallsListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -2243,7 +2523,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -2306,7 +2586,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates the specified firewall rule with the data included in the request.
- *  This method supports patch semantics.
+ *  Using PUT method, can only update following fields of firewall rule:
+ *  allowed, description, sourceRanges, sourceTags, targetTags. This method
+ *  supports patch semantics.
  *
  *  Method: compute.firewalls.patch
  *
@@ -2328,7 +2610,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates the specified firewall rule with the data included in the request.
- *  This method supports patch semantics.
+ *  Using PUT method, can only update following fields of firewall rule:
+ *  allowed, description, sourceRanges, sourceTags, targetTags. This method
+ *  supports patch semantics.
  *
  *  @param object The @c GTLRCompute_Firewall to include in the query.
  *  @param project Project ID for this request.
@@ -2344,6 +2628,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates the specified firewall rule with the data included in the request.
+ *  Using PUT method, can only update following fields of firewall rule:
+ *  allowed, description, sourceRanges, sourceTags, targetTags.
  *
  *  Method: compute.firewalls.update
  *
@@ -2365,6 +2651,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates the specified firewall rule with the data included in the request.
+ *  Using PUT method, can only update following fields of firewall rule:
+ *  allowed, description, sourceRanges, sourceTags, targetTags.
  *
  *  @param object The @c GTLRCompute_Firewall to include in the query.
  *  @param project Project ID for this request.
@@ -2393,9 +2681,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForForwardingRulesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -2404,7 +2691,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -2594,9 +2881,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForForwardingRulesListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -2605,7 +2891,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -2835,9 +3121,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForGlobalAddressesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -2846,7 +3131,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -2908,7 +3193,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Deletes the specified ForwardingRule resource.
+ *  Deletes the specified GlobalForwardingRule resource.
  *
  *  Method: compute.globalForwardingRules.delete
  *
@@ -2929,7 +3214,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Deletes the specified ForwardingRule resource.
+ *  Deletes the specified GlobalForwardingRule resource.
  *
  *  @param project Project ID for this request.
  *  @param forwardingRule Name of the ForwardingRule resource to delete.
@@ -2942,7 +3227,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Returns the specified ForwardingRule resource. Get a list of available
+ *  Returns the specified GlobalForwardingRule resource. Get a list of available
  *  forwarding rules by making a list() request.
  *
  *  Method: compute.globalForwardingRules.get
@@ -2965,7 +3250,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_ForwardingRule.
  *
- *  Returns the specified ForwardingRule resource. Get a list of available
+ *  Returns the specified GlobalForwardingRule resource. Get a list of available
  *  forwarding rules by making a list() request.
  *
  *  @param project Project ID for this request.
@@ -2979,8 +3264,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Creates a ForwardingRule resource in the specified project and region using
- *  the data included in the request.
+ *  Creates a GlobalForwardingRule resource in the specified project using the
+ *  data included in the request.
  *
  *  Method: compute.globalForwardingRules.insert
  *
@@ -2998,8 +3283,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Creates a ForwardingRule resource in the specified project and region using
- *  the data included in the request.
+ *  Creates a GlobalForwardingRule resource in the specified project using the
+ *  data included in the request.
  *
  *  @param object The @c GTLRCompute_ForwardingRule to include in the query.
  *  @param project Project ID for this request.
@@ -3012,8 +3297,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Retrieves a list of ForwardingRule resources available to the specified
- *  project.
+ *  Retrieves a list of GlobalForwardingRule resources available to the
+ *  specified project.
  *
  *  Method: compute.globalForwardingRules.list
  *
@@ -3027,9 +3312,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForGlobalForwardingRulesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -3038,7 +3322,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -3085,8 +3369,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_ForwardingRuleList.
  *
- *  Retrieves a list of ForwardingRule resources available to the specified
- *  project.
+ *  Retrieves a list of GlobalForwardingRule resources available to the
+ *  specified project.
  *
  *  @param project Project ID for this request.
  *
@@ -3101,8 +3385,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Changes target URL for forwarding rule. The new target should be of the same
- *  type as the old target.
+ *  Changes target URL for the GlobalForwardingRule resource. The new target
+ *  should be of the same type as the old target.
  *
  *  Method: compute.globalForwardingRules.setTarget
  *
@@ -3123,8 +3407,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Changes target URL for forwarding rule. The new target should be of the same
- *  type as the old target.
+ *  Changes target URL for the GlobalForwardingRule resource. The new target
+ *  should be of the same type as the old target.
  *
  *  @param object The @c GTLRCompute_TargetReference to include in the query.
  *  @param project Project ID for this request.
@@ -3154,9 +3438,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForGlobalOperationsAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -3165,7 +3448,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -3310,9 +3593,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForGlobalOperationsListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -3321,7 +3603,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -3503,9 +3785,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForHealthChecksListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -3514,7 +3795,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -3578,19 +3859,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates a HealthCheck resource in the specified project using the data
- *  included in the request. This method supports patch semantics.
+ *  included in the request. This method supports PATCH semantics and uses the
+ *  JSON merge patch format and processing rules.
  *
  *  Method: compute.healthChecks.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_HealthChecksPatch : GTLRComputeQuery
 // Previous library name was
 //   +[GTLQueryCompute queryForHealthChecksPatchWithObject:project:healthCheck:]
 
-/** Name of the HealthCheck resource to update. */
+/** Name of the HealthCheck resource to patch. */
 @property(nonatomic, copy, nullable) NSString *healthCheck;
 
 /** Project ID for this request. */
@@ -3600,11 +3883,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates a HealthCheck resource in the specified project using the data
- *  included in the request. This method supports patch semantics.
+ *  included in the request. This method supports PATCH semantics and uses the
+ *  JSON merge patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_HealthCheck to include in the query.
  *  @param project Project ID for this request.
- *  @param healthCheck Name of the HealthCheck resource to update.
+ *  @param healthCheck Name of the HealthCheck resource to patch.
  *
  *  @returns GTLRComputeQuery_HealthChecksPatch
  */
@@ -3772,9 +4056,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForHttpHealthChecksListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -3783,7 +4066,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -3847,19 +4130,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates a HttpHealthCheck resource in the specified project using the data
- *  included in the request. This method supports patch semantics.
+ *  included in the request. This method supports PATCH semantics and uses the
+ *  JSON merge patch format and processing rules.
  *
  *  Method: compute.httpHealthChecks.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_HttpHealthChecksPatch : GTLRComputeQuery
 // Previous library name was
 //   +[GTLQueryCompute queryForHttpHealthChecksPatchWithObject:project:httpHealthCheck:]
 
-/** Name of the HttpHealthCheck resource to update. */
+/** Name of the HttpHealthCheck resource to patch. */
 @property(nonatomic, copy, nullable) NSString *httpHealthCheck;
 
 /** Project ID for this request. */
@@ -3869,11 +4154,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates a HttpHealthCheck resource in the specified project using the data
- *  included in the request. This method supports patch semantics.
+ *  included in the request. This method supports PATCH semantics and uses the
+ *  JSON merge patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_HttpHealthCheck to include in the query.
  *  @param project Project ID for this request.
- *  @param httpHealthCheck Name of the HttpHealthCheck resource to update.
+ *  @param httpHealthCheck Name of the HttpHealthCheck resource to patch.
  *
  *  @returns GTLRComputeQuery_HttpHealthChecksPatch
  */
@@ -4041,9 +4327,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForHttpsHealthChecksListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -4052,7 +4337,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -4116,19 +4401,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates a HttpsHealthCheck resource in the specified project using the data
- *  included in the request. This method supports patch semantics.
+ *  included in the request. This method supports PATCH semantics and uses the
+ *  JSON merge patch format and processing rules.
  *
  *  Method: compute.httpsHealthChecks.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_HttpsHealthChecksPatch : GTLRComputeQuery
 // Previous library name was
 //   +[GTLQueryCompute queryForHttpsHealthChecksPatchWithObject:project:httpsHealthCheck:]
 
-/** Name of the HttpsHealthCheck resource to update. */
+/** Name of the HttpsHealthCheck resource to patch. */
 @property(nonatomic, copy, nullable) NSString *httpsHealthCheck;
 
 /** Project ID for this request. */
@@ -4138,11 +4425,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates a HttpsHealthCheck resource in the specified project using the data
- *  included in the request. This method supports patch semantics.
+ *  included in the request. This method supports PATCH semantics and uses the
+ *  JSON merge patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_HttpsHealthCheck to include in the query.
  *  @param project Project ID for this request.
- *  @param httpsHealthCheck Name of the HttpsHealthCheck resource to update.
+ *  @param httpsHealthCheck Name of the HttpsHealthCheck resource to patch.
  *
  *  @returns GTLRComputeQuery_HttpsHealthChecksPatch
  */
@@ -4353,6 +4641,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCompute queryForImagesInsertWithObject:project:]
 
+/** Force image creation if true. */
+@property(nonatomic, assign) BOOL forceCreate;
+
 /** Project ID for this request. */
 @property(nonatomic, copy, nullable) NSString *project;
 
@@ -4392,9 +4683,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForImagesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -4403,7 +4693,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -4470,6 +4760,45 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Sets the labels on an image. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  Method: compute.images.setLabels
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ImagesSetLabels : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForImagesSetLabelsWithObject:project:resource:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the resource for this request. */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Sets the labels on an image. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  @param object The @c GTLRCompute_GlobalSetLabelsRequest to include in the
+ *    query.
+ *  @param project Project ID for this request.
+ *  @param resource Name of the resource for this request.
+ *
+ *  @returns GTLRComputeQuery_ImagesSetLabels
+ */
++ (instancetype)queryWithObject:(GTLRCompute_GlobalSetLabelsRequest *)object
+                        project:(NSString *)project
+                       resource:(NSString *)resource;
+
+@end
+
+/**
  *  Schedules a group action to remove the specified instances from the managed
  *  instance group. Abandoning an instance does not delete the instance, but it
  *  does remove the instance from any target pools that are applied by the
@@ -4478,6 +4807,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the action is scheduled even if the instances have
  *  not yet been removed from the group. You must separately verify the status
  *  of the abandoning action with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  Method: compute.instanceGroupManagers.abandonInstances
  *
@@ -4513,6 +4846,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the action is scheduled even if the instances have
  *  not yet been removed from the group. You must separately verify the status
  *  of the abandoning action with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  @param object The @c
  *    GTLRCompute_InstanceGroupManagersAbandonInstancesRequest to include in the
@@ -4546,9 +4883,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstanceGroupManagersAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -4557,7 +4893,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -4671,6 +5007,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  marked as DONE when the action is scheduled even if the instances are still
  *  being deleted. You must separately verify the status of the deleting action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  Method: compute.instanceGroupManagers.deleteInstances
  *
@@ -4705,6 +5045,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  marked as DONE when the action is scheduled even if the instances are still
  *  being deleted. You must separately verify the status of the deleting action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  @param object The @c GTLRCompute_InstanceGroupManagersDeleteInstancesRequest
  *    to include in the query.
@@ -4776,6 +5120,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the group is created even if the instances in the
  *  group have not yet been created. You must separately verify the status of
  *  the individual instances with the listmanagedinstances method.
+ *  A managed instance group can have up to 1000 VM instances per group. Please
+ *  contact Cloud Support if you need an increase in this limit.
  *
  *  Method: compute.instanceGroupManagers.insert
  *
@@ -4806,6 +5152,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the group is created even if the instances in the
  *  group have not yet been created. You must separately verify the status of
  *  the individual instances with the listmanagedinstances method.
+ *  A managed instance group can have up to 1000 VM instances per group. Please
+ *  contact Cloud Support if you need an increase in this limit.
  *
  *  @param object The @c GTLRCompute_InstanceGroupManager to include in the
  *    query.
@@ -4837,9 +5185,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstanceGroupManagersListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -4848,7 +5195,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -4993,6 +5340,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  as DONE when the action is scheduled even if the instances have not yet been
  *  recreated. You must separately verify the status of the recreating action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  Method: compute.instanceGroupManagers.recreateInstances
  *
@@ -5026,6 +5377,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  as DONE when the action is scheduled even if the instances have not yet been
  *  recreated. You must separately verify the status of the recreating action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  @param object The @c
  *    GTLRCompute_InstanceGroupManagersRecreateInstancesRequest to include in
@@ -5051,6 +5406,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  when the resize actions are scheduled even if the group has not yet added or
  *  deleted any instances. You must separately verify the status of the creating
  *  or deleting actions with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
  *
  *  Method: compute.instanceGroupManagers.resize
  *
@@ -5091,6 +5449,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  when the resize actions are scheduled even if the group has not yet added or
  *  deleted any instances. You must separately verify the status of the creating
  *  or deleting actions with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
  *
  *  @param project Project ID for this request.
  *  @param zoneProperty The name of the zone where the managed instance group is
@@ -5285,9 +5646,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstanceGroupsAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -5296,7 +5656,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -5507,9 +5867,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstanceGroupsListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -5518,7 +5877,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -5605,9 +5964,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstanceGroupsListInstancesWithObject:project:zoneProperty:instanceGroup:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -5616,7 +5974,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -5702,6 +6060,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Removes one or more instances from the specified instance group, but does
  *  not delete those instances.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration before the VM instance is removed or deleted.
  *
  *  Method: compute.instanceGroups.removeInstances
  *
@@ -5734,6 +6095,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Removes one or more instances from the specified instance group, but does
  *  not delete those instances.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration before the VM instance is removed or deleted.
  *
  *  @param object The @c GTLRCompute_InstanceGroupsRemoveInstancesRequest to
  *    include in the query.
@@ -5866,9 +6230,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstancesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -5877,7 +6240,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -5935,7 +6298,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Attaches a Disk resource to an instance.
+ *  Attaches an existing Disk resource to an instance. You must first create the
+ *  disk before you can attach it. It is not possible to create and attach a
+ *  disk at the same time. For more information, read Adding a persistent disk
+ *  to your instance.
  *
  *  Method: compute.instances.attachDisk
  *
@@ -5963,7 +6329,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Attaches a Disk resource to an instance.
+ *  Attaches an existing Disk resource to an instance. You must first create the
+ *  disk before you can attach it. It is not possible to create and attach a
+ *  disk at the same time. For more information, read Adding a persistent disk
+ *  to your instance.
  *
  *  @param object The @c GTLRCompute_AttachedDisk to include in the query.
  *  @param project Project ID for this request.
@@ -6288,9 +6657,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstancesListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -6299,7 +6667,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -6370,7 +6738,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Performs a hard reset on the instance.
+ *  Performs a reset on the instance. For more information, see Resetting an
+ *  instance.
  *
  *  Method: compute.instances.reset
  *
@@ -6398,7 +6767,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Performs a hard reset on the instance.
+ *  Performs a reset on the instance. For more information, see Resetting an
+ *  instance.
  *
  *  @param project Project ID for this request.
  *  @param zoneProperty The name of the zone for this request.
@@ -6463,6 +6833,102 @@ NS_ASSUME_NONNULL_BEGIN
                         instance:(NSString *)instance
                       autoDelete:(BOOL)autoDelete
                       deviceName:(NSString *)deviceName;
+
+@end
+
+/**
+ *  Sets labels on an instance. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  Method: compute.instances.setLabels
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_InstancesSetLabels : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForInstancesSetLabelsWithObject:project:zoneProperty:instance:]
+
+/** Name of the instance scoping this request. */
+@property(nonatomic, copy, nullable) NSString *instance;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  The name of the zone for this request.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Sets labels on an instance. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  @param object The @c GTLRCompute_InstancesSetLabelsRequest to include in the
+ *    query.
+ *  @param project Project ID for this request.
+ *  @param zoneProperty The name of the zone for this request.
+ *  @param instance Name of the instance scoping this request.
+ *
+ *  @returns GTLRComputeQuery_InstancesSetLabels
+ */
++ (instancetype)queryWithObject:(GTLRCompute_InstancesSetLabelsRequest *)object
+                        project:(NSString *)project
+                   zoneProperty:(NSString *)zoneProperty
+                       instance:(NSString *)instance;
+
+@end
+
+/**
+ *  Changes the number and/or type of accelerator for a stopped instance to the
+ *  values specified in the request.
+ *
+ *  Method: compute.instances.setMachineResources
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_InstancesSetMachineResources : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForInstancesSetMachineResourcesWithObject:project:zoneProperty:instance:]
+
+/** Name of the instance scoping this request. */
+@property(nonatomic, copy, nullable) NSString *instance;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  The name of the zone for this request.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Changes the number and/or type of accelerator for a stopped instance to the
+ *  values specified in the request.
+ *
+ *  @param object The @c GTLRCompute_InstancesSetMachineResourcesRequest to
+ *    include in the query.
+ *  @param project Project ID for this request.
+ *  @param zoneProperty The name of the zone for this request.
+ *  @param instance Name of the instance scoping this request.
+ *
+ *  @returns GTLRComputeQuery_InstancesSetMachineResources
+ */
++ (instancetype)queryWithObject:(GTLRCompute_InstancesSetMachineResourcesRequest *)object
+                        project:(NSString *)project
+                   zoneProperty:(NSString *)zoneProperty
+                       instance:(NSString *)instance;
 
 @end
 
@@ -6975,9 +7441,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForInstanceTemplatesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -6986,7 +7451,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -7049,8 +7514,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Returns the specified License resource. Get a list of available licenses by
- *  making a list() request.
+ *  Returns the specified License resource.
  *
  *  Method: compute.licenses.get
  *
@@ -7072,8 +7536,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCompute_License.
  *
- *  Returns the specified License resource. Get a list of available licenses by
- *  making a list() request.
+ *  Returns the specified License resource.
  *
  *  @param project Project ID for this request.
  *  @param license Name of the License resource to return.
@@ -7100,9 +7563,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForMachineTypesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -7111,7 +7573,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -7229,9 +7691,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForMachineTypesListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -7240,7 +7701,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -7307,6 +7768,43 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)queryWithProject:(NSString *)project
                     zoneProperty:(NSString *)zoneProperty;
+
+@end
+
+/**
+ *  Adds a peering to the specified network.
+ *
+ *  Method: compute.networks.addPeering
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_NetworksAddPeering : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForNetworksAddPeeringWithObject:project:network:]
+
+/** Name of the network resource to add peering to. */
+@property(nonatomic, copy, nullable) NSString *network;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Adds a peering to the specified network.
+ *
+ *  @param object The @c GTLRCompute_NetworksAddPeeringRequest to include in the
+ *    query.
+ *  @param project Project ID for this request.
+ *  @param network Name of the network resource to add peering to.
+ *
+ *  @returns GTLRComputeQuery_NetworksAddPeering
+ */
++ (instancetype)queryWithObject:(GTLRCompute_NetworksAddPeeringRequest *)object
+                        project:(NSString *)project
+                        network:(NSString *)network;
 
 @end
 
@@ -7429,9 +7927,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForNetworksListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -7440,7 +7937,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -7502,6 +7999,43 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Removes a peering from the specified network.
+ *
+ *  Method: compute.networks.removePeering
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_NetworksRemovePeering : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForNetworksRemovePeeringWithObject:project:network:]
+
+/** Name of the network resource to remove peering from. */
+@property(nonatomic, copy, nullable) NSString *network;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Removes a peering from the specified network.
+ *
+ *  @param object The @c GTLRCompute_NetworksRemovePeeringRequest to include in
+ *    the query.
+ *  @param project Project ID for this request.
+ *  @param network Name of the network resource to remove peering from.
+ *
+ *  @returns GTLRComputeQuery_NetworksRemovePeering
+ */
++ (instancetype)queryWithObject:(GTLRCompute_NetworksRemovePeeringRequest *)object
+                        project:(NSString *)project
+                        network:(NSString *)network;
+
+@end
+
+/**
  *  Switches the network mode from auto subnet mode to custom subnet mode.
  *
  *  Method: compute.networks.switchToCustomMode
@@ -7536,6 +8070,132 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Disable this project as an XPN host project.
+ *
+ *  Method: compute.projects.disableXpnHost
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsDisableXpnHost : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsDisableXpnHostWithproject:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Disable this project as an XPN host project.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsDisableXpnHost
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Disable an XPN resource associated with this host project.
+ *
+ *  Method: compute.projects.disableXpnResource
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsDisableXpnResource : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsDisableXpnResourceWithObject:project:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Disable an XPN resource associated with this host project.
+ *
+ *  @param object The @c GTLRCompute_ProjectsDisableXpnResourceRequest to
+ *    include in the query.
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsDisableXpnResource
+ */
++ (instancetype)queryWithObject:(GTLRCompute_ProjectsDisableXpnResourceRequest *)object
+                        project:(NSString *)project;
+
+@end
+
+/**
+ *  Enable this project as an XPN host project.
+ *
+ *  Method: compute.projects.enableXpnHost
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsEnableXpnHost : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsEnableXpnHostWithproject:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Enable this project as an XPN host project.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsEnableXpnHost
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Enable XPN resource (a.k.a service project or service folder in the future)
+ *  for a host project, so that subnetworks in the host project can be used by
+ *  instances in the service project or folder.
+ *
+ *  Method: compute.projects.enableXpnResource
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsEnableXpnResource : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsEnableXpnResourceWithObject:project:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Enable XPN resource (a.k.a service project or service folder in the future)
+ *  for a host project, so that subnetworks in the host project can be used by
+ *  instances in the service project or folder.
+ *
+ *  @param object The @c GTLRCompute_ProjectsEnableXpnResourceRequest to include
+ *    in the query.
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsEnableXpnResource
+ */
++ (instancetype)queryWithObject:(GTLRCompute_ProjectsEnableXpnResourceRequest *)object
+                        project:(NSString *)project;
+
+@end
+
+/**
  *  Returns the specified Project resource.
  *
  *  Method: compute.projects.get
@@ -7562,6 +8222,132 @@ NS_ASSUME_NONNULL_BEGIN
  *  @returns GTLRComputeQuery_ProjectsGet
  */
 + (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Get the XPN host project that this project links to. May be empty if no link
+ *  exists.
+ *
+ *  Method: compute.projects.getXpnHost
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsGetXpnHost : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsGetXpnHostWithproject:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Project.
+ *
+ *  Get the XPN host project that this project links to. May be empty if no link
+ *  exists.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsGetXpnHost
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Get XPN resources associated with this host project.
+ *
+ *  Method: compute.projects.getXpnResources
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsGetXpnResources : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsGetXpnResourcesWithproject:]
+
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  maxResults
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_ProjectsGetXpnResources.
+ *
+ *  Get XPN resources associated with this host project.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsGetXpnResources
+ *
+ *  @note Automatic pagination will be done when @c shouldFetchNextPages is
+ *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
+ *        information.
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  List all XPN host projects visible to the user in an organization.
+ *
+ *  Method: compute.projects.listXpnHosts
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_ProjectsListXpnHosts : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForProjectsListXpnHostsWithObject:project:]
+
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  maxResults
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_XpnHostList.
+ *
+ *  List all XPN host projects visible to the user in an organization.
+ *
+ *  @param object The @c GTLRCompute_ProjectsListXpnHostsRequest to include in
+ *    the query.
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_ProjectsListXpnHosts
+ *
+ *  @note Automatic pagination will be done when @c shouldFetchNextPages is
+ *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
+ *        information.
+ */
++ (instancetype)queryWithObject:(GTLRCompute_ProjectsListXpnHostsRequest *)object
+                        project:(NSString *)project;
 
 @end
 
@@ -7834,9 +8620,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionAutoscalersListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -7845,7 +8630,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -7913,19 +8698,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Updates an autoscaler in the specified project using the data included in
- *  the request. This method supports patch semantics.
+ *  the request. This method supports PATCH semantics and uses the JSON merge
+ *  patch format and processing rules.
  *
  *  Method: compute.regionAutoscalers.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_RegionAutoscalersPatch : GTLRComputeQuery
 // Previous library name was
-//   +[GTLQueryCompute queryForRegionAutoscalersPatchWithObject:project:region:autoscaler:]
+//   +[GTLQueryCompute queryForRegionAutoscalersPatchWithObject:project:region:]
 
-/** Name of the autoscaler to update. */
+/** Name of the autoscaler to patch. */
 @property(nonatomic, copy, nullable) NSString *autoscaler;
 
 /** Project ID for this request. */
@@ -7938,19 +8725,18 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRCompute_Operation.
  *
  *  Updates an autoscaler in the specified project using the data included in
- *  the request. This method supports patch semantics.
+ *  the request. This method supports PATCH semantics and uses the JSON merge
+ *  patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_Autoscaler to include in the query.
  *  @param project Project ID for this request.
  *  @param region Name of the region scoping this request.
- *  @param autoscaler Name of the autoscaler to update.
  *
  *  @returns GTLRComputeQuery_RegionAutoscalersPatch
  */
 + (instancetype)queryWithObject:(GTLRCompute_Autoscaler *)object
                         project:(NSString *)project
-                         region:(NSString *)region
-                     autoscaler:(NSString *)autoscaler;
+                         region:(NSString *)region;
 
 @end
 
@@ -8177,9 +8963,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionBackendServicesListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -8188,7 +8973,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -8259,19 +9044,21 @@ NS_ASSUME_NONNULL_BEGIN
  *  Updates the specified regional BackendService resource with the data
  *  included in the request. There are several restrictions and guidelines to
  *  keep in mind when updating a backend service. Read Restrictions and
- *  Guidelines for more information. This method supports patch semantics.
+ *  Guidelines for more information. This method supports PATCH semantics and
+ *  uses the JSON merge patch format and processing rules.
  *
  *  Method: compute.regionBackendServices.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_RegionBackendServicesPatch : GTLRComputeQuery
 // Previous library name was
 //   +[GTLQueryCompute queryForRegionBackendServicesPatchWithObject:project:region:backendService:]
 
-/** Name of the BackendService resource to update. */
+/** Name of the BackendService resource to patch. */
 @property(nonatomic, copy, nullable) NSString *backendService;
 
 /** Project ID for this request. */
@@ -8286,12 +9073,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  Updates the specified regional BackendService resource with the data
  *  included in the request. There are several restrictions and guidelines to
  *  keep in mind when updating a backend service. Read Restrictions and
- *  Guidelines for more information. This method supports patch semantics.
+ *  Guidelines for more information. This method supports PATCH semantics and
+ *  uses the JSON merge patch format and processing rules.
  *
  *  @param object The @c GTLRCompute_BackendService to include in the query.
  *  @param project Project ID for this request.
  *  @param region Name of the region scoping this request.
- *  @param backendService Name of the BackendService resource to update.
+ *  @param backendService Name of the BackendService resource to patch.
  *
  *  @returns GTLRComputeQuery_RegionBackendServicesPatch
  */
@@ -8350,6 +9138,259 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Retrieves an aggregated list of commitments.
+ *
+ *  Method: compute.regionCommitments.aggregatedList
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_RegionCommitmentsAggregatedList : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForRegionCommitmentsAggregatedListWithproject:]
+
+/**
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
+ *  The field_name is the name of the field you want to compare. Only atomic
+ *  field types are supported (string, number, boolean). The comparison_string
+ *  must be either eq (equals) or ne (not equals). The literal_string is the
+ *  string value to filter to. The literal value must be valid for the type of
+ *  field you are filtering by (string, number, boolean). For string fields, the
+ *  literal value is interpreted as a regular expression using RE2 syntax. The
+ *  literal value must match the entire field.
+ *  For example, to filter for instances that do not have a name of
+ *  example-instance, you would use name ne example-instance.
+ *  You can filter on nested fields. For example, you could filter on instances
+ *  that have set the scheduling.automaticRestart field to true. Use filtering
+ *  on nested fields to take advantage of labels to organize and search for
+ *  results based on label values.
+ *  To filter on multiple expressions, provide each separate expression within
+ *  parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+ *  us-central1-f). Multiple expressions are treated as AND expressions, meaning
+ *  that resources must match all expressions to pass the filters.
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  The maximum number of results per page that should be returned. If the
+ *  number of available results is larger than maxResults, Compute Engine
+ *  returns a nextPageToken that can be used to get the next page of results in
+ *  subsequent list requests. Acceptable values are 0 to 500, inclusive.
+ *  (Default: 500)
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+/**
+ *  Sorts list results by a certain order. By default, results are returned in
+ *  alphanumerical order based on the resource name.
+ *  You can also sort results in descending order based on the creation
+ *  timestamp using orderBy="creationTimestamp desc". This sorts results based
+ *  on the creationTimestamp field in reverse chronological order (newest result
+ *  first). Use this to sort resources like operations so that the newest
+ *  operation is returned first.
+ *  Currently, only sorting by name or creationTimestamp desc is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+/**
+ *  Specifies a page token to use. Set pageToken to the nextPageToken returned
+ *  by a previous list request to get the next page of results.
+ */
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_CommitmentAggregatedList.
+ *
+ *  Retrieves an aggregated list of commitments.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_RegionCommitmentsAggregatedList
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Returns the specified commitment resource. Get a list of available
+ *  commitments by making a list() request.
+ *
+ *  Method: compute.regionCommitments.get
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_RegionCommitmentsGet : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForRegionCommitmentsGetWithproject:region:commitment:]
+
+/** Name of the commitment to return. */
+@property(nonatomic, copy, nullable) NSString *commitment;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the region for this request. */
+@property(nonatomic, copy, nullable) NSString *region;
+
+/**
+ *  Fetches a @c GTLRCompute_Commitment.
+ *
+ *  Returns the specified commitment resource. Get a list of available
+ *  commitments by making a list() request.
+ *
+ *  @param project Project ID for this request.
+ *  @param region Name of the region for this request.
+ *  @param commitment Name of the commitment to return.
+ *
+ *  @returns GTLRComputeQuery_RegionCommitmentsGet
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                          region:(NSString *)region
+                      commitment:(NSString *)commitment;
+
+@end
+
+/**
+ *  Creates a commitment in the specified project using the data included in the
+ *  request.
+ *
+ *  Method: compute.regionCommitments.insert
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_RegionCommitmentsInsert : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForRegionCommitmentsInsertWithObject:project:region:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the region for this request. */
+@property(nonatomic, copy, nullable) NSString *region;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Creates a commitment in the specified project using the data included in the
+ *  request.
+ *
+ *  @param object The @c GTLRCompute_Commitment to include in the query.
+ *  @param project Project ID for this request.
+ *  @param region Name of the region for this request.
+ *
+ *  @returns GTLRComputeQuery_RegionCommitmentsInsert
+ */
++ (instancetype)queryWithObject:(GTLRCompute_Commitment *)object
+                        project:(NSString *)project
+                         region:(NSString *)region;
+
+@end
+
+/**
+ *  Retrieves a list of commitments contained within the specified region.
+ *
+ *  Method: compute.regionCommitments.list
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_RegionCommitmentsList : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForRegionCommitmentsListWithproject:region:]
+
+/**
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
+ *  The field_name is the name of the field you want to compare. Only atomic
+ *  field types are supported (string, number, boolean). The comparison_string
+ *  must be either eq (equals) or ne (not equals). The literal_string is the
+ *  string value to filter to. The literal value must be valid for the type of
+ *  field you are filtering by (string, number, boolean). For string fields, the
+ *  literal value is interpreted as a regular expression using RE2 syntax. The
+ *  literal value must match the entire field.
+ *  For example, to filter for instances that do not have a name of
+ *  example-instance, you would use name ne example-instance.
+ *  You can filter on nested fields. For example, you could filter on instances
+ *  that have set the scheduling.automaticRestart field to true. Use filtering
+ *  on nested fields to take advantage of labels to organize and search for
+ *  results based on label values.
+ *  To filter on multiple expressions, provide each separate expression within
+ *  parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+ *  us-central1-f). Multiple expressions are treated as AND expressions, meaning
+ *  that resources must match all expressions to pass the filters.
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  The maximum number of results per page that should be returned. If the
+ *  number of available results is larger than maxResults, Compute Engine
+ *  returns a nextPageToken that can be used to get the next page of results in
+ *  subsequent list requests. Acceptable values are 0 to 500, inclusive.
+ *  (Default: 500)
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+/**
+ *  Sorts list results by a certain order. By default, results are returned in
+ *  alphanumerical order based on the resource name.
+ *  You can also sort results in descending order based on the creation
+ *  timestamp using orderBy="creationTimestamp desc". This sorts results based
+ *  on the creationTimestamp field in reverse chronological order (newest result
+ *  first). Use this to sort resources like operations so that the newest
+ *  operation is returned first.
+ *  Currently, only sorting by name or creationTimestamp desc is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+/**
+ *  Specifies a page token to use. Set pageToken to the nextPageToken returned
+ *  by a previous list request to get the next page of results.
+ */
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the region for this request. */
+@property(nonatomic, copy, nullable) NSString *region;
+
+/**
+ *  Fetches a @c GTLRCompute_CommitmentList.
+ *
+ *  Retrieves a list of commitments contained within the specified region.
+ *
+ *  @param project Project ID for this request.
+ *  @param region Name of the region for this request.
+ *
+ *  @returns GTLRComputeQuery_RegionCommitmentsList
+ *
+ *  @note Automatic pagination will be done when @c shouldFetchNextPages is
+ *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
+ *        information.
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                          region:(NSString *)region;
+
+@end
+
+/**
  *  Schedules a group action to remove the specified instances from the managed
  *  instance group. Abandoning an instance does not delete the instance, but it
  *  does remove the instance from any target pools that are applied by the
@@ -8358,6 +9399,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the action is scheduled even if the instances have
  *  not yet been removed from the group. You must separately verify the status
  *  of the abandoning action with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  Method: compute.regionInstanceGroupManagers.abandonInstances
  *
@@ -8389,6 +9434,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the action is scheduled even if the instances have
  *  not yet been removed from the group. You must separately verify the status
  *  of the abandoning action with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  @param object The @c
  *    GTLRCompute_RegionInstanceGroupManagersAbandonInstancesRequest to include
@@ -8455,6 +9504,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  marked as DONE when the action is scheduled even if the instances are still
  *  being deleted. You must separately verify the status of the deleting action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  Method: compute.regionInstanceGroupManagers.deleteInstances
  *
@@ -8485,6 +9538,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  marked as DONE when the action is scheduled even if the instances are still
  *  being deleted. You must separately verify the status of the deleting action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  @param object The @c
  *    GTLRCompute_RegionInstanceGroupManagersDeleteInstancesRequest to include
@@ -8549,6 +9606,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the group is created even if the instances in the
  *  group have not yet been created. You must separately verify the status of
  *  the individual instances with the listmanagedinstances method.
+ *  A regional managed instance group can contain up to 2000 instances.
  *
  *  Method: compute.regionInstanceGroupManagers.insert
  *
@@ -8575,6 +9633,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  is marked as DONE when the group is created even if the instances in the
  *  group have not yet been created. You must separately verify the status of
  *  the individual instances with the listmanagedinstances method.
+ *  A regional managed instance group can contain up to 2000 instances.
  *
  *  @param object The @c GTLRCompute_InstanceGroupManager to include in the
  *    query.
@@ -8605,9 +9664,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionInstanceGroupManagersListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -8616,7 +9674,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -8747,6 +9805,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  as DONE when the action is scheduled even if the instances have not yet been
  *  recreated. You must separately verify the status of the recreating action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  Method: compute.regionInstanceGroupManagers.recreateInstances
  *
@@ -8776,6 +9838,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  as DONE when the action is scheduled even if the instances have not yet been
  *  recreated. You must separately verify the status of the recreating action
  *  with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
+ *  You can specify a maximum of 1000 instances with this method per request.
  *
  *  @param object The @c GTLRCompute_RegionInstanceGroupManagersRecreateRequest
  *    to include in the query.
@@ -8800,6 +9866,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  when the resize actions are scheduled even if the group has not yet added or
  *  deleted any instances. You must separately verify the status of the creating
  *  or deleting actions with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
  *
  *  Method: compute.regionInstanceGroupManagers.resize
  *
@@ -8833,6 +9902,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  when the resize actions are scheduled even if the group has not yet added or
  *  deleted any instances. You must separately verify the status of the creating
  *  or deleting actions with the listmanagedinstances method.
+ *  If the group is part of a backend service that has enabled connection
+ *  draining, it can take up to 60 seconds after the connection draining
+ *  duration has elapsed before the VM instance is removed or deleted.
  *
  *  @param project Project ID for this request.
  *  @param region Name of the region scoping this request.
@@ -8995,9 +10067,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionInstanceGroupsListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -9006,7 +10077,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -9090,9 +10161,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionInstanceGroupsListInstancesWithObject:project:region:instanceGroup:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -9101,7 +10171,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -9321,9 +10391,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionOperationsListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -9332,7 +10401,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -9451,9 +10520,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRegionsListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -9462,7 +10530,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -9538,9 +10606,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRoutersAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -9549,7 +10616,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -9780,9 +10847,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRoutersListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -9791,7 +10857,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -9858,7 +10924,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Updates the specified Router resource with the data included in the request.
+ *  Patches the specified Router resource with the data included in the request.
  *  This method supports patch semantics.
  *
  *  Method: compute.routers.patch
@@ -9866,6 +10932,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_RoutersPatch : GTLRComputeQuery
 // Previous library name was
@@ -9877,19 +10944,19 @@ NS_ASSUME_NONNULL_BEGIN
 /** Name of the region for this request. */
 @property(nonatomic, copy, nullable) NSString *region;
 
-/** Name of the Router resource to update. */
+/** Name of the Router resource to patch. */
 @property(nonatomic, copy, nullable) NSString *router;
 
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Updates the specified Router resource with the data included in the request.
+ *  Patches the specified Router resource with the data included in the request.
  *  This method supports patch semantics.
  *
  *  @param object The @c GTLRCompute_Router to include in the query.
  *  @param project Project ID for this request.
  *  @param region Name of the region for this request.
- *  @param router Name of the Router resource to update.
+ *  @param router Name of the Router resource to patch.
  *
  *  @returns GTLRComputeQuery_RoutersPatch
  */
@@ -10104,9 +11171,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForRoutesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -10115,7 +11181,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -10271,9 +11337,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForSnapshotsListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -10282,7 +11347,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -10341,6 +11406,45 @@ NS_ASSUME_NONNULL_BEGIN
  *        information.
  */
 + (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Sets the labels on a snapshot. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  Method: compute.snapshots.setLabels
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_SnapshotsSetLabels : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForSnapshotsSetLabelsWithObject:project:resource:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the resource for this request. */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Sets the labels on a snapshot. To learn more about labels, read the Labeling
+ *  Resources documentation.
+ *
+ *  @param object The @c GTLRCompute_GlobalSetLabelsRequest to include in the
+ *    query.
+ *  @param project Project ID for this request.
+ *  @param resource Name of the resource for this request.
+ *
+ *  @returns GTLRComputeQuery_SnapshotsSetLabels
+ */
++ (instancetype)queryWithObject:(GTLRCompute_GlobalSetLabelsRequest *)object
+                        project:(NSString *)project
+                       resource:(NSString *)resource;
 
 @end
 
@@ -10464,9 +11568,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForSslCertificatesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -10475,7 +11578,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -10552,9 +11655,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForSubnetworksAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -10563,7 +11665,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -10796,9 +11898,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForSubnetworksListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -10807,7 +11908,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -10870,6 +11971,50 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)queryWithProject:(NSString *)project
                           region:(NSString *)region;
+
+@end
+
+/**
+ *  Set whether VMs in this subnet can access Google services without assigning
+ *  external IP addresses through Private Google Access.
+ *
+ *  Method: compute.subnetworks.setPrivateIpGoogleAccess
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_SubnetworksSetPrivateIpGoogleAccess : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForSubnetworksSetPrivateIpGoogleAccessWithObject:project:region:subnetwork:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the region scoping this request. */
+@property(nonatomic, copy, nullable) NSString *region;
+
+/** Name of the Subnetwork resource. */
+@property(nonatomic, copy, nullable) NSString *subnetwork;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Set whether VMs in this subnet can access Google services without assigning
+ *  external IP addresses through Private Google Access.
+ *
+ *  @param object The @c GTLRCompute_SubnetworksSetPrivateIpGoogleAccessRequest
+ *    to include in the query.
+ *  @param project Project ID for this request.
+ *  @param region Name of the region scoping this request.
+ *  @param subnetwork Name of the Subnetwork resource.
+ *
+ *  @returns GTLRComputeQuery_SubnetworksSetPrivateIpGoogleAccess
+ */
++ (instancetype)queryWithObject:(GTLRCompute_SubnetworksSetPrivateIpGoogleAccessRequest *)object
+                        project:(NSString *)project
+                         region:(NSString *)region
+                     subnetwork:(NSString *)subnetwork;
 
 @end
 
@@ -10993,9 +12138,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetHttpProxiesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -11004,7 +12148,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -11222,9 +12366,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetHttpsProxiesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -11233,7 +12376,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -11388,9 +12531,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetInstancesAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -11399,7 +12541,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -11603,9 +12745,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetInstancesListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -11614,7 +12755,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -11784,9 +12925,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetPoolsAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -11795,7 +12935,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -12032,9 +13172,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetPoolsListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -12043,7 +13182,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -12358,9 +13497,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetSslProxiesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -12369,7 +13507,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -12552,6 +13690,277 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Deletes the specified TargetTcpProxy resource.
+ *
+ *  Method: compute.targetTcpProxies.delete
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_TargetTcpProxiesDelete : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForTargetTcpProxiesDeleteWithproject:targetTcpProxy:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the TargetTcpProxy resource to delete. */
+@property(nonatomic, copy, nullable) NSString *targetTcpProxy;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Deletes the specified TargetTcpProxy resource.
+ *
+ *  @param project Project ID for this request.
+ *  @param targetTcpProxy Name of the TargetTcpProxy resource to delete.
+ *
+ *  @returns GTLRComputeQuery_TargetTcpProxiesDelete
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                  targetTcpProxy:(NSString *)targetTcpProxy;
+
+@end
+
+/**
+ *  Returns the specified TargetTcpProxy resource. Get a list of available
+ *  target TCP proxies by making a list() request.
+ *
+ *  Method: compute.targetTcpProxies.get
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_TargetTcpProxiesGet : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForTargetTcpProxiesGetWithproject:targetTcpProxy:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the TargetTcpProxy resource to return. */
+@property(nonatomic, copy, nullable) NSString *targetTcpProxy;
+
+/**
+ *  Fetches a @c GTLRCompute_TargetTcpProxy.
+ *
+ *  Returns the specified TargetTcpProxy resource. Get a list of available
+ *  target TCP proxies by making a list() request.
+ *
+ *  @param project Project ID for this request.
+ *  @param targetTcpProxy Name of the TargetTcpProxy resource to return.
+ *
+ *  @returns GTLRComputeQuery_TargetTcpProxiesGet
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                  targetTcpProxy:(NSString *)targetTcpProxy;
+
+@end
+
+/**
+ *  Creates a TargetTcpProxy resource in the specified project using the data
+ *  included in the request.
+ *
+ *  Method: compute.targetTcpProxies.insert
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_TargetTcpProxiesInsert : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForTargetTcpProxiesInsertWithObject:project:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Creates a TargetTcpProxy resource in the specified project using the data
+ *  included in the request.
+ *
+ *  @param object The @c GTLRCompute_TargetTcpProxy to include in the query.
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_TargetTcpProxiesInsert
+ */
++ (instancetype)queryWithObject:(GTLRCompute_TargetTcpProxy *)object
+                        project:(NSString *)project;
+
+@end
+
+/**
+ *  Retrieves the list of TargetTcpProxy resources available to the specified
+ *  project.
+ *
+ *  Method: compute.targetTcpProxies.list
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
+ */
+@interface GTLRComputeQuery_TargetTcpProxiesList : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForTargetTcpProxiesListWithproject:]
+
+/**
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
+ *  The field_name is the name of the field you want to compare. Only atomic
+ *  field types are supported (string, number, boolean). The comparison_string
+ *  must be either eq (equals) or ne (not equals). The literal_string is the
+ *  string value to filter to. The literal value must be valid for the type of
+ *  field you are filtering by (string, number, boolean). For string fields, the
+ *  literal value is interpreted as a regular expression using RE2 syntax. The
+ *  literal value must match the entire field.
+ *  For example, to filter for instances that do not have a name of
+ *  example-instance, you would use name ne example-instance.
+ *  You can filter on nested fields. For example, you could filter on instances
+ *  that have set the scheduling.automaticRestart field to true. Use filtering
+ *  on nested fields to take advantage of labels to organize and search for
+ *  results based on label values.
+ *  To filter on multiple expressions, provide each separate expression within
+ *  parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+ *  us-central1-f). Multiple expressions are treated as AND expressions, meaning
+ *  that resources must match all expressions to pass the filters.
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  The maximum number of results per page that should be returned. If the
+ *  number of available results is larger than maxResults, Compute Engine
+ *  returns a nextPageToken that can be used to get the next page of results in
+ *  subsequent list requests. Acceptable values are 0 to 500, inclusive.
+ *  (Default: 500)
+ *
+ *  @note If not set, the documented server-side default will be 500.
+ */
+@property(nonatomic, assign) NSUInteger maxResults;
+
+/**
+ *  Sorts list results by a certain order. By default, results are returned in
+ *  alphanumerical order based on the resource name.
+ *  You can also sort results in descending order based on the creation
+ *  timestamp using orderBy="creationTimestamp desc". This sorts results based
+ *  on the creationTimestamp field in reverse chronological order (newest result
+ *  first). Use this to sort resources like operations so that the newest
+ *  operation is returned first.
+ *  Currently, only sorting by name or creationTimestamp desc is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+/**
+ *  Specifies a page token to use. Set pageToken to the nextPageToken returned
+ *  by a previous list request to get the next page of results.
+ */
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRCompute_TargetTcpProxyList.
+ *
+ *  Retrieves the list of TargetTcpProxy resources available to the specified
+ *  project.
+ *
+ *  @param project Project ID for this request.
+ *
+ *  @returns GTLRComputeQuery_TargetTcpProxiesList
+ *
+ *  @note Automatic pagination will be done when @c shouldFetchNextPages is
+ *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
+ *        information.
+ */
++ (instancetype)queryWithProject:(NSString *)project;
+
+@end
+
+/**
+ *  Changes the BackendService for TargetTcpProxy.
+ *
+ *  Method: compute.targetTcpProxies.setBackendService
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_TargetTcpProxiesSetBackendService : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForTargetTcpProxiesSetBackendServiceWithObject:project:targetTcpProxy:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Name of the TargetTcpProxy resource whose BackendService resource is to be
+ *  set.
+ */
+@property(nonatomic, copy, nullable) NSString *targetTcpProxy;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Changes the BackendService for TargetTcpProxy.
+ *
+ *  @param object The @c GTLRCompute_TargetTcpProxiesSetBackendServiceRequest to
+ *    include in the query.
+ *  @param project Project ID for this request.
+ *  @param targetTcpProxy Name of the TargetTcpProxy resource whose
+ *    BackendService resource is to be set.
+ *
+ *  @returns GTLRComputeQuery_TargetTcpProxiesSetBackendService
+ */
++ (instancetype)queryWithObject:(GTLRCompute_TargetTcpProxiesSetBackendServiceRequest *)object
+                        project:(NSString *)project
+                 targetTcpProxy:(NSString *)targetTcpProxy;
+
+@end
+
+/**
+ *  Changes the ProxyHeaderType for TargetTcpProxy.
+ *
+ *  Method: compute.targetTcpProxies.setProxyHeader
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCompute
+ *    @c kGTLRAuthScopeComputeCloudPlatform
+ */
+@interface GTLRComputeQuery_TargetTcpProxiesSetProxyHeader : GTLRComputeQuery
+// Previous library name was
+//   +[GTLQueryCompute queryForTargetTcpProxiesSetProxyHeaderWithObject:project:targetTcpProxy:]
+
+/** Project ID for this request. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/** Name of the TargetTcpProxy resource whose ProxyHeader is to be set. */
+@property(nonatomic, copy, nullable) NSString *targetTcpProxy;
+
+/**
+ *  Fetches a @c GTLRCompute_Operation.
+ *
+ *  Changes the ProxyHeaderType for TargetTcpProxy.
+ *
+ *  @param object The @c GTLRCompute_TargetTcpProxiesSetProxyHeaderRequest to
+ *    include in the query.
+ *  @param project Project ID for this request.
+ *  @param targetTcpProxy Name of the TargetTcpProxy resource whose ProxyHeader
+ *    is to be set.
+ *
+ *  @returns GTLRComputeQuery_TargetTcpProxiesSetProxyHeader
+ */
++ (instancetype)queryWithObject:(GTLRCompute_TargetTcpProxiesSetProxyHeaderRequest *)object
+                        project:(NSString *)project
+                 targetTcpProxy:(NSString *)targetTcpProxy;
+
+@end
+
+/**
  *  Retrieves an aggregated list of target VPN gateways.
  *
  *  Method: compute.targetVpnGateways.aggregatedList
@@ -12566,9 +13975,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetVpnGatewaysAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -12577,7 +13985,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -12769,9 +14177,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForTargetVpnGatewaysListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -12780,7 +14187,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -13005,9 +14412,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForUrlMapsListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -13016,7 +14422,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -13078,14 +14484,16 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Updates the specified UrlMap resource with the data included in the request.
- *  This method supports patch semantics.
+ *  Patches the specified UrlMap resource with the data included in the request.
+ *  This method supports PATCH semantics and uses the JSON merge patch format
+ *  and processing rules.
  *
  *  Method: compute.urlMaps.patch
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeCompute
  *    @c kGTLRAuthScopeComputeCloudPlatform
+ *    @c kGTLRAuthScopeComputeReadonly
  */
 @interface GTLRComputeQuery_UrlMapsPatch : GTLRComputeQuery
 // Previous library name was
@@ -13094,18 +14502,19 @@ NS_ASSUME_NONNULL_BEGIN
 /** Project ID for this request. */
 @property(nonatomic, copy, nullable) NSString *project;
 
-/** Name of the UrlMap resource to update. */
+/** Name of the UrlMap resource to patch. */
 @property(nonatomic, copy, nullable) NSString *urlMap;
 
 /**
  *  Fetches a @c GTLRCompute_Operation.
  *
- *  Updates the specified UrlMap resource with the data included in the request.
- *  This method supports patch semantics.
+ *  Patches the specified UrlMap resource with the data included in the request.
+ *  This method supports PATCH semantics and uses the JSON merge patch format
+ *  and processing rules.
  *
  *  @param object The @c GTLRCompute_UrlMap to include in the query.
  *  @param project Project ID for this request.
- *  @param urlMap Name of the UrlMap resource to update.
+ *  @param urlMap Name of the UrlMap resource to patch.
  *
  *  @returns GTLRComputeQuery_UrlMapsPatch
  */
@@ -13205,9 +14614,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForVpnTunnelsAggregatedListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -13216,7 +14624,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -13408,9 +14816,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForVpnTunnelsListWithproject:region:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -13419,7 +14826,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -13589,9 +14996,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForZoneOperationsListWithproject:zoneProperty:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -13600,7 +15006,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for
@@ -13726,9 +15132,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   +[GTLQueryCompute queryForZonesListWithproject:]
 
 /**
- *  Sets a filter expression for filtering listed resources, in the form
- *  filter={expression}. Your {expression} must be in the format: field_name
- *  comparison_string literal_string.
+ *  Sets a filter {expression} for filtering listed resources. Your {expression}
+ *  must be in the format: field_name comparison_string literal_string.
  *  The field_name is the name of the field you want to compare. Only atomic
  *  field types are supported (string, number, boolean). The comparison_string
  *  must be either eq (equals) or ne (not equals). The literal_string is the
@@ -13737,7 +15142,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  literal value is interpreted as a regular expression using RE2 syntax. The
  *  literal value must match the entire field.
  *  For example, to filter for instances that do not have a name of
- *  example-instance, you would use filter=name ne example-instance.
+ *  example-instance, you would use name ne example-instance.
  *  You can filter on nested fields. For example, you could filter on instances
  *  that have set the scheduling.automaticRestart field to true. Use filtering
  *  on nested fields to take advantage of labels to organize and search for

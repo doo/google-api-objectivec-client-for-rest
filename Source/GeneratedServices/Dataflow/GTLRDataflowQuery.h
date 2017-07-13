@@ -95,6 +95,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsCreate : GTLRDataflowQuery
@@ -144,6 +146,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsDebugGetConfig : GTLRDataflowQuery
@@ -181,6 +185,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsDebugSendCapture : GTLRDataflowQuery
@@ -218,6 +224,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsGet : GTLRDataflowQuery
@@ -267,6 +275,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsGetMetrics : GTLRDataflowQuery
@@ -310,6 +320,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsList : GTLRDataflowQuery
@@ -377,6 +389,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsMessagesList : GTLRDataflowQuery
@@ -446,10 +460,6 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *  @param jobId The job to get messages about.
  *
  *  @returns GTLRDataflowQuery_ProjectsJobsMessagesList
- *
- *  @note Automatic pagination will be done when @c shouldFetchNextPages is
- *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
- *        information.
  */
 + (instancetype)queryWithProjectId:(NSString *)projectId
                              jobId:(NSString *)jobId;
@@ -463,6 +473,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsUpdate : GTLRDataflowQuery
@@ -503,6 +515,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsWorkItemsLease : GTLRDataflowQuery
@@ -540,6 +554,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsJobsWorkItemsReportStatus : GTLRDataflowQuery
@@ -577,6 +593,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsCreate : GTLRDataflowQuery
@@ -622,12 +640,102 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
 @end
 
 /**
+ *  Get encoded debug configuration for component. Not cacheable.
+ *
+ *  Method: dataflow.projects.locations.jobs.debug.getConfig
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
+ *    @c kGTLRAuthScopeDataflowUserinfoEmail
+ */
+@interface GTLRDataflowQuery_ProjectsLocationsJobsDebugGetConfig : GTLRDataflowQuery
+// Previous library name was
+//   +[GTLQueryDataflow queryForProjectsLocationsJobsDebugGetConfigWithObject:projectId:location:jobId:]
+
+/** The job id. */
+@property(nonatomic, copy, nullable) NSString *jobId;
+
+/** The location which contains the job specified by job_id. */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** The project id. */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  Fetches a @c GTLRDataflow_GetDebugConfigResponse.
+ *
+ *  Get encoded debug configuration for component. Not cacheable.
+ *
+ *  @param object The @c GTLRDataflow_GetDebugConfigRequest to include in the
+ *    query.
+ *  @param projectId The project id.
+ *  @param location The location which contains the job specified by job_id.
+ *  @param jobId The job id.
+ *
+ *  @returns GTLRDataflowQuery_ProjectsLocationsJobsDebugGetConfig
+ */
++ (instancetype)queryWithObject:(GTLRDataflow_GetDebugConfigRequest *)object
+                      projectId:(NSString *)projectId
+                       location:(NSString *)location
+                          jobId:(NSString *)jobId;
+
+@end
+
+/**
+ *  Send encoded debug capture data for component.
+ *
+ *  Method: dataflow.projects.locations.jobs.debug.sendCapture
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
+ *    @c kGTLRAuthScopeDataflowUserinfoEmail
+ */
+@interface GTLRDataflowQuery_ProjectsLocationsJobsDebugSendCapture : GTLRDataflowQuery
+// Previous library name was
+//   +[GTLQueryDataflow queryForProjectsLocationsJobsDebugSendCaptureWithObject:projectId:location:jobId:]
+
+/** The job id. */
+@property(nonatomic, copy, nullable) NSString *jobId;
+
+/** The location which contains the job specified by job_id. */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** The project id. */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  Fetches a @c GTLRDataflow_SendDebugCaptureResponse.
+ *
+ *  Send encoded debug capture data for component.
+ *
+ *  @param object The @c GTLRDataflow_SendDebugCaptureRequest to include in the
+ *    query.
+ *  @param projectId The project id.
+ *  @param location The location which contains the job specified by job_id.
+ *  @param jobId The job id.
+ *
+ *  @returns GTLRDataflowQuery_ProjectsLocationsJobsDebugSendCapture
+ */
++ (instancetype)queryWithObject:(GTLRDataflow_SendDebugCaptureRequest *)object
+                      projectId:(NSString *)projectId
+                       location:(NSString *)location
+                          jobId:(NSString *)jobId;
+
+@end
+
+/**
  *  Gets the state of the specified Cloud Dataflow job.
  *
  *  Method: dataflow.projects.locations.jobs.get
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsGet : GTLRDataflowQuery
@@ -679,6 +787,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsGetMetrics : GTLRDataflowQuery
@@ -724,6 +834,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsList : GTLRDataflowQuery
@@ -793,6 +905,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsMessagesList : GTLRDataflowQuery
@@ -863,10 +977,6 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *  @param jobId The job to get messages about.
  *
  *  @returns GTLRDataflowQuery_ProjectsLocationsJobsMessagesList
- *
- *  @note Automatic pagination will be done when @c shouldFetchNextPages is
- *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
- *        information.
  */
 + (instancetype)queryWithProjectId:(NSString *)projectId
                           location:(NSString *)location
@@ -881,6 +991,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsUpdate : GTLRDataflowQuery
@@ -923,6 +1035,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsWorkItemsLease : GTLRDataflowQuery
@@ -965,6 +1079,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsLocationsJobsWorkItemsReportStatus : GTLRDataflowQuery
@@ -1003,10 +1119,196 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
 /**
  *  Creates a Cloud Dataflow job from a template.
  *
+ *  Method: dataflow.projects.locations.templates.create
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
+ *    @c kGTLRAuthScopeDataflowUserinfoEmail
+ */
+@interface GTLRDataflowQuery_ProjectsLocationsTemplatesCreate : GTLRDataflowQuery
+// Previous library name was
+//   +[GTLQueryDataflow queryForProjectsLocationsTemplatesCreateWithObject:projectId:location:]
+
+/** The location to which to direct the request. */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** Required. The ID of the Cloud Platform project that the job belongs to. */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  Fetches a @c GTLRDataflow_Job.
+ *
+ *  Creates a Cloud Dataflow job from a template.
+ *
+ *  @param object The @c GTLRDataflow_CreateJobFromTemplateRequest to include in
+ *    the query.
+ *  @param projectId Required. The ID of the Cloud Platform project that the job
+ *    belongs to.
+ *  @param location The location to which to direct the request.
+ *
+ *  @returns GTLRDataflowQuery_ProjectsLocationsTemplatesCreate
+ */
++ (instancetype)queryWithObject:(GTLRDataflow_CreateJobFromTemplateRequest *)object
+                      projectId:(NSString *)projectId
+                       location:(NSString *)location;
+
+@end
+
+/**
+ *  Get the template associated with a template.
+ *
+ *  Method: dataflow.projects.locations.templates.get
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
+ *    @c kGTLRAuthScopeDataflowUserinfoEmail
+ */
+@interface GTLRDataflowQuery_ProjectsLocationsTemplatesGet : GTLRDataflowQuery
+// Previous library name was
+//   +[GTLQueryDataflow queryForProjectsLocationsTemplatesGetWithprojectId:location:]
+
+/**
+ *  Required. A Cloud Storage path to the template from which to
+ *  create the job.
+ *  Must be a valid Cloud Storage URL, beginning with `gs://`.
+ */
+@property(nonatomic, copy, nullable) NSString *gcsPath;
+
+/** The location to which to direct the request. */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** Required. The ID of the Cloud Platform project that the job belongs to. */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The view to retrieve. Defaults to METADATA_ONLY.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRDataflowViewMetadataOnly Value "METADATA_ONLY"
+ */
+@property(nonatomic, copy, nullable) NSString *view;
+
+/**
+ *  Fetches a @c GTLRDataflow_GetTemplateResponse.
+ *
+ *  Get the template associated with a template.
+ *
+ *  @param projectId Required. The ID of the Cloud Platform project that the job
+ *    belongs to.
+ *  @param location The location to which to direct the request.
+ *
+ *  @returns GTLRDataflowQuery_ProjectsLocationsTemplatesGet
+ */
++ (instancetype)queryWithProjectId:(NSString *)projectId
+                          location:(NSString *)location;
+
+@end
+
+/**
+ *  Launch a template.
+ *
+ *  Method: dataflow.projects.locations.templates.launch
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
+ *    @c kGTLRAuthScopeDataflowUserinfoEmail
+ */
+@interface GTLRDataflowQuery_ProjectsLocationsTemplatesLaunch : GTLRDataflowQuery
+// Previous library name was
+//   +[GTLQueryDataflow queryForProjectsLocationsTemplatesLaunchWithObject:projectId:location:]
+
+/**
+ *  Required. A Cloud Storage path to the template from which to create
+ *  the job.
+ *  Must be valid Cloud Storage URL, beginning with 'gs://'.
+ */
+@property(nonatomic, copy, nullable) NSString *gcsPath;
+
+/** The location to which to direct the request. */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** Required. The ID of the Cloud Platform project that the job belongs to. */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  If true, the request is validated but not actually executed.
+ *  Defaults to false.
+ */
+@property(nonatomic, assign) BOOL validateOnly;
+
+/**
+ *  Fetches a @c GTLRDataflow_LaunchTemplateResponse.
+ *
+ *  Launch a template.
+ *
+ *  @param object The @c GTLRDataflow_LaunchTemplateParameters to include in the
+ *    query.
+ *  @param projectId Required. The ID of the Cloud Platform project that the job
+ *    belongs to.
+ *  @param location The location to which to direct the request.
+ *
+ *  @returns GTLRDataflowQuery_ProjectsLocationsTemplatesLaunch
+ */
++ (instancetype)queryWithObject:(GTLRDataflow_LaunchTemplateParameters *)object
+                      projectId:(NSString *)projectId
+                       location:(NSString *)location;
+
+@end
+
+/**
+ *  Send a worker_message to the service.
+ *
+ *  Method: dataflow.projects.locations.workerMessages
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
+ *    @c kGTLRAuthScopeDataflowUserinfoEmail
+ */
+@interface GTLRDataflowQuery_ProjectsLocationsWorkerMessages : GTLRDataflowQuery
+// Previous library name was
+//   +[GTLQueryDataflow queryForProjectsLocationsWorkerMessagesWithObject:projectId:location:]
+
+/** The location which contains the job */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** The project to send the WorkerMessages to. */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  Fetches a @c GTLRDataflow_SendWorkerMessagesResponse.
+ *
+ *  Send a worker_message to the service.
+ *
+ *  @param object The @c GTLRDataflow_SendWorkerMessagesRequest to include in
+ *    the query.
+ *  @param projectId The project to send the WorkerMessages to.
+ *  @param location The location which contains the job
+ *
+ *  @returns GTLRDataflowQuery_ProjectsLocationsWorkerMessages
+ */
++ (instancetype)queryWithObject:(GTLRDataflow_SendWorkerMessagesRequest *)object
+                      projectId:(NSString *)projectId
+                       location:(NSString *)location;
+
+@end
+
+/**
+ *  Creates a Cloud Dataflow job from a template.
+ *
  *  Method: dataflow.projects.templates.create
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsTemplatesCreate : GTLRDataflowQuery
@@ -1040,6 +1342,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsTemplatesGet : GTLRDataflowQuery
@@ -1052,6 +1356,9 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *  Must be a valid Cloud Storage URL, beginning with `gs://`.
  */
 @property(nonatomic, copy, nullable) NSString *gcsPath;
+
+/** The location to which to direct the request. */
+@property(nonatomic, copy, nullable) NSString *location;
 
 /** Required. The ID of the Cloud Platform project that the job belongs to. */
 @property(nonatomic, copy, nullable) NSString *projectId;
@@ -1085,18 +1392,13 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsTemplatesLaunch : GTLRDataflowQuery
 // Previous library name was
 //   +[GTLQueryDataflow queryForProjectsTemplatesLaunchWithObject:projectId:]
-
-/**
- *  Whether or not the job should actually be executed after
- *  validating parameters. Defaults to false. Validation errors do
- *  not cause the HTTP request to fail if true.
- */
-@property(nonatomic, assign) BOOL dryRun;
 
 /**
  *  Required. A Cloud Storage path to the template from which to create
@@ -1105,8 +1407,17 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  */
 @property(nonatomic, copy, nullable) NSString *gcsPath;
 
+/** The location to which to direct the request. */
+@property(nonatomic, copy, nullable) NSString *location;
+
 /** Required. The ID of the Cloud Platform project that the job belongs to. */
 @property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  If true, the request is validated but not actually executed.
+ *  Defaults to false.
+ */
+@property(nonatomic, assign) BOOL validateOnly;
 
 /**
  *  Fetches a @c GTLRDataflow_LaunchTemplateResponse.
@@ -1132,6 +1443,8 @@ GTLR_EXTERN NSString * const kGTLRDataflowViewMetadataOnly;
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeDataflowCloudPlatform
+ *    @c kGTLRAuthScopeDataflowCompute
+ *    @c kGTLRAuthScopeDataflowComputeReadonly
  *    @c kGTLRAuthScopeDataflowUserinfoEmail
  */
 @interface GTLRDataflowQuery_ProjectsWorkerMessages : GTLRDataflowQuery

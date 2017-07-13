@@ -4,8 +4,7 @@
 // API:
 //   Firebase Dynamic Links API (firebasedynamiclinks/v1)
 // Description:
-//   Firebase Dynamic Links API enables third party developers to
-//   programmatically create and manage Dynamic Links.
+//   Programmatically creates and manages Firebase Dynamic Links.
 // Documentation:
 //   https://firebase.google.com/docs/dynamic-links/
 
@@ -34,6 +33,25 @@
   query.bodyObject = object;
   query.expectedObjectClass = [GTLRFirebaseDynamicLinks_CreateShortDynamicLinkResponse class];
   query.loggingName = @"firebasedynamiclinks.shortLinks.create";
+  return query;
+}
+
+@end
+
+@implementation GTLRFirebaseDynamicLinksQuery_V1GetLinkStats
+
+@dynamic durationDays, dynamicLink;
+
++ (instancetype)queryWithDynamicLink:(NSString *)dynamicLink {
+  NSArray *pathParams = @[ @"dynamicLink" ];
+  NSString *pathURITemplate = @"v1/{dynamicLink}/linkStats";
+  GTLRFirebaseDynamicLinksQuery_V1GetLinkStats *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:nil
+                       pathParameterNames:pathParams];
+  query.dynamicLink = dynamicLink;
+  query.expectedObjectClass = [GTLRFirebaseDynamicLinks_DynamicLinkStats class];
+  query.loggingName = @"firebasedynamiclinks.getLinkStats";
   return query;
 }
 

@@ -34,6 +34,7 @@
 #include <unistd.h>
 
 #import "GTLRDiscovery.h"
+#import "GTMSessionFetcherService.h"
 #import "GTMSessionFetcherLogging.h"
 
 #import "SGGenerator.h"
@@ -62,6 +63,10 @@ static ArgInfo optionalFlags[] = {
     " framework with the given name.  If you are using GTLR via CocoaPods,"
     " you'll likely want to pass \"GoogleApiClientForRest\" as the value for"
     " this."
+  },
+  { "--gtlrImportPrefix PREFIX",
+    "Will generate sources that include GTLR's headers as if they are in the"
+    " given directory."
   },
   { "--apiLogDir DIR",
     "Write out a file into DIR for each JSON API description processed.  These"
@@ -204,6 +209,7 @@ typedef enum {
 @property(copy) NSString *outputDir;
 @property(copy) NSString *discoveryRootURLString;
 @property(copy) NSString *gtlrFrameworkName;
+@property(copy) NSString *gtlrImportPrefix;
 @property(copy) NSString *apiLogDir;
 @property(copy) NSString *httpLogDir;
 @property(copy) NSString *messageFilterPath;
@@ -278,6 +284,7 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
             outputDir = _outputDir,
             discoveryRootURLString = _discoveryRootURLString,
             gtlrFrameworkName = _gtlrFrameworkName,
+            gtlrImportPrefix = _gtlrImportPrefix,
             apiLogDir = _apiLogDir,
             httpLogDir = _httpLogDir,
             messageFilterPath = _messageFilterPath,
@@ -590,8 +597,19 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
 }
 
 - (BOOL)collectAPIFromURL:(NSURL *)url
+            reportingName:(NSString *)reportingName {
+  return [self collectAPIFromURL:url
+                   reportingName:reportingName
+                  reportProgress:YES
+             expectedServiceName:nil
+                  serviceVersion:nil];
+}
+
+- (BOOL)collectAPIFromURL:(NSURL *)url
             reportingName:(NSString *)reportingName
-           reportProgress:(BOOL)reportProgress {
+           reportProgress:(BOOL)reportProgress
+      expectedServiceName:(NSString *)serviceName
+           serviceVersion:(NSString *)serviceVersion {
   if (reportProgress) {
     [self maybePrint:@" + Fetching %@", reportingName];
   }
@@ -675,6 +693,13 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
       return;
     }
 
+    if (serviceName &&
+        (![serviceName isEqual:api.name] || ![serviceVersion isEqual:api.version])) {
+      [self reportWarning:@"Fetching %@ returned the discovery document for %@(%@), dropping it.",
+       reportingName, api.name, api.version];
+      return;
+    }
+
     [self.collectedApis addObject:api];
     if (![url isFileURL]) {
       [self maybeLogAPI:api];
@@ -743,6 +768,7 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
     { "outputDir",           required_argument, NULL,                 'o' },
     { "discoveryRootURL",    required_argument, NULL,                 'd' },
     { "gtlrFrameworkName",   required_argument, NULL,                 'n' },
+    { "gtlrImportPrefix",    required_argument, NULL,                 'i' },
     { "apiLogDir",           required_argument, NULL,                 'a' },
     { "httpLogDir",          required_argument, NULL,                 'h' },
     { "generatePreferred",   no_argument,       &generatePreferred,   1 },
@@ -772,6 +798,9 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
         break;
       case 'n':
         self.gtlrFrameworkName = @(optarg);
+        break;
+      case 'i':
+        self.gtlrImportPrefix = @(optarg);
         break;
       case 'a':
         self.apiLogDir = @(optarg);
@@ -886,6 +915,18 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
 
   if (self.gtlrFrameworkName.length == 0) {
     self.gtlrFrameworkName = nil;
+  }
+  while ([self.gtlrImportPrefix hasSuffix:@"/"]) {
+    self.gtlrImportPrefix = [self.gtlrImportPrefix substringToIndex:self.gtlrImportPrefix.length - 1];
+  }
+  if (self.gtlrImportPrefix.length == 0) {
+    self.gtlrImportPrefix = nil;
+  }
+
+  if (self.gtlrFrameworkName && self.gtlrImportPrefix) {
+    [self reportError:@"Cannot use both --gtlrFrameworkName and --gtlrImportPrefix."];
+    [self printUsage:stderr brief:NO];
+    return;
   }
 
   // Make sure output dir exists.
@@ -1050,7 +1091,7 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
         self.state = SGMain_Done;
         return;
       }
-      if ([self collectAPIFromURL:asURL reportingName:urlString reportProgress:YES]) {
+      if ([self collectAPIFromURL:asURL reportingName:urlString]) {
         if (self.state != SGMain_Wait) {
           self.postWaitState = self.state;
           self.state = SGMain_Wait;
@@ -1066,7 +1107,7 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
     for (NSString *fullPath in filesToLoad) {
       NSString *shortPath = [fullPath stringByAbbreviatingWithTildeInPath];
       NSURL *asURL = [NSURL fileURLWithPath:fullPath];
-      if ([self collectAPIFromURL:asURL reportingName:shortPath reportProgress:YES]) {
+      if ([self collectAPIFromURL:asURL reportingName:shortPath]) {
         if (self.state != SGMain_Wait) {
           self.postWaitState = self.state;
           self.state = SGMain_Wait;
@@ -1204,7 +1245,11 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
         NSString *reportingName =
           [NSString stringWithFormat:@"%@:%@ (%@)",
            serviceName, serviceVersion, discoveryRestURLString];
-        if ([self collectAPIFromURL:discoveryRestURL reportingName:reportingName reportProgress:NO]) {
+        if ([self collectAPIFromURL:discoveryRestURL
+                      reportingName:reportingName
+                     reportProgress:NO
+                expectedServiceName:serviceName
+                     serviceVersion:serviceVersion]) {
           // We'll go into wait state beow.
         } else {
           // -collectAPIFromURL:reportingName: can't really fail to start the fetch.
@@ -1215,7 +1260,7 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
     } else {
       GTLRDiscoveryQuery_ApisGetRest *query =
         [GTLRDiscoveryQuery_ApisGetRest queryWithApi:serviceName
-                                            version:serviceVersion];
+                                             version:serviceVersion];
       query.completionBlock = ^(GTLRServiceTicket *ticket, id object, NSError *error) {
         if (error) {
           GTLRErrorObject *errObj = [GTLRErrorObject underlyingObjectForError:error];
@@ -1231,10 +1276,15 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
           }
         } else {
           GTLRDiscovery_RestDescription *api = (GTLRDiscovery_RestDescription *)object;
-          [self.collectedApis addObject:api];
-          // If logging the API files, do it now so a fetch failure doesn't
-          // prevent the other ones from being logged.
-          [self maybeLogAPI:api];
+          if ([serviceName isEqual:api.name] && [serviceVersion isEqual:api.version]) {
+            [self.collectedApis addObject:api];
+            // If logging the API files, do it now so a fetch failure doesn't
+            // prevent the other ones from being logged.
+            [self maybeLogAPI:api];
+          } else {
+            [self reportWarning:@"Fetching %@(%@) returned the discovery document for %@(%@), dropping it.",
+             serviceName, serviceVersion, api.name, api.version];
+          }
         }
       };
       [batchQuery addQuery:query];
@@ -1259,6 +1309,7 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
     self.numberOfActiveNetworkActions += 1;
   }
 
+  [self printSubsection:@" + Waiting for discovery documents"];
   self.state = SGMain_Wait;
   self.postWaitState = SGMain_Generate;
 }
@@ -1339,11 +1390,17 @@ static BOOL HaveFileStringsChanged(NSString *oldFile, NSString *newFile) {
           options |= kSGGeneratorOptionLegacyObjectNaming;
         }
 
+        NSString *importPrefix = self.gtlrImportPrefix;
+        if (self.gtlrFrameworkName) {
+          importPrefix = self.gtlrFrameworkName;
+          options |= kSGGeneratorOptionImportPrefixIsFramework;
+        }
+
         SGGenerator *aGenerator = [SGGenerator generatorForApi:api
                                                        options:options
                                                   verboseLevel:self.verboseLevel
                                          formattedNameOverride:formattedNameOverride
-                                              useFrameworkName:self.gtlrFrameworkName];
+                                                  importPrefix:importPrefix];
 
         NSDictionary *generatedFiles =
           [aGenerator generateFilesWithHandler:^(SGGeneratorHandlerMessageType msgType,

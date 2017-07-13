@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instanceConfigs.get
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstanceConfigsGet : GTLRSpannerQuery
@@ -83,6 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instanceConfigs.list
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstanceConfigsList : GTLRSpannerQuery
@@ -161,6 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.create
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesCreate : GTLRSpannerQuery
@@ -230,6 +233,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.create
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesCreate : GTLRSpannerQuery
@@ -273,6 +277,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.dropDatabase
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesDropDatabase : GTLRSpannerQuery
@@ -301,6 +306,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.get
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesGet : GTLRSpannerQuery
@@ -336,6 +342,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.getDdl
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesGetDdl : GTLRSpannerQuery
@@ -369,6 +376,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.getIamPolicy
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesGetIamPolicy : GTLRSpannerQuery
@@ -411,6 +419,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.list
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesList : GTLRSpannerQuery
@@ -469,6 +478,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.operations.cancel
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesOperationsCancel : GTLRSpannerQuery
@@ -509,6 +519,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.operations.delete
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesOperationsDelete : GTLRSpannerQuery
@@ -542,6 +553,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.operations.get
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesOperationsGet : GTLRSpannerQuery
@@ -569,12 +581,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Lists operations that match the specified filter in the request. If the
  *  server doesn't support this method, it returns `UNIMPLEMENTED`.
- *  NOTE: the `name` binding below allows API services to override the binding
- *  to use different resource name schemes, such as `users/ * /operations`.
+ *  NOTE: the `name` binding allows API services to override the binding
+ *  to use different resource name schemes, such as `users/ * /operations`. To
+ *  override the binding, API services can add a binding such as
+ *  `"/v1/{name=users/ *}/operations"` to their service configuration.
+ *  For backwards compatibility, the default name includes the operations
+ *  collection id, however overriding users must ensure the name binding
+ *  is the parent resource, without the operations collection id.
  *
  *  Method: spanner.projects.instances.databases.operations.list
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesOperationsList : GTLRSpannerQuery
@@ -584,7 +602,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** The standard list filter. */
 @property(nonatomic, copy, nullable) NSString *filter;
 
-/** The name of the operation collection. */
+/** The name of the operation's parent resource. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /** The standard list page size. */
@@ -598,10 +616,15 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Lists operations that match the specified filter in the request. If the
  *  server doesn't support this method, it returns `UNIMPLEMENTED`.
- *  NOTE: the `name` binding below allows API services to override the binding
- *  to use different resource name schemes, such as `users/ * /operations`.
+ *  NOTE: the `name` binding allows API services to override the binding
+ *  to use different resource name schemes, such as `users/ * /operations`. To
+ *  override the binding, API services can add a binding such as
+ *  `"/v1/{name=users/ *}/operations"` to their service configuration.
+ *  For backwards compatibility, the default name includes the operations
+ *  collection id, however overriding users must ensure the name binding
+ *  is the parent resource, without the operations collection id.
  *
- *  @param name The name of the operation collection.
+ *  @param name The name of the operation's parent resource.
  *
  *  @returns GTLRSpannerQuery_ProjectsInstancesDatabasesOperationsList
  *
@@ -623,6 +646,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsBeginTransaction : GTLRSpannerQuery
 // Previous library name was
@@ -663,6 +687,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsCommit : GTLRSpannerQuery
 // Previous library name was
@@ -707,10 +732,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  limit.
  *  Cloud Spanner limits the number of sessions that can exist at any given
  *  time; thus, it is a good idea to delete idle and/or unneeded sessions.
- *  Aside from explicit deletes, Cloud Spanner can delete sessions for
- *  which no operations are sent for more than an hour, or due to
- *  internal errors. If a session is deleted, requests to it
- *  return `NOT_FOUND`.
+ *  Aside from explicit deletes, Cloud Spanner can delete sessions for which no
+ *  operations are sent for more than an hour. If a session is deleted,
+ *  requests to it return `NOT_FOUND`.
  *  Idle sessions can be kept alive by sending a trivial SQL query
  *  periodically, e.g., `"SELECT 1"`.
  *
@@ -718,6 +742,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsCreate : GTLRSpannerQuery
 // Previous library name was
@@ -740,10 +765,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  limit.
  *  Cloud Spanner limits the number of sessions that can exist at any given
  *  time; thus, it is a good idea to delete idle and/or unneeded sessions.
- *  Aside from explicit deletes, Cloud Spanner can delete sessions for
- *  which no operations are sent for more than an hour, or due to
- *  internal errors. If a session is deleted, requests to it
- *  return `NOT_FOUND`.
+ *  Aside from explicit deletes, Cloud Spanner can delete sessions for which no
+ *  operations are sent for more than an hour. If a session is deleted,
+ *  requests to it return `NOT_FOUND`.
  *  Idle sessions can be kept alive by sending a trivial SQL query
  *  periodically, e.g., `"SELECT 1"`.
  *
@@ -762,6 +786,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsDelete : GTLRSpannerQuery
 // Previous library name was
@@ -798,6 +823,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsExecuteSql : GTLRSpannerQuery
 // Previous library name was
@@ -841,6 +867,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsExecuteStreamingSql : GTLRSpannerQuery
 // Previous library name was
@@ -878,6 +905,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsGet : GTLRSpannerQuery
 // Previous library name was
@@ -918,6 +946,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsRead : GTLRSpannerQuery
 // Previous library name was
@@ -964,6 +993,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsRollback : GTLRSpannerQuery
 // Previous library name was
@@ -1005,6 +1035,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeSpannerCloudPlatform
+ *    @c kGTLRAuthScopeSpannerData
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSessionsStreamingRead : GTLRSpannerQuery
 // Previous library name was
@@ -1041,6 +1072,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.setIamPolicy
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesSetIamPolicy : GTLRSpannerQuery
@@ -1087,6 +1119,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.testIamPermissions
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesTestIamPermissions : GTLRSpannerQuery
@@ -1136,6 +1169,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.databases.updateDdl
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDatabasesUpdateDdl : GTLRSpannerQuery
@@ -1179,6 +1213,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.delete
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesDelete : GTLRSpannerQuery
@@ -1218,6 +1253,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.get
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesGet : GTLRSpannerQuery
@@ -1254,6 +1290,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.getIamPolicy
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesGetIamPolicy : GTLRSpannerQuery
@@ -1296,6 +1333,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.list
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesList : GTLRSpannerQuery
@@ -1375,6 +1413,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.operations.cancel
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesOperationsCancel : GTLRSpannerQuery
@@ -1415,6 +1454,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.operations.delete
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesOperationsDelete : GTLRSpannerQuery
@@ -1448,6 +1488,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.operations.get
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesOperationsGet : GTLRSpannerQuery
@@ -1475,12 +1516,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Lists operations that match the specified filter in the request. If the
  *  server doesn't support this method, it returns `UNIMPLEMENTED`.
- *  NOTE: the `name` binding below allows API services to override the binding
- *  to use different resource name schemes, such as `users/ * /operations`.
+ *  NOTE: the `name` binding allows API services to override the binding
+ *  to use different resource name schemes, such as `users/ * /operations`. To
+ *  override the binding, API services can add a binding such as
+ *  `"/v1/{name=users/ *}/operations"` to their service configuration.
+ *  For backwards compatibility, the default name includes the operations
+ *  collection id, however overriding users must ensure the name binding
+ *  is the parent resource, without the operations collection id.
  *
  *  Method: spanner.projects.instances.operations.list
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesOperationsList : GTLRSpannerQuery
@@ -1490,7 +1537,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** The standard list filter. */
 @property(nonatomic, copy, nullable) NSString *filter;
 
-/** The name of the operation collection. */
+/** The name of the operation's parent resource. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /** The standard list page size. */
@@ -1504,10 +1551,15 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Lists operations that match the specified filter in the request. If the
  *  server doesn't support this method, it returns `UNIMPLEMENTED`.
- *  NOTE: the `name` binding below allows API services to override the binding
- *  to use different resource name schemes, such as `users/ * /operations`.
+ *  NOTE: the `name` binding allows API services to override the binding
+ *  to use different resource name schemes, such as `users/ * /operations`. To
+ *  override the binding, API services can add a binding such as
+ *  `"/v1/{name=users/ *}/operations"` to their service configuration.
+ *  For backwards compatibility, the default name includes the operations
+ *  collection id, however overriding users must ensure the name binding
+ *  is the parent resource, without the operations collection id.
  *
- *  @param name The name of the operation collection.
+ *  @param name The name of the operation's parent resource.
  *
  *  @returns GTLRSpannerQuery_ProjectsInstancesOperationsList
  *
@@ -1556,6 +1608,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.patch
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesPatch : GTLRSpannerQuery
@@ -1630,6 +1683,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.setIamPolicy
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesSetIamPolicy : GTLRSpannerQuery
@@ -1676,6 +1730,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Method: spanner.projects.instances.testIamPermissions
  *
  *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSpannerAdmin
  *    @c kGTLRAuthScopeSpannerCloudPlatform
  */
 @interface GTLRSpannerQuery_ProjectsInstancesTestIamPermissions : GTLRSpannerQuery

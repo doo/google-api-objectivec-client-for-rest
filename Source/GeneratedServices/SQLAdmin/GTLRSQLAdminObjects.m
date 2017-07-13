@@ -271,7 +271,7 @@
 //
 
 @implementation GTLRSQLAdmin_ImportContext
-@dynamic csvImportOptions, database, fileType, kind, uri;
+@dynamic csvImportOptions, database, fileType, importUser, kind, uri;
 @end
 
 
@@ -396,16 +396,6 @@
 
 @implementation GTLRSQLAdmin_IpMapping
 @dynamic ipAddress, timeToRetire, type;
-@end
-
-
-// ----------------------------------------------------------------------------
-//
-//   GTLRSQLAdmin_Labels
-//
-
-@implementation GTLRSQLAdmin_Labels
-@dynamic key, value;
 @end
 
 
@@ -543,17 +533,30 @@
 @dynamic activationPolicy, authorizedGaeApplications, availabilityType,
          backupConfiguration, crashSafeReplicationEnabled, databaseFlags,
          databaseReplicationEnabled, dataDiskSizeGb, dataDiskType,
-         ipConfiguration, kind, labels, locationPreference, maintenanceWindow,
+         ipConfiguration, kind, locationPreference, maintenanceWindow,
          pricingPlan, replicationType, settingsVersion, storageAutoResize,
-         storageAutoResizeLimit, tier;
+         storageAutoResizeLimit, tier, userLabels;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
     @"authorizedGaeApplications" : [NSString class],
-    @"databaseFlags" : [GTLRSQLAdmin_DatabaseFlags class],
-    @"labels" : [GTLRSQLAdmin_Labels class]
+    @"databaseFlags" : [GTLRSQLAdmin_DatabaseFlags class]
   };
   return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSQLAdmin_Settings_UserLabels
+//
+
+@implementation GTLRSQLAdmin_Settings_UserLabels
+
++ (Class)classForAdditionalProperties {
+  return [NSString class];
 }
 
 @end

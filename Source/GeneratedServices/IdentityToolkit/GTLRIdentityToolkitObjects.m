@@ -134,7 +134,9 @@
 //
 
 @implementation GTLRIdentityToolkit_Relyingparty
-@dynamic captchaResp, challenge, email, idToken, kind, newEmail, requestType,
+@dynamic androidInstallApp, androidMinimumVersion, androidPackageName,
+         canHandleCodeInApp, captchaResp, challenge, continueUrl, email,
+         idToken, iOSAppStoreId, iOSBundleId, kind, newEmail, requestType,
          userIp;
 @end
 
@@ -367,9 +369,9 @@
 //
 
 @implementation GTLRIdentityToolkit_RelyingpartyVerifyAssertionRequest
-@dynamic delegatedProjectNumber, idToken, instanceId, pendingIdToken, postBody,
-         requestUri, returnIdpCredential, returnRefreshToken, returnSecureToken,
-         sessionId;
+@dynamic autoCreate, delegatedProjectNumber, idToken, instanceId,
+         pendingIdToken, postBody, requestUri, returnIdpCredential,
+         returnRefreshToken, returnSecureToken, sessionId;
 @end
 
 
@@ -478,8 +480,9 @@
 
 @implementation GTLRIdentityToolkit_UserInfo
 @dynamic createdAt, customAuth, disabled, displayName, email, emailVerified,
-         lastLoginAt, localId, passwordHash, passwordUpdatedAt, photoUrl,
-         providerUserInfo, rawPassword, salt, screenName, validSince, version;
+         lastLoginAt, localId, passwordHash, passwordUpdatedAt, phoneNumber,
+         photoUrl, providerUserInfo, rawPassword, salt, screenName, validSince,
+         version;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -497,8 +500,8 @@
 //
 
 @implementation GTLRIdentityToolkit_UserInfo_ProviderUserInfo_Item
-@dynamic displayName, email, federatedId, photoUrl, providerId, rawId,
-         screenName;
+@dynamic displayName, email, federatedId, phoneNumber, photoUrl, providerId,
+         rawId, screenName;
 @end
 
 

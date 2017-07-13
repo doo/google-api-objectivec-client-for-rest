@@ -6,7 +6,7 @@
 // Description:
 //   Access source code repositories hosted by Google.
 // Documentation:
-//   https://cloud.google.com/eap/cloud-repositories/cloud-sourcerepo-api
+//   https://cloud.google.com/source-repositories/docs/apis
 
 #import "GTLRCloudSourceRepositoriesObjects.h"
 
@@ -18,6 +18,11 @@ NSString * const kGTLRCloudSourceRepositories_AuditLogConfig_LogType_AdminRead =
 NSString * const kGTLRCloudSourceRepositories_AuditLogConfig_LogType_DataRead = @"DATA_READ";
 NSString * const kGTLRCloudSourceRepositories_AuditLogConfig_LogType_DataWrite = @"DATA_WRITE";
 NSString * const kGTLRCloudSourceRepositories_AuditLogConfig_LogType_LogTypeUnspecified = @"LOG_TYPE_UNSPECIFIED";
+
+// GTLRCloudSourceRepositories_CloudAuditOptions.logName
+NSString * const kGTLRCloudSourceRepositories_CloudAuditOptions_LogName_AdminActivity = @"ADMIN_ACTIVITY";
+NSString * const kGTLRCloudSourceRepositories_CloudAuditOptions_LogName_DataAccess = @"DATA_ACCESS";
+NSString * const kGTLRCloudSourceRepositories_CloudAuditOptions_LogName_UnspecifiedLogName = @"UNSPECIFIED_LOG_NAME";
 
 // GTLRCloudSourceRepositories_Condition.iam
 NSString * const kGTLRCloudSourceRepositories_Condition_Iam_Approver = @"APPROVER";
@@ -110,6 +115,7 @@ NSString * const kGTLRCloudSourceRepositories_Rule_Action_NoAction = @"NO_ACTION
 //
 
 @implementation GTLRCloudSourceRepositories_CloudAuditOptions
+@dynamic logName;
 @end
 
 
@@ -165,13 +171,17 @@ NSString * const kGTLRCloudSourceRepositories_Rule_Action_NoAction = @"NO_ACTION
 //
 
 @implementation GTLRCloudSourceRepositories_ListReposResponse
-@dynamic repos;
+@dynamic nextPageToken, repos;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
     @"repos" : [GTLRCloudSourceRepositories_Repo class]
   };
   return map;
+}
+
++ (NSString *)collectionItemsKey {
+  return @"repos";
 }
 
 @end

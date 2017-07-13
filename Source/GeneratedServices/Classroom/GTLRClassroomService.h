@@ -49,13 +49,6 @@ GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomCourseworkMe;
  */
 GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomCourseworkMeReadonly;
 /**
- *  Authorization scope: View instructions for teacher-assigned work in your
- *  Google Classroom classes
- *
- *  Value "https://www.googleapis.com/auth/classroom.course-work.readonly"
- */
-GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomCourseWorkReadonly;
-/**
  *  Authorization scope: Manage course work and grades for students in the
  *  Google Classroom classes you teach and view the course work and grades for
  *  classes you administer
@@ -70,6 +63,26 @@ GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomCourseworkStudents;
  *  Value "https://www.googleapis.com/auth/classroom.coursework.students.readonly"
  */
 GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomCourseworkStudentsReadonly;
+/**
+ *  Authorization scope: View your Google Classroom guardians
+ *
+ *  Value "https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly"
+ */
+GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomGuardianlinksMeReadonly;
+/**
+ *  Authorization scope: View and manage guardians for students in your Google
+ *  Classroom classes
+ *
+ *  Value "https://www.googleapis.com/auth/classroom.guardianlinks.students"
+ */
+GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomGuardianlinksStudents;
+/**
+ *  Authorization scope: View guardians for students in your Google Classroom
+ *  classes
+ *
+ *  Value "https://www.googleapis.com/auth/classroom.guardianlinks.students.readonly"
+ */
+GTLR_EXTERN NSString * const kGTLRAuthScopeClassroomGuardianlinksStudentsReadonly;
 /**
  *  Authorization scope: View the email addresses of people in your classes
  *

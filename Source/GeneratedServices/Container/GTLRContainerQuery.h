@@ -4,8 +4,8 @@
 // API:
 //   Google Container Engine API (container/v1)
 // Description:
-//   Builds and manages clusters that run container-based applications, powered
-//   by open source Kubernetes technology.
+//   The Google Container Engine API is used for building and managing container
+//   based applications, powered by the open source Kubernetes technology.
 // Documentation:
 //   https://cloud.google.com/container-engine/
 
@@ -20,11 +20,25 @@
 #endif
 
 @class GTLRContainer_CancelOperationRequest;
+@class GTLRContainer_CompleteIPRotationRequest;
 @class GTLRContainer_CreateClusterRequest;
 @class GTLRContainer_CreateNodePoolRequest;
 @class GTLRContainer_RollbackNodePoolUpgradeRequest;
+@class GTLRContainer_SetAddonsConfigRequest;
+@class GTLRContainer_SetLabelsRequest;
+@class GTLRContainer_SetLegacyAbacRequest;
+@class GTLRContainer_SetLocationsRequest;
+@class GTLRContainer_SetLoggingServiceRequest;
+@class GTLRContainer_SetMasterAuthRequest;
+@class GTLRContainer_SetMonitoringServiceRequest;
+@class GTLRContainer_SetNetworkPolicyRequest;
+@class GTLRContainer_SetNodePoolAutoscalingRequest;
 @class GTLRContainer_SetNodePoolManagementRequest;
+@class GTLRContainer_SetNodePoolSizeRequest;
+@class GTLRContainer_StartIPRotationRequest;
 @class GTLRContainer_UpdateClusterRequest;
+@class GTLRContainer_UpdateMasterRequest;
+@class GTLRContainer_UpdateNodePoolRequest;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,14 +53,122 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Sets the addons of a specific cluster.
+ *
+ *  Method: container.projects.zones.clusters.addons
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersAddons : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersAddonsWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets the addons of a specific cluster.
+ *
+ *  @param object The @c GTLRContainer_SetAddonsConfigRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersAddons
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetAddonsConfigRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Completes master IP rotation.
+ *
+ *  Method: container.projects.zones.clusters.completeIpRotation
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersCompleteIpRotation : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersCompleteIpRotationWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://developers.google.com/console/help/new/#projectnumber).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Completes master IP rotation.
+ *
+ *  @param object The @c GTLRContainer_CompleteIPRotationRequest to include in
+ *    the query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://developers.google.com/console/help/new/#projectnumber).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersCompleteIpRotation
+ */
++ (instancetype)queryWithObject:(GTLRContainer_CompleteIPRotationRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
  *  Creates a cluster, consisting of the specified number and type of Google
- *  Compute Engine instances. By default, the cluster is created in the
- *  project's [default network](/compute/docs/networks-and-firewalls#networks).
- *  One firewall is added for the cluster. After cluster creation, the cluster
- *  creates routes for each node to allow the containers on that node to
- *  communicate with all other instances in the cluster. Finally, an entry is
- *  added to the project's global metadata indicating which CIDR range is being
- *  used by the cluster.
+ *  Compute Engine instances.
+ *  By default, the cluster is created in the project's
+ *  [default network](/compute/docs/networks-and-firewalls#networks).
+ *  One firewall is added for the cluster. After cluster creation,
+ *  the cluster creates routes for each node to allow the containers
+ *  on that node to communicate with all other instances in the
+ *  cluster.
+ *  Finally, an entry is added to the project's global metadata indicating
+ *  which CIDR range is being used by the cluster.
  *
  *  Method: container.projects.zones.clusters.create
  *
@@ -64,8 +186,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -75,20 +198,23 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetches a @c GTLRContainer_Operation.
  *
  *  Creates a cluster, consisting of the specified number and type of Google
- *  Compute Engine instances. By default, the cluster is created in the
- *  project's [default network](/compute/docs/networks-and-firewalls#networks).
- *  One firewall is added for the cluster. After cluster creation, the cluster
- *  creates routes for each node to allow the containers on that node to
- *  communicate with all other instances in the cluster. Finally, an entry is
- *  added to the project's global metadata indicating which CIDR range is being
- *  used by the cluster.
+ *  Compute Engine instances.
+ *  By default, the cluster is created in the project's
+ *  [default network](/compute/docs/networks-and-firewalls#networks).
+ *  One firewall is added for the cluster. After cluster creation,
+ *  the cluster creates routes for each node to allow the containers
+ *  on that node to communicate with all other instances in the
+ *  cluster.
+ *  Finally, an entry is added to the project's global metadata indicating
+ *  which CIDR range is being used by the cluster.
  *
  *  @param object The @c GTLRContainer_CreateClusterRequest to include in the
  *    query.
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersCreate
  */
@@ -99,11 +225,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Deletes the cluster, including the Kubernetes endpoint and all worker nodes.
- *  Firewalls and routes that were configured during cluster creation are also
- *  deleted. Other Google Compute Engine resources that might be in use by the
- *  cluster (e.g. load balancer resources) will not be deleted if they weren't
- *  present at the initial create time.
+ *  Deletes the cluster, including the Kubernetes endpoint and all worker
+ *  nodes.
+ *  Firewalls and routes that were configured during cluster creation
+ *  are also deleted.
+ *  Other Google Compute Engine resources that might be in use by the cluster
+ *  (e.g. load balancer resources) will not be deleted if they weren't present
+ *  at the initial create time.
  *
  *  Method: container.projects.zones.clusters.delete
  *
@@ -124,8 +252,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -134,16 +263,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRContainer_Operation.
  *
- *  Deletes the cluster, including the Kubernetes endpoint and all worker nodes.
- *  Firewalls and routes that were configured during cluster creation are also
- *  deleted. Other Google Compute Engine resources that might be in use by the
- *  cluster (e.g. load balancer resources) will not be deleted if they weren't
- *  present at the initial create time.
+ *  Deletes the cluster, including the Kubernetes endpoint and all worker
+ *  nodes.
+ *  Firewalls and routes that were configured during cluster creation
+ *  are also deleted.
+ *  Other Google Compute Engine resources that might be in use by the cluster
+ *  (e.g. load balancer resources) will not be deleted if they weren't present
+ *  at the initial create time.
  *
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster to delete.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersDelete
@@ -176,8 +308,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -191,7 +324,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster to retrieve.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersGet
@@ -199,6 +333,59 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)queryWithProjectId:(NSString *)projectId
                       zoneProperty:(NSString *)zoneProperty
                          clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Enables or disables the ABAC authorization mechanism on a cluster.
+ *
+ *  Method: container.projects.zones.clusters.legacyAbac
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersLegacyAbac : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersLegacyAbacWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to update. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Enables or disables the ABAC authorization mechanism on a cluster.
+ *
+ *  @param object The @c GTLRContainer_SetLegacyAbacRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to update.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersLegacyAbac
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetLegacyAbacRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
 
 @end
 
@@ -222,8 +409,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides, or "-" for all zones.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides, or "-" for all zones.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -238,13 +426,283 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides, or "-"
- *    for all zones.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides, or "-" for all zones.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersList
  */
 + (instancetype)queryWithProjectId:(NSString *)projectId
                       zoneProperty:(NSString *)zoneProperty;
+
+@end
+
+/**
+ *  Sets the locations of a specific cluster.
+ *
+ *  Method: container.projects.zones.clusters.locations
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersLocations : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersLocationsWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets the locations of a specific cluster.
+ *
+ *  @param object The @c GTLRContainer_SetLocationsRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersLocations
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetLocationsRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Sets the logging service of a specific cluster.
+ *
+ *  Method: container.projects.zones.clusters.logging
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersLogging : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersLoggingWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets the logging service of a specific cluster.
+ *
+ *  @param object The @c GTLRContainer_SetLoggingServiceRequest to include in
+ *    the query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersLogging
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetLoggingServiceRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Updates the master of a specific cluster.
+ *
+ *  Method: container.projects.zones.clusters.master
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersMaster : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersMasterWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Updates the master of a specific cluster.
+ *
+ *  @param object The @c GTLRContainer_UpdateMasterRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersMaster
+ */
++ (instancetype)queryWithObject:(GTLRContainer_UpdateMasterRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Sets the monitoring service of a specific cluster.
+ *
+ *  Method: container.projects.zones.clusters.monitoring
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersMonitoring : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersMonitoringWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets the monitoring service of a specific cluster.
+ *
+ *  @param object The @c GTLRContainer_SetMonitoringServiceRequest to include in
+ *    the query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersMonitoring
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetMonitoringServiceRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Sets the autoscaling settings of a specific node pool.
+ *
+ *  Method: container.projects.zones.clusters.nodePools.autoscaling
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersNodePoolsAutoscaling : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersNodePoolsAutoscalingWithObject:projectId:zoneProperty:clusterId:nodePoolId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/** The name of the node pool to upgrade. */
+@property(nonatomic, copy, nullable) NSString *nodePoolId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets the autoscaling settings of a specific node pool.
+ *
+ *  @param object The @c GTLRContainer_SetNodePoolAutoscalingRequest to include
+ *    in the query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *  @param nodePoolId The name of the node pool to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersNodePoolsAutoscaling
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetNodePoolAutoscalingRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId
+                     nodePoolId:(NSString *)nodePoolId;
 
 @end
 
@@ -270,8 +728,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -287,7 +746,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://developers.google.com/console/help/new/#projectnumber).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersNodePoolsCreate
@@ -324,8 +784,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -339,7 +800,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://developers.google.com/console/help/new/#projectnumber).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster.
  *  @param nodePoolId The name of the node pool to delete.
  *
@@ -377,8 +839,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -392,7 +855,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://developers.google.com/console/help/new/#projectnumber).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster.
  *  @param nodePoolId The name of the node pool.
  *
@@ -427,8 +891,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -442,7 +907,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://developers.google.com/console/help/new/#projectnumber).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersNodePoolsList
@@ -454,8 +920,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Roll back the previously Aborted or Failed NodePool upgrade. This will be an
- *  no-op if the last upgrade successfully completed.
+ *  Roll back the previously Aborted or Failed NodePool upgrade.
+ *  This will be an no-op if the last upgrade successfully completed.
  *
  *  Method: container.projects.zones.clusters.nodePools.rollback
  *
@@ -479,8 +945,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -489,15 +956,16 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRContainer_Operation.
  *
- *  Roll back the previously Aborted or Failed NodePool upgrade. This will be an
- *  no-op if the last upgrade successfully completed.
+ *  Roll back the previously Aborted or Failed NodePool upgrade.
+ *  This will be an no-op if the last upgrade successfully completed.
  *
  *  @param object The @c GTLRContainer_RollbackNodePoolUpgradeRequest to include
  *    in the query.
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster to rollback.
  *  @param nodePoolId The name of the node pool to rollback.
  *
@@ -536,8 +1004,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -553,7 +1022,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster to update.
  *  @param nodePoolId The name of the node pool to update.
  *
@@ -564,6 +1034,337 @@ NS_ASSUME_NONNULL_BEGIN
                    zoneProperty:(NSString *)zoneProperty
                       clusterId:(NSString *)clusterId
                      nodePoolId:(NSString *)nodePoolId;
+
+@end
+
+/**
+ *  Sets the size of a specific node pool.
+ *
+ *  Method: container.projects.zones.clusters.nodePools.setSize
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersNodePoolsSetSize : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersNodePoolsSetSizeWithObject:projectId:zoneProperty:clusterId:nodePoolId:]
+
+/** The name of the cluster to update. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/** The name of the node pool to update. */
+@property(nonatomic, copy, nullable) NSString *nodePoolId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets the size of a specific node pool.
+ *
+ *  @param object The @c GTLRContainer_SetNodePoolSizeRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to update.
+ *  @param nodePoolId The name of the node pool to update.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersNodePoolsSetSize
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetNodePoolSizeRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId
+                     nodePoolId:(NSString *)nodePoolId;
+
+@end
+
+/**
+ *  Updates the version and/or image type of a specific node pool.
+ *
+ *  Method: container.projects.zones.clusters.nodePools.update
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersNodePoolsUpdate : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersNodePoolsUpdateWithObject:projectId:zoneProperty:clusterId:nodePoolId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/** The name of the node pool to upgrade. */
+@property(nonatomic, copy, nullable) NSString *nodePoolId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Updates the version and/or image type of a specific node pool.
+ *
+ *  @param object The @c GTLRContainer_UpdateNodePoolRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *  @param nodePoolId The name of the node pool to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersNodePoolsUpdate
+ */
++ (instancetype)queryWithObject:(GTLRContainer_UpdateNodePoolRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId
+                     nodePoolId:(NSString *)nodePoolId;
+
+@end
+
+/**
+ *  Sets labels on a cluster.
+ *
+ *  Method: container.projects.zones.clusters.resourceLabels
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersResourceLabels : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersResourceLabelsWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://developers.google.com/console/help/new/#projectnumber).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Sets labels on a cluster.
+ *
+ *  @param object The @c GTLRContainer_SetLabelsRequest to include in the query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://developers.google.com/console/help/new/#projectnumber).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersResourceLabels
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetLabelsRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Used to set master auth materials. Currently supports :-
+ *  Changing the admin password of a specific cluster.
+ *  This can be either via password generation or explicitly set the password.
+ *
+ *  Method: container.projects.zones.clusters.setMasterAuth
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersSetMasterAuth : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersSetMasterAuthWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster to upgrade. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://support.google.com/cloud/answer/6158840).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Used to set master auth materials. Currently supports :-
+ *  Changing the admin password of a specific cluster.
+ *  This can be either via password generation or explicitly set the password.
+ *
+ *  @param object The @c GTLRContainer_SetMasterAuthRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://support.google.com/cloud/answer/6158840).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster to upgrade.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersSetMasterAuth
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetMasterAuthRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Enables/Disables Network Policy for a cluster.
+ *
+ *  Method: container.projects.zones.clusters.setNetworkPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersSetNetworkPolicy : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersSetNetworkPolicyWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://developers.google.com/console/help/new/#projectnumber).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Enables/Disables Network Policy for a cluster.
+ *
+ *  @param object The @c GTLRContainer_SetNetworkPolicyRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://developers.google.com/console/help/new/#projectnumber).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersSetNetworkPolicy
+ */
++ (instancetype)queryWithObject:(GTLRContainer_SetNetworkPolicyRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
+
+@end
+
+/**
+ *  Start master IP rotation.
+ *
+ *  Method: container.projects.zones.clusters.startIpRotation
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeContainerCloudPlatform
+ */
+@interface GTLRContainerQuery_ProjectsZonesClustersStartIpRotation : GTLRContainerQuery
+// Previous library name was
+//   +[GTLQueryContainer queryForProjectsZonesClustersStartIpRotationWithObject:projectId:zoneProperty:clusterId:]
+
+/** The name of the cluster. */
+@property(nonatomic, copy, nullable) NSString *clusterId;
+
+/**
+ *  The Google Developers Console [project ID or project
+ *  number](https://developers.google.com/console/help/new/#projectnumber).
+ */
+@property(nonatomic, copy, nullable) NSString *projectId;
+
+/**
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
+ *
+ *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
+ */
+@property(nonatomic, copy, nullable) NSString *zoneProperty;
+
+/**
+ *  Fetches a @c GTLRContainer_Operation.
+ *
+ *  Start master IP rotation.
+ *
+ *  @param object The @c GTLRContainer_StartIPRotationRequest to include in the
+ *    query.
+ *  @param projectId The Google Developers Console [project ID or project
+ *    number](https://developers.google.com/console/help/new/#projectnumber).
+ *  @param zoneProperty The name of the Google Compute Engine
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
+ *  @param clusterId The name of the cluster.
+ *
+ *  @returns GTLRContainerQuery_ProjectsZonesClustersStartIpRotation
+ */
++ (instancetype)queryWithObject:(GTLRContainer_StartIPRotationRequest *)object
+                      projectId:(NSString *)projectId
+                   zoneProperty:(NSString *)zoneProperty
+                      clusterId:(NSString *)clusterId;
 
 @end
 
@@ -589,8 +1390,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -606,7 +1408,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param clusterId The name of the cluster to upgrade.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesClustersUpdate
@@ -652,7 +1455,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) to return operations for.
+ *    [zone](/compute/docs/zones#available)
+ *    to return operations for.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesGetServerconfig
  */
@@ -683,8 +1487,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the operation resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the operation resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -734,8 +1538,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *projectId;
 
 /**
- *  The name of the Google Compute Engine [zone](/compute/docs/zones#available)
- *  in which the cluster resides.
+ *  The name of the Google Compute Engine
+ *  [zone](/compute/docs/zones#available) in which the cluster
+ *  resides.
  *
  *  Remapped to 'zoneProperty' to avoid NSObject's 'zone'.
  */
@@ -749,7 +1554,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) in which the cluster resides.
+ *    [zone](/compute/docs/zones#available) in which the cluster
+ *    resides.
  *  @param operationId The server-assigned `name` of the operation.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesOperationsGet
@@ -794,8 +1600,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param projectId The Google Developers Console [project ID or project
  *    number](https://support.google.com/cloud/answer/6158840).
  *  @param zoneProperty The name of the Google Compute Engine
- *    [zone](/compute/docs/zones#available) to return operations for, or `-` for
- *    all zones.
+ *    [zone](/compute/docs/zones#available)
+ *    to return operations for, or `-` for all zones.
  *
  *  @returns GTLRContainerQuery_ProjectsZonesOperationsList
  */

@@ -234,17 +234,50 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRIdentityToolkit_Relyingparty : GTLRObject
 
+/**
+ *  whether or not to install the android app on the device where the link is
+ *  opened
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *androidInstallApp;
+
+/**
+ *  minimum version of the app. if the version on the device is lower than this
+ *  version then the user is taken to the play store to upgrade the app
+ */
+@property(nonatomic, copy, nullable) NSString *androidMinimumVersion;
+
+/** android package name of the android app to handle the action code */
+@property(nonatomic, copy, nullable) NSString *androidPackageName;
+
+/**
+ *  whether or not the app can handle the oob code without first going to web
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *canHandleCodeInApp;
+
 /** The recaptcha response from the user. */
 @property(nonatomic, copy, nullable) NSString *captchaResp;
 
 /** The recaptcha challenge presented to the user. */
 @property(nonatomic, copy, nullable) NSString *challenge;
 
+/** The url to continue to the Gitkit app */
+@property(nonatomic, copy, nullable) NSString *continueUrl;
+
 /** The email of the user. */
 @property(nonatomic, copy, nullable) NSString *email;
 
 /** The user's Gitkit login token for email change. */
 @property(nonatomic, copy, nullable) NSString *idToken;
+
+/** iOS app store id to download the app if it's not already installed */
+@property(nonatomic, copy, nullable) NSString *iOSAppStoreId;
+
+/** the iOS bundle id of iOS app to handle the action code */
+@property(nonatomic, copy, nullable) NSString *iOSBundleId;
 
 /** The fixed string "identitytoolkit#relyingparty". */
 @property(nonatomic, copy, nullable) NSString *kind;
@@ -855,6 +888,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GTLRIdentityToolkit_RelyingpartyVerifyAssertionRequest : GTLRObject
 
 /**
+ *  When it's true, automatically creates a new account if the user doesn't
+ *  exist. When it's false, allows existing user to sign in normally and throws
+ *  exception if the user doesn't exist.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *autoCreate;
+
+/**
  *  GCP project number of the requesting delegated app. Currently only intended
  *  for Firebase V1 migration.
  *
@@ -1225,6 +1267,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, strong, nullable) NSNumber *passwordUpdatedAt;
 
+/** User's phone number. */
+@property(nonatomic, copy, nullable) NSString *phoneNumber;
+
 /** The URL of the user profile photo. */
 @property(nonatomic, copy, nullable) NSString *photoUrl;
 
@@ -1275,6 +1320,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** User's identifier at IDP. */
 @property(nonatomic, copy, nullable) NSString *federatedId;
+
+/** User's phone number. */
+@property(nonatomic, copy, nullable) NSString *phoneNumber;
 
 /** The user's photo url at the IDP. */
 @property(nonatomic, copy, nullable) NSString *photoUrl;

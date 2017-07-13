@@ -31,6 +31,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 GTLR_EXTERN NSString * const kGTLRAuthScopeDataflowCloudPlatform;
 /**
+ *  Authorization scope: View and manage your Google Compute Engine resources
+ *
+ *  Value "https://www.googleapis.com/auth/compute"
+ */
+GTLR_EXTERN NSString * const kGTLRAuthScopeDataflowCompute;
+/**
+ *  Authorization scope: View your Google Compute Engine resources
+ *
+ *  Value "https://www.googleapis.com/auth/compute.readonly"
+ */
+GTLR_EXTERN NSString * const kGTLRAuthScopeDataflowComputeReadonly;
+/**
  *  Authorization scope: View your email address
  *
  *  Value "https://www.googleapis.com/auth/userinfo.email"

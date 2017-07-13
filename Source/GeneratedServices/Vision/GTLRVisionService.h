@@ -23,7 +23,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // ----------------------------------------------------------------------------
-// Authorization scope
+// Authorization scopes
 
 /**
  *  Authorization scope: View and manage your data across Google Cloud Platform
@@ -32,6 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  Value "https://www.googleapis.com/auth/cloud-platform"
  */
 GTLR_EXTERN NSString * const kGTLRAuthScopeVisionCloudPlatform;
+/**
+ *  Authorization scope: Apply machine learning models to understand and label
+ *  images
+ *
+ *  Value "https://www.googleapis.com/auth/cloud-vision"
+ */
+GTLR_EXTERN NSString * const kGTLRAuthScopeVisionCloudVision;
 
 // ----------------------------------------------------------------------------
 //   GTLRVisionService

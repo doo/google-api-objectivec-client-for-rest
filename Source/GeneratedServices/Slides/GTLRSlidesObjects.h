@@ -126,6 +126,7 @@
 @class GTLRSlides_UpdateVideoPropertiesRequest;
 @class GTLRSlides_Video;
 @class GTLRSlides_VideoProperties;
+@class GTLRSlides_WeightedFontFamily;
 @class GTLRSlides_WordArt;
 @class GTLRSlides_WriteControl;
 
@@ -3725,10 +3726,7 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 /** A list of updates to apply to the presentation. */
 @property(nonatomic, strong, nullable) NSArray<GTLRSlides_Request *> *requests;
 
-/**
- *  Provides control over how write requests are executed, such as
- *  conditionally updating the presentation.
- */
+/** Provides control over how write requests are executed. */
 @property(nonatomic, strong, nullable) GTLRSlides_WriteControl *writeControl;
 
 @end
@@ -5216,7 +5214,7 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  */
 @interface GTLRSlides_LayoutProperties : GTLRObject
 
-/** The human readable name of the layout in the presentation's locale. */
+/** The human-readable name of the layout. */
 @property(nonatomic, copy, nullable) NSString *displayName;
 
 /** The object ID of the master that this layout is based on. */
@@ -5757,9 +5755,11 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  *  to the presentation.
  *  The format of the revision ID may change over time, so it should be treated
  *  opaquely. A returned revision ID is only guaranteed to be valid for 24
- *  hours after it has been returned and cannot be shared across
- *  users. Callers can assume that if two revision IDs are equal then the
- *  presentation has not changed.
+ *  hours after it has been returned and cannot be shared across users. If the
+ *  revision ID is unchanged between calls, then the presentation has not
+ *  changed. Conversely, a changed ID (for the same presentation and user)
+ *  usually means the presentation has been updated; however, a changed ID can
+ *  also be due to internal factors such as ID format changes.
  */
 @property(nonatomic, copy, nullable) NSString *revisionId;
 
@@ -5983,8 +5983,8 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 
 /**
  *  The text direction of this paragraph. If unset, the value defaults to
- *  LEFT_TO_RIGHT
- *  since text direction is not inherited.
+ *  LEFT_TO_RIGHT since
+ *  text direction is not inherited.
  *
  *  Likely values:
  *    @arg @c kGTLRSlides_ParagraphStyle_Direction_LeftToRight The text goes
@@ -6060,8 +6060,8 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 @interface GTLRSlides_Placeholder : GTLRObject
 
 /**
- *  The index of the placeholder. If the same placeholder types are the present
- *  in the same page, they would have different index values.
+ *  The index of the placeholder. If the same placeholder types are present in
+ *  the same page, they would have different index values.
  *
  *  Uses NSNumber of intValue.
  */
@@ -6164,9 +6164,11 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  *  presentation.
  *  The format of the revision ID may change over time, so it should be treated
  *  opaquely. A returned revision ID is only guaranteed to be valid for 24
- *  hours after it has been returned and cannot be shared across users. Callers
- *  can assume that if two revision IDs are equal then the presentation has not
- *  changed.
+ *  hours after it has been returned and cannot be shared across users. If the
+ *  revision ID is unchanged between calls, then the presentation has not
+ *  changed. Conversely, a changed ID (for the same presentation and user)
+ *  usually means the presentation has been updated; however, a changed ID can
+ *  also be due to internal factors such as ID format changes.
  */
 @property(nonatomic, copy, nullable) NSString *revisionId;
 
@@ -6190,7 +6192,7 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 
 /**
  *  The optional zero-based index of the end of the collection.
- *  Required for `SPECIFIC_RANGE` delete mode.
+ *  Required for `FIXED_RANGE` ranges.
  *
  *  Uses NSNumber of intValue.
  */
@@ -6198,7 +6200,7 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 
 /**
  *  The optional zero-based index of the beginning of the collection.
- *  Required for `SPECIFIC_RANGE` and `FROM_START_INDEX` ranges.
+ *  Required for `FIXED_RANGE` and `FROM_START_INDEX` ranges.
  *
  *  Uses NSNumber of intValue.
  */
@@ -6360,6 +6362,15 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 @property(nonatomic, copy, nullable) NSString *imageUrl;
 
 /**
+ *  If non-empty, limits the matches to page elements only on the given pages.
+ *  Returns a 400 bad request error if given the page object ID of a
+ *  notes page or a
+ *  notes master, or if a
+ *  page with that object ID doesn't exist in the presentation.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *pageObjectIds;
+
+/**
  *  The replace method.
  *
  *  Likely values:
@@ -6433,6 +6444,15 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  */
 @property(nonatomic, copy, nullable) NSString *linkingMode;
 
+/**
+ *  If non-empty, limits the matches to page elements only on the given pages.
+ *  Returns a 400 bad request error if given the page object ID of a
+ *  notes page or a
+ *  notes master, or if a
+ *  page with that object ID doesn't exist in the presentation.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *pageObjectIds;
+
 /** The ID of the Google Sheets spreadsheet that contains the chart. */
 @property(nonatomic, copy, nullable) NSString *spreadsheetId;
 
@@ -6461,6 +6481,14 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
 
 /** Finds text in a shape matching this substring. */
 @property(nonatomic, strong, nullable) GTLRSlides_SubstringMatchCriteria *containsText;
+
+/**
+ *  If non-empty, limits the matches to page elements only on the given pages.
+ *  Returns a 400 bad request error if given the page object ID of a
+ *  notes master,
+ *  or if a page with that object ID doesn't exist in the presentation.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *pageObjectIds;
 
 /** The text that will replace the matched text. */
 @property(nonatomic, copy, nullable) NSString *replaceText;
@@ -7847,6 +7875,34 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  */
 @property(nonatomic, strong, nullable) NSNumber *underline;
 
+/**
+ *  The font family and rendered weight of the text.
+ *  This field is an extension of `font_family` meant to support explicit font
+ *  weights without breaking backwards compatibility. As such, when reading the
+ *  style of a range of text, the value of `weighted_font_family#font_family`
+ *  will always be equal to that of `font_family`. However, when writing, if
+ *  both fields are included in the field mask (either explicitly or through
+ *  the wildcard `"*"`), their values are reconciled as follows:
+ *  * If `font_family` is set and `weighted_font_family` is not, the value of
+ *  `font_family` is applied with weight `400` ("normal").
+ *  * If both fields are set, the value of `font_family` must match that of
+ *  `weighted_font_family#font_family`. If so, the font family and weight of
+ *  `weighted_font_family` is applied. Otherwise, a 400 bad request error is
+ *  returned.
+ *  * If `weighted_font_family` is set and `font_family` is not, the font
+ *  family and weight of `weighted_font_family` is applied.
+ *  * If neither field is set, the font family and weight of the text inherit
+ *  from the parent. Note that these properties cannot inherit separately
+ *  from each other.
+ *  If an update request specifies values for both `weighted_font_family` and
+ *  `bold`, the `weighted_font_family` is applied first, then `bold`.
+ *  If `weighted_font_family#weight` is not set, it defaults to `400`.
+ *  If `weighted_font_family` is set, then `weighted_font_family#font_family`
+ *  must also be set with a non-empty value. Otherwise, a 400 bad request error
+ *  is returned.
+ */
+@property(nonatomic, strong, nullable) GTLRSlides_WeightedFontFamily *weightedFontFamily;
+
 @end
 
 
@@ -7899,6 +7955,39 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  *        "THEME_COLOR_TYPE_UNSPECIFIED")
  */
 @property(nonatomic, copy, nullable) NSString *type;
+
+@end
+
+
+/**
+ *  The thumbnail of a page.
+ */
+@interface GTLRSlides_Thumbnail : GTLRObject
+
+/**
+ *  The content URL of the thumbnail image.
+ *  The URL to the image has a default lifetime of 30 minutes.
+ *  This URL is tagged with the account of the requester. Anyone with the URL
+ *  effectively accesses the image as the original requester. Access to the
+ *  image may be lost if the presentation's sharing settings change.
+ *  The mime type of the thumbnail image is the same as specified in the
+ *  `GetPageThumbnailRequest`.
+ */
+@property(nonatomic, copy, nullable) NSString *contentUrl;
+
+/**
+ *  The positive height in pixels of the thumbnail image.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *height;
+
+/**
+ *  The positive width in pixels of the thumbnail image.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *width;
 
 @end
 
@@ -8267,6 +8356,36 @@ GTLR_EXTERN NSString * const kGTLRSlides_Video_Source_Youtube;
  *  videos created in the Slides editor.
  */
 @property(nonatomic, strong, nullable) GTLRSlides_Outline *outline;
+
+@end
+
+
+/**
+ *  Represents a font family and weight used to style a TextRun.
+ */
+@interface GTLRSlides_WeightedFontFamily : GTLRObject
+
+/**
+ *  The font family of the text.
+ *  The font family can be any font from the Font menu in Slides or from
+ *  [Google Fonts] (https://fonts.google.com/). If the font name is
+ *  unrecognized, the text is rendered in `Arial`.
+ */
+@property(nonatomic, copy, nullable) NSString *fontFamily;
+
+/**
+ *  The rendered weight of the text. This field can have any value that is a
+ *  multiple of `100` between `100` and `900`, inclusive. This range
+ *  corresponds to the numerical values described in the CSS 2.1
+ *  Specification, [section
+ *  15.6](https://www.w3.org/TR/CSS21/fonts.html#font-boldness),
+ *  with non-numerical values disallowed. Weights greater than or equal to
+ *  `700` are considered bold, and weights less than `700`are not bold. The
+ *  default value is `400` ("normal").
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *weight;
 
 @end
 

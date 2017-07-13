@@ -410,6 +410,7 @@ NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedAPartner
 NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedAPartnerProfile = @"SMB_VIEWED_A_PARTNER_PROFILE";
 NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedDoubleclickCertificate = @"SMB_VIEWED_DOUBLECLICK_CERTIFICATE";
 NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedMobileCertificate = @"SMB_VIEWED_MOBILE_CERTIFICATE";
+NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedMobileSitesCertificate = @"SMB_VIEWED_MOBILE_SITES_CERTIFICATE";
 NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedShoppingCertificate = @"SMB_VIEWED_SHOPPING_CERTIFICATE";
 NSString * const kGTLRPartners_LogUserEventRequest_EventAction_SmbViewedVideoAdsCertificate = @"SMB_VIEWED_VIDEO_ADS_CERTIFICATE";
 NSString * const kGTLRPartners_LogUserEventRequest_EventAction_VisitedAgencyPortal = @"VISITED_AGENCY_PORTAL";
@@ -626,9 +627,10 @@ NSString * const kGTLRPartners_SpecializationStatus_BadgeSpecializationState_Bad
 //
 
 @implementation GTLRPartners_CompanyRelation
-@dynamic address, badgeTier, companyAdmin, companyId, creationTime, isPending,
-         logoUrl, managerAccount, name, phoneNumber, resolvedTimestamp, segment,
-         specializationStatus, state, website;
+@dynamic address, badgeTier, companyAdmin, companyId, creationTime,
+         internalCompanyId, isPending, logoUrl, managerAccount, name,
+         phoneNumber, primaryAddress, primaryCountryCode, primaryLanguageCode,
+         resolvedTimestamp, segment, specializationStatus, state, website;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -1156,8 +1158,8 @@ NSString * const kGTLRPartners_SpecializationStatus_BadgeSpecializationState_Bad
 
 @implementation GTLRPartners_User
 @dynamic availableAdwordsManagerAccounts, certificationStatus, company,
-         companyVerificationEmail, examStatus, identifier, lastAccessTime,
-         primaryEmails, profile, publicProfile;
+         companyVerificationEmail, examStatus, identifier, internalId,
+         lastAccessTime, primaryEmails, profile, publicProfile;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"identifier" : @"id" };

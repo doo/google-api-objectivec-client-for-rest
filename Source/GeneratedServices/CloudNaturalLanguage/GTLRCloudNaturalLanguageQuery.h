@@ -4,9 +4,9 @@
 // API:
 //   Google Cloud Natural Language API (language/v1)
 // Description:
-//   Google Cloud Natural Language API provides natural language understanding
-//   technologies to developers. Examples include sentiment analysis, entity
-//   recognition, and text annotations.
+//   Provides natural language understanding technologies to developers.
+//   Examples include sentiment analysis, entity recognition, entity sentiment
+//   analysis, and text annotations.
 // Documentation:
 //   https://cloud.google.com/natural-language/
 
@@ -38,8 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Finds named entities (currently finds proper names) in the text,
- *  entity types, salience, mentions for each entity, and other properties.
+ *  Finds named entities (currently proper names and common nouns) in the text
+ *  along with entity types, salience, mentions for each entity, and
+ *  other properties.
  *
  *  Method: language.documents.analyzeEntities
  *
@@ -53,8 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRCloudNaturalLanguage_AnalyzeEntitiesResponse.
  *
- *  Finds named entities (currently finds proper names) in the text,
- *  entity types, salience, mentions for each entity, and other properties.
+ *  Finds named entities (currently proper names and common nouns) in the text
+ *  along with entity types, salience, mentions for each entity, and
+ *  other properties.
  *
  *  @param object The @c GTLRCloudNaturalLanguage_AnalyzeEntitiesRequest to
  *    include in the query.

@@ -2,10 +2,12 @@
 
 // ----------------------------------------------------------------------------
 // API:
-//   Google Cloud RuntimeConfig API (runtimeconfig/v1)
+//   Google Cloud Runtime Configuration API (runtimeconfig/v1)
 // Description:
-//   Provides capabilities for dynamic configuration and coordination for
-//   applications running on Google Cloud Platform.
+//   The Runtime Configurator allows you to dynamically configure and expose
+//   variables through Google Cloud Platform. In addition, you can also set
+//   Watchers and Waiters that will watch for changes to your data and return
+//   based on certain conditions.
 // Documentation:
 //   https://cloud.google.com/deployment-manager/runtime-configurator/
 
@@ -170,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  error message is needed, put the localized message in the error details or
  *  localize it in the client. The optional error details may contain arbitrary
  *  information about the error. There is a predefined set of error detail types
- *  in the package `google.rpc` which can be used for common error conditions.
+ *  in the package `google.rpc` that can be used for common error conditions.
  *  # Language mapping
  *  The `Status` message is the logical representation of the error model, but
  *  it
@@ -188,7 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  it may embed the `Status` in the normal response to indicate the partial
  *  errors.
  *  - Workflow errors. A typical workflow has multiple steps. Each step may
- *  have a `Status` message for error reporting purpose.
+ *  have a `Status` message for error reporting.
  *  - Batch operations. If a client uses batch request and batch response, the
  *  `Status` message should be used directly inside batch response, one for
  *  each error sub-response.

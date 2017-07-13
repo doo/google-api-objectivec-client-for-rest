@@ -31,6 +31,10 @@ NSString * const kGTLRCloudBuild_BuildOptions_RequestedVerifyOption_Verified = @
 NSString * const kGTLRCloudBuild_BuildOptions_SourceProvenanceHash_None = @"NONE";
 NSString * const kGTLRCloudBuild_BuildOptions_SourceProvenanceHash_Sha256 = @"SHA256";
 
+// GTLRCloudBuild_BuildOptions.substitutionOption
+NSString * const kGTLRCloudBuild_BuildOptions_SubstitutionOption_AllowLoose = @"ALLOW_LOOSE";
+NSString * const kGTLRCloudBuild_BuildOptions_SubstitutionOption_MustMatch = @"MUST_MATCH";
+
 // GTLRCloudBuild_Hash.type
 NSString * const kGTLRCloudBuild_Hash_Type_None   = @"NONE";
 NSString * const kGTLRCloudBuild_Hash_Type_Sha256 = @"SHA256";
@@ -43,7 +47,7 @@ NSString * const kGTLRCloudBuild_Hash_Type_Sha256 = @"SHA256";
 @implementation GTLRCloudBuild_Build
 @dynamic buildTriggerId, createTime, finishTime, identifier, images, logsBucket,
          logUrl, options, projectId, results, source, sourceProvenance,
-         startTime, status, statusDetail, steps, substitutions, timeout;
+         startTime, status, statusDetail, steps, substitutions, tags, timeout;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"identifier" : @"id" };
@@ -52,7 +56,8 @@ NSString * const kGTLRCloudBuild_Hash_Type_Sha256 = @"SHA256";
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
     @"images" : [NSString class],
-    @"steps" : [GTLRCloudBuild_BuildStep class]
+    @"steps" : [GTLRCloudBuild_BuildStep class],
+    @"tags" : [NSString class]
   };
   return map;
 }
@@ -90,7 +95,7 @@ NSString * const kGTLRCloudBuild_Hash_Type_Sha256 = @"SHA256";
 //
 
 @implementation GTLRCloudBuild_BuildOptions
-@dynamic requestedVerifyOption, sourceProvenanceHash;
+@dynamic requestedVerifyOption, sourceProvenanceHash, substitutionOption;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{

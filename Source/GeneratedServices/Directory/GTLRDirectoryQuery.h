@@ -378,10 +378,10 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForChromeosdevicesActionWithObject:customerId:resourceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
-/** Immutable id of Chrome OS Device */
+/** Immutable ID of Chrome OS Device */
 @property(nonatomic, copy, nullable) NSString *resourceId;
 
 /**
@@ -392,8 +392,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  @param object The @c GTLRDirectory_ChromeOsDeviceAction to include in the
  *    query.
- *  @param customerId Immutable id of the Google Apps account
- *  @param resourceId Immutable id of Chrome OS Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param resourceId Immutable ID of Chrome OS Device
  *
  *  @returns GTLRDirectoryQuery_ChromeosdevicesAction
  */
@@ -416,10 +416,10 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForChromeosdevicesGetWithcustomerId:deviceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
-/** Immutable id of Chrome OS Device */
+/** Immutable ID of Chrome OS Device */
 @property(nonatomic, copy, nullable) NSString *deviceId;
 
 /**
@@ -439,8 +439,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve Chrome OS Device
  *
- *  @param customerId Immutable id of the Google Apps account
- *  @param deviceId Immutable id of Chrome OS Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param deviceId Immutable ID of Chrome OS Device
  *
  *  @returns GTLRDirectoryQuery_ChromeosdevicesGet
  */
@@ -462,7 +462,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForChromeosdevicesListWithcustomerId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Maximum number of results to return. Default is 100 */
@@ -487,6 +487,9 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *        (Value: "supportEndDate")
  */
 @property(nonatomic, copy, nullable) NSString *orderBy;
+
+/** Full path of the organization unit or its Id */
+@property(nonatomic, copy, nullable) NSString *orgUnitPath;
 
 /** Token to specify next page in the list */
 @property(nonatomic, copy, nullable) NSString *pageToken;
@@ -526,7 +529,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve all Chrome OS Devices of a customer (paginated)
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *
  *  @returns GTLRDirectoryQuery_ChromeosdevicesList
  *
@@ -550,10 +553,10 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForChromeosdevicesPatchWithObject:customerId:deviceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
-/** Immutable id of Chrome OS Device */
+/** Immutable ID of Chrome OS Device */
 @property(nonatomic, copy, nullable) NSString *deviceId;
 
 /**
@@ -574,8 +577,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Update Chrome OS Device. This method supports patch semantics.
  *
  *  @param object The @c GTLRDirectory_ChromeOsDevice to include in the query.
- *  @param customerId Immutable id of the Google Apps account
- *  @param deviceId Immutable id of Chrome OS Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param deviceId Immutable ID of Chrome OS Device
  *
  *  @returns GTLRDirectoryQuery_ChromeosdevicesPatch
  */
@@ -597,10 +600,10 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForChromeosdevicesUpdateWithObject:customerId:deviceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
-/** Immutable id of Chrome OS Device */
+/** Immutable ID of Chrome OS Device */
 @property(nonatomic, copy, nullable) NSString *deviceId;
 
 /**
@@ -621,8 +624,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Update Chrome OS Device
  *
  *  @param object The @c GTLRDirectory_ChromeOsDevice to include in the query.
- *  @param customerId Immutable id of the Google Apps account
- *  @param deviceId Immutable id of Chrome OS Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param deviceId Immutable ID of Chrome OS Device
  *
  *  @returns GTLRDirectoryQuery_ChromeosdevicesUpdate
  */
@@ -733,7 +736,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainAliasesDeleteWithcustomer:domainAliasName:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Name of domain alias to be retrieved. */
@@ -745,7 +748,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Deletes a Domain Alias of the customer.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param domainAliasName Name of domain alias to be retrieved.
  *
  *  @returns GTLRDirectoryQuery_DomainAliasesDelete
@@ -768,7 +771,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainAliasesGetWithcustomer:domainAliasName:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Name of domain alias to be retrieved. */
@@ -779,7 +782,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a domain alias of the customer.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param domainAliasName Name of domain alias to be retrieved.
  *
  *  @returns GTLRDirectoryQuery_DomainAliasesGet
@@ -801,7 +804,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainAliasesInsertWithObject:customer:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -810,7 +813,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Inserts a Domain alias of the customer.
  *
  *  @param object The @c GTLRDirectory_DomainAlias to include in the query.
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_DomainAliasesInsert
  */
@@ -832,7 +835,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainAliasesListWithcustomer:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Name of the parent domain for which domain aliases are to be fetched. */
@@ -843,7 +846,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Lists the domain aliases of the customer.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_DomainAliasesList
  */
@@ -863,7 +866,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainsDeleteWithcustomer:domainName:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Name of domain to be deleted */
@@ -875,7 +878,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Deletes a domain of the customer.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param domainName Name of domain to be deleted
  *
  *  @returns GTLRDirectoryQuery_DomainsDelete
@@ -898,7 +901,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainsGetWithcustomer:domainName:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Name of domain to be retrieved */
@@ -909,7 +912,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a domain of the customer.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param domainName Name of domain to be retrieved
  *
  *  @returns GTLRDirectoryQuery_DomainsGet
@@ -931,7 +934,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainsInsertWithObject:customer:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -940,7 +943,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Inserts a domain of the customer.
  *
  *  @param object The @c GTLRDirectory_Domains to include in the query.
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_DomainsInsert
  */
@@ -962,7 +965,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForDomainsListWithcustomer:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -970,7 +973,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Lists the domains of the customer.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_DomainsList
  */
@@ -1168,8 +1171,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForGroupsList]
 
 /**
- *  Immutable id of the Google Apps account. In case of multi-domain, to fetch
- *  all groups for a customer, fill this field instead of domain.
+ *  Immutable ID of the G Suite account. In case of multi-domain, to fetch all
+ *  groups for a customer, fill this field instead of domain.
  */
 @property(nonatomic, copy, nullable) NSString *customer;
 
@@ -1523,10 +1526,10 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForMobiledevicesActionWithObject:customerId:resourceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
-/** Immutable id of Mobile Device */
+/** Immutable ID of Mobile Device */
 @property(nonatomic, copy, nullable) NSString *resourceId;
 
 /**
@@ -1537,8 +1540,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  @param object The @c GTLRDirectory_MobileDeviceAction to include in the
  *    query.
- *  @param customerId Immutable id of the Google Apps account
- *  @param resourceId Immutable id of Mobile Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param resourceId Immutable ID of Mobile Device
  *
  *  @returns GTLRDirectoryQuery_MobiledevicesAction
  */
@@ -1560,10 +1563,10 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForMobiledevicesDeleteWithcustomerId:resourceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
-/** Immutable id of Mobile Device */
+/** Immutable ID of Mobile Device */
 @property(nonatomic, copy, nullable) NSString *resourceId;
 
 /**
@@ -1572,8 +1575,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Delete Mobile Device
  *
- *  @param customerId Immutable id of the Google Apps account
- *  @param resourceId Immutable id of Mobile Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param resourceId Immutable ID of Mobile Device
  *
  *  @returns GTLRDirectoryQuery_MobiledevicesDelete
  */
@@ -1596,7 +1599,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForMobiledevicesGetWithcustomerId:resourceId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /**
@@ -1611,7 +1614,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  */
 @property(nonatomic, copy, nullable) NSString *projection;
 
-/** Immutable id of Mobile Device */
+/** Immutable ID of Mobile Device */
 @property(nonatomic, copy, nullable) NSString *resourceId;
 
 /**
@@ -1619,8 +1622,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve Mobile Device
  *
- *  @param customerId Immutable id of the Google Apps account
- *  @param resourceId Immutable id of Mobile Device
+ *  @param customerId Immutable ID of the G Suite account
+ *  @param resourceId Immutable ID of Mobile Device
  *
  *  @returns GTLRDirectoryQuery_MobiledevicesGet
  */
@@ -1643,7 +1646,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForMobiledevicesListWithcustomerId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Maximum number of results to return. Default is 100 */
@@ -1705,7 +1708,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve all Mobile Devices of a customer (paginated)
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *
  *  @returns GTLRDirectoryQuery_MobiledevicesList
  *
@@ -1730,7 +1733,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForNotificationsDeleteWithcustomer:notificationId:]
 
 /**
- *  The unique ID for the customer's Google account. The customerId is also
+ *  The unique ID for the customer's G Suite account. The customerId is also
  *  returned as part of the Users resource.
  */
 @property(nonatomic, copy, nullable) NSString *customer;
@@ -1744,7 +1747,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Deletes a notification
  *
- *  @param customer The unique ID for the customer's Google account. The
+ *  @param customer The unique ID for the customer's G Suite account. The
  *    customerId is also returned as part of the Users resource.
  *  @param notificationId The unique ID of the notification.
  *
@@ -1768,7 +1771,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForNotificationsGetWithcustomer:notificationId:]
 
 /**
- *  The unique ID for the customer's Google account. The customerId is also
+ *  The unique ID for the customer's G Suite account. The customerId is also
  *  returned as part of the Users resource.
  */
 @property(nonatomic, copy, nullable) NSString *customer;
@@ -1781,7 +1784,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a notification.
  *
- *  @param customer The unique ID for the customer's Google account. The
+ *  @param customer The unique ID for the customer's G Suite account. The
  *    customerId is also returned as part of the Users resource.
  *  @param notificationId The unique ID of the notification.
  *
@@ -1804,7 +1807,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForNotificationsListWithcustomer:]
 
-/** The unique ID for the customer's Google account. */
+/** The unique ID for the customer's G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -1824,7 +1827,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a list of notifications.
  *
- *  @param customer The unique ID for the customer's Google account.
+ *  @param customer The unique ID for the customer's G Suite account.
  *
  *  @returns GTLRDirectoryQuery_NotificationsList
  *
@@ -1848,7 +1851,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForNotificationsPatchWithObject:customer:notificationId:]
 
-/** The unique ID for the customer's Google account. */
+/** The unique ID for the customer's G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** The unique ID of the notification. */
@@ -1860,7 +1863,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Updates a notification. This method supports patch semantics.
  *
  *  @param object The @c GTLRDirectory_Notification to include in the query.
- *  @param customer The unique ID for the customer's Google account.
+ *  @param customer The unique ID for the customer's G Suite account.
  *  @param notificationId The unique ID of the notification.
  *
  *  @returns GTLRDirectoryQuery_NotificationsPatch
@@ -1883,7 +1886,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForNotificationsUpdateWithObject:customer:notificationId:]
 
-/** The unique ID for the customer's Google account. */
+/** The unique ID for the customer's G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** The unique ID of the notification. */
@@ -1895,7 +1898,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Updates a notification.
  *
  *  @param object The @c GTLRDirectory_Notification to include in the query.
- *  @param customer The unique ID for the customer's Google account.
+ *  @param customer The unique ID for the customer's G Suite account.
  *  @param notificationId The unique ID of the notification.
  *
  *  @returns GTLRDirectoryQuery_NotificationsUpdate
@@ -1918,7 +1921,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForOrgunitsDeleteWithcustomerId:orgUnitPath:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Full path of the organization unit or its Id */
@@ -1930,7 +1933,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Remove Organization Unit
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param orgUnitPath Full path of the organization unit or its Id
  *
  *  @returns GTLRDirectoryQuery_OrgunitsDelete
@@ -1953,7 +1956,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForOrgunitsGetWithcustomerId:orgUnitPath:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Full path of the organization unit or its Id */
@@ -1964,7 +1967,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve Organization Unit
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param orgUnitPath Full path of the organization unit or its Id
  *
  *  @returns GTLRDirectoryQuery_OrgunitsGet
@@ -1986,7 +1989,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForOrgunitsInsertWithObject:customerId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /**
@@ -1995,7 +1998,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Add Organization Unit
  *
  *  @param object The @c GTLRDirectory_OrgUnit to include in the query.
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *
  *  @returns GTLRDirectoryQuery_OrgunitsInsert
  */
@@ -2017,7 +2020,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForOrgunitsListWithcustomerId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** the URL-encoded organization unit's path or its Id */
@@ -2038,7 +2041,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve all Organization Units
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *
  *  @returns GTLRDirectoryQuery_OrgunitsList
  */
@@ -2058,7 +2061,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForOrgunitsPatchWithObject:customerId:orgUnitPath:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Full path of the organization unit or its Id */
@@ -2070,7 +2073,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Update Organization Unit. This method supports patch semantics.
  *
  *  @param object The @c GTLRDirectory_OrgUnit to include in the query.
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param orgUnitPath Full path of the organization unit or its Id
  *
  *  @returns GTLRDirectoryQuery_OrgunitsPatch
@@ -2093,7 +2096,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForOrgunitsUpdateWithObject:customerId:orgUnitPath:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Full path of the organization unit or its Id */
@@ -2105,7 +2108,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Update Organization Unit
  *
  *  @param object The @c GTLRDirectory_OrgUnit to include in the query.
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param orgUnitPath Full path of the organization unit or its Id
  *
  *  @returns GTLRDirectoryQuery_OrgunitsUpdate
@@ -2129,7 +2132,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForPrivilegesListWithcustomer:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -2137,7 +2140,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a paginated list of all privileges for a customer.
  *
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_PrivilegesList
  */
@@ -2161,7 +2164,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 @property(nonatomic, copy, nullable) NSString *calendarResourceId;
 
 /**
- *  The unique ID for the customer's Google account. As an account
+ *  The unique ID for the customer's G Suite account. As an account
  *  administrator, you can also use the my_customer alias to represent your
  *  account's customer ID.
  */
@@ -2173,7 +2176,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Deletes a calendar resource.
  *
- *  @param customer The unique ID for the customer's Google account. As an
+ *  @param customer The unique ID for the customer's G Suite account. As an
  *    account administrator, you can also use the my_customer alias to represent
  *    your account's customer ID.
  *  @param calendarResourceId The unique ID of the calendar resource to delete.
@@ -2202,7 +2205,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 @property(nonatomic, copy, nullable) NSString *calendarResourceId;
 
 /**
- *  The unique ID for the customer's Google account. As an account
+ *  The unique ID for the customer's G Suite account. As an account
  *  administrator, you can also use the my_customer alias to represent your
  *  account's customer ID.
  */
@@ -2213,7 +2216,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a calendar resource.
  *
- *  @param customer The unique ID for the customer's Google account. As an
+ *  @param customer The unique ID for the customer's G Suite account. As an
  *    account administrator, you can also use the my_customer alias to represent
  *    your account's customer ID.
  *  @param calendarResourceId The unique ID of the calendar resource to
@@ -2239,7 +2242,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForResourcesCalendarsInsertWithObject:customer:]
 
 /**
- *  The unique ID for the customer's Google account. As an account
+ *  The unique ID for the customer's G Suite account. As an account
  *  administrator, you can also use the my_customer alias to represent your
  *  account's customer ID.
  */
@@ -2251,7 +2254,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Inserts a calendar resource.
  *
  *  @param object The @c GTLRDirectory_CalendarResource to include in the query.
- *  @param customer The unique ID for the customer's Google account. As an
+ *  @param customer The unique ID for the customer's G Suite account. As an
  *    account administrator, you can also use the my_customer alias to represent
  *    your account's customer ID.
  *
@@ -2276,7 +2279,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForResourcesCalendarsListWithcustomer:]
 
 /**
- *  The unique ID for the customer's Google account. As an account
+ *  The unique ID for the customer's G Suite account. As an account
  *  administrator, you can also use the my_customer alias to represent your
  *  account's customer ID.
  */
@@ -2297,7 +2300,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a list of calendar resources for an account.
  *
- *  @param customer The unique ID for the customer's Google account. As an
+ *  @param customer The unique ID for the customer's G Suite account. As an
  *    account administrator, you can also use the my_customer alias to represent
  *    your account's customer ID.
  *
@@ -2327,7 +2330,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 @property(nonatomic, copy, nullable) NSString *calendarResourceId;
 
 /**
- *  The unique ID for the customer's Google account. As an account
+ *  The unique ID for the customer's G Suite account. As an account
  *  administrator, you can also use the my_customer alias to represent your
  *  account's customer ID.
  */
@@ -2339,7 +2342,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Updates a calendar resource. This method supports patch semantics.
  *
  *  @param object The @c GTLRDirectory_CalendarResource to include in the query.
- *  @param customer The unique ID for the customer's Google account. As an
+ *  @param customer The unique ID for the customer's G Suite account. As an
  *    account administrator, you can also use the my_customer alias to represent
  *    your account's customer ID.
  *  @param calendarResourceId The unique ID of the calendar resource to update.
@@ -2368,7 +2371,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 @property(nonatomic, copy, nullable) NSString *calendarResourceId;
 
 /**
- *  The unique ID for the customer's Google account. As an account
+ *  The unique ID for the customer's G Suite account. As an account
  *  administrator, you can also use the my_customer alias to represent your
  *  account's customer ID.
  */
@@ -2380,7 +2383,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Updates a calendar resource.
  *
  *  @param object The @c GTLRDirectory_CalendarResource to include in the query.
- *  @param customer The unique ID for the customer's Google account. As an
+ *  @param customer The unique ID for the customer's G Suite account. As an
  *    account administrator, you can also use the my_customer alias to represent
  *    your account's customer ID.
  *  @param calendarResourceId The unique ID of the calendar resource to update.
@@ -2405,7 +2408,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRoleAssignmentsDeleteWithcustomer:roleAssignmentId:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Immutable ID of the role assignment. */
@@ -2417,7 +2420,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Deletes a role assignment.
  *
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param roleAssignmentId Immutable ID of the role assignment.
  *
  *  @returns GTLRDirectoryQuery_RoleAssignmentsDelete
@@ -2440,7 +2443,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRoleAssignmentsGetWithcustomer:roleAssignmentId:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Immutable ID of the role assignment. */
@@ -2451,7 +2454,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve a role assignment.
  *
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param roleAssignmentId Immutable ID of the role assignment.
  *
  *  @returns GTLRDirectoryQuery_RoleAssignmentsGet
@@ -2473,7 +2476,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRoleAssignmentsInsertWithObject:customer:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -2482,7 +2485,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Creates a role assignment.
  *
  *  @param object The @c GTLRDirectory_RoleAssignment to include in the query.
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_RoleAssignmentsInsert
  */
@@ -2504,7 +2507,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRoleAssignmentsListWithcustomer:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -2534,7 +2537,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a paginated list of all roleAssignments.
  *
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_RoleAssignmentsList
  *
@@ -2558,7 +2561,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRolesDeleteWithcustomer:roleId:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Immutable ID of the role. */
@@ -2570,7 +2573,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Deletes a role.
  *
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param roleId Immutable ID of the role.
  *
  *  @returns GTLRDirectoryQuery_RolesDelete
@@ -2593,7 +2596,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRolesGetWithcustomer:roleId:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Immutable ID of the role. */
@@ -2604,7 +2607,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a role.
  *
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param roleId Immutable ID of the role.
  *
  *  @returns GTLRDirectoryQuery_RolesGet
@@ -2626,7 +2629,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRolesInsertWithObject:customer:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -2635,7 +2638,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Creates a role.
  *
  *  @param object The @c GTLRDirectory_Role to include in the query.
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_RolesInsert
  */
@@ -2657,7 +2660,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRolesListWithcustomer:]
 
-/** Immutable id of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /**
@@ -2675,7 +2678,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieves a paginated list of all the roles in a domain.
  *
- *  @param customer Immutable id of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *
  *  @returns GTLRDirectoryQuery_RolesList
  *
@@ -2699,7 +2702,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRolesPatchWithObject:customer:roleId:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Immutable ID of the role. */
@@ -2711,7 +2714,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Updates a role. This method supports patch semantics.
  *
  *  @param object The @c GTLRDirectory_Role to include in the query.
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param roleId Immutable ID of the role.
  *
  *  @returns GTLRDirectoryQuery_RolesPatch
@@ -2734,7 +2737,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForRolesUpdateWithObject:customer:roleId:]
 
-/** Immutable ID of the Google Apps account. */
+/** Immutable ID of the G Suite account. */
 @property(nonatomic, copy, nullable) NSString *customer;
 
 /** Immutable ID of the role. */
@@ -2746,7 +2749,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Updates a role.
  *
  *  @param object The @c GTLRDirectory_Role to include in the query.
- *  @param customer Immutable ID of the Google Apps account.
+ *  @param customer Immutable ID of the G Suite account.
  *  @param roleId Immutable ID of the role.
  *
  *  @returns GTLRDirectoryQuery_RolesUpdate
@@ -2769,7 +2772,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForSchemasDeleteWithcustomerId:schemaKey:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Name or immutable Id of the schema */
@@ -2781,7 +2784,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Delete schema
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param schemaKey Name or immutable Id of the schema
  *
  *  @returns GTLRDirectoryQuery_SchemasDelete
@@ -2804,7 +2807,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForSchemasGetWithcustomerId:schemaKey:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Name or immutable Id of the schema */
@@ -2815,7 +2818,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve schema
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param schemaKey Name or immutable Id of the schema
  *
  *  @returns GTLRDirectoryQuery_SchemasGet
@@ -2837,7 +2840,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForSchemasInsertWithObject:customerId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /**
@@ -2846,7 +2849,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Create schema.
  *
  *  @param object The @c GTLRDirectory_Schema to include in the query.
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *
  *  @returns GTLRDirectoryQuery_SchemasInsert
  */
@@ -2868,7 +2871,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForSchemasListWithcustomerId:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /**
@@ -2876,7 +2879,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *
  *  Retrieve all schemas for a customer
  *
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *
  *  @returns GTLRDirectoryQuery_SchemasList
  */
@@ -2896,7 +2899,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForSchemasPatchWithObject:customerId:schemaKey:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Name or immutable Id of the schema. */
@@ -2908,7 +2911,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Update schema. This method supports patch semantics.
  *
  *  @param object The @c GTLRDirectory_Schema to include in the query.
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param schemaKey Name or immutable Id of the schema.
  *
  *  @returns GTLRDirectoryQuery_SchemasPatch
@@ -2931,7 +2934,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 // Previous library name was
 //   +[GTLQueryDirectory queryForSchemasUpdateWithObject:customerId:schemaKey:]
 
-/** Immutable id of the Google Apps account */
+/** Immutable ID of the G Suite account */
 @property(nonatomic, copy, nullable) NSString *customerId;
 
 /** Name or immutable Id of the schema. */
@@ -2943,7 +2946,7 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
  *  Update schema
  *
  *  @param object The @c GTLRDirectory_Schema to include in the query.
- *  @param customerId Immutable id of the Google Apps account
+ *  @param customerId Immutable ID of the G Suite account
  *  @param schemaKey Name or immutable Id of the schema.
  *
  *  @returns GTLRDirectoryQuery_SchemasUpdate
@@ -3344,8 +3347,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForUsersList]
 
 /**
- *  Immutable id of the Google Apps account. In case of multi-domain, to fetch
- *  all users for a customer, fill this field instead of domain.
+ *  Immutable ID of the G Suite account. In case of multi-domain, to fetch all
+ *  users for a customer, fill this field instead of domain.
  */
 @property(nonatomic, copy, nullable) NSString *customer;
 
@@ -3725,8 +3728,8 @@ GTLR_EXTERN NSString * const kGTLRDirectoryViewTypeDomainPublic;
 //   +[GTLQueryDirectory queryForUsersWatchWithObject:]
 
 /**
- *  Immutable id of the Google Apps account. In case of multi-domain, to fetch
- *  all users for a customer, fill this field instead of domain.
+ *  Immutable ID of the G Suite account. In case of multi-domain, to fetch all
+ *  users for a customer, fill this field instead of domain.
  */
 @property(nonatomic, copy, nullable) NSString *customer;
 
