@@ -37,7 +37,6 @@
 @class GTLRSQLAdmin_ImportContext_CsvImportOptions;
 @class GTLRSQLAdmin_IpConfiguration;
 @class GTLRSQLAdmin_IpMapping;
-@class GTLRSQLAdmin_Labels;
 @class GTLRSQLAdmin_LocationPreference;
 @class GTLRSQLAdmin_MaintenanceWindow;
 @class GTLRSQLAdmin_MySqlReplicaConfiguration;
@@ -48,6 +47,7 @@
 @class GTLRSQLAdmin_ReplicaConfiguration;
 @class GTLRSQLAdmin_RestoreBackupContext;
 @class GTLRSQLAdmin_Settings;
+@class GTLRSQLAdmin_Settings_UserLabels;
 @class GTLRSQLAdmin_SslCert;
 @class GTLRSQLAdmin_SslCertDetail;
 @class GTLRSQLAdmin_Tier;
@@ -695,6 +695,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, copy, nullable) NSString *fileType;
 
+/**
+ *  The PostgreSQL user to use for this import operation. Defaults to
+ *  cloudsqlsuperuser. Does not apply to MySQL instances.
+ */
+@property(nonatomic, copy, nullable) NSString *importUser;
+
 /** This is always sql#importContext. */
 @property(nonatomic, copy, nullable) NSString *kind;
 
@@ -872,20 +878,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  connections originating from the instance, if supported.
  */
 @property(nonatomic, copy, nullable) NSString *type;
-
-@end
-
-
-/**
- *  User defined labels for Cloud SQL instances.
- */
-@interface GTLRSQLAdmin_Labels : GTLRObject
-
-/** The key of the label. */
-@property(nonatomic, copy, nullable) NSString *key;
-
-/** The value of the label. */
-@property(nonatomic, copy, nullable) NSString *value;
 
 @end
 
@@ -1090,7 +1082,6 @@ NS_ASSUME_NONNULL_BEGIN
 /** Name of the database instance related to this operation. */
 @property(nonatomic, copy, nullable) NSString *targetId;
 
-/** The URI of the instance related to the operation. */
 @property(nonatomic, copy, nullable) NSString *targetLink;
 
 /** The project ID of the target instance related to this operation. */
@@ -1293,9 +1284,6 @@ NS_ASSUME_NONNULL_BEGIN
 /** This is always sql#settings. */
 @property(nonatomic, copy, nullable) NSString *kind;
 
-/** User defined labels. */
-@property(nonatomic, strong, nullable) NSArray<GTLRSQLAdmin_Labels *> *labels;
-
 /**
  *  The location preference settings. This allows the instance to be located as
  *  near as possible to either an App Engine app or GCE zone for better
@@ -1336,7 +1324,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Configuration to increase storage size automatically. The default value is
- *  false. Applies only to Second Generation instances.
+ *  true. Applies only to Second Generation instances.
  *
  *  Uses NSNumber of boolValue.
  */
@@ -1357,6 +1345,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, copy, nullable) NSString *tier;
 
+/**
+ *  User-provided labels, represented as a dictionary where each label is a
+ *  single key value pair.
+ */
+@property(nonatomic, strong, nullable) GTLRSQLAdmin_Settings_UserLabels *userLabels;
+
+@end
+
+
+/**
+ *  User-provided labels, represented as a dictionary where each label is a
+ *  single key value pair.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRSQLAdmin_Settings_UserLabels : GTLRObject
 @end
 
 

@@ -415,6 +415,13 @@ GTLR_EXTERN NSString * const kGTLRClassroom_StudentSubmission_State_TurnedIn;
 @property(nonatomic, copy, nullable) NSString *alternateLink;
 
 /**
+ *  The Calendar ID for a calendar that all course members can see, to which
+ *  Classroom adds events for course work and announcements in the course.
+ *  Read-only.
+ */
+@property(nonatomic, copy, nullable) NSString *calendarId;
+
+/**
  *  The email address of a Google group containing all members of the course.
  *  This group does not accept email and can only be used for permissions.
  *  Read-only.
@@ -746,6 +753,9 @@ GTLR_EXTERN NSString * const kGTLRClassroom_StudentSubmission_State_TurnedIn;
  *  set otherwise.
  */
 @property(nonatomic, strong, nullable) GTLRClassroom_MultipleChoiceQuestion *multipleChoiceQuestion;
+
+/** Optional timestamp when this course work is scheduled to be published. */
+@property(nonatomic, strong, nullable) GTLRDateTime *scheduledTime;
 
 /**
  *  Status of this course work.
@@ -1797,6 +1807,16 @@ GTLR_EXTERN NSString * const kGTLRClassroom_StudentSubmission_State_TurnedIn;
  *  Read-only.
  */
 @property(nonatomic, copy, nullable) NSString *photoUrl;
+
+/**
+ *  Represents whether a G Suite for Education user's domain administrator has
+ *  explicitly verified them as being a teacher. If the user is not a member of
+ *  a G Suite for Education domain, than this field will always be false.
+ *  Read-only
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *verifiedTeacher;
 
 @end
 

@@ -19,6 +19,7 @@
 #endif
 
 @class GTLRToolResults_Any;
+@class GTLRToolResults_AppStartTime;
 @class GTLRToolResults_BasicPerfSampleSeries;
 @class GTLRToolResults_CPUInfo;
 @class GTLRToolResults_Duration;
@@ -62,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Value: "cpu" */
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Cpu;
+/** Value: "graphics" */
+GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Graphics;
 /** Value: "memory" */
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Memory;
 /** Value: "network" */
@@ -72,8 +75,12 @@ GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfMetricTy
 // ----------------------------------------------------------------------------
 // GTLRToolResults_BasicPerfSampleSeries.perfUnit
 
+/** Value: "byte" */
+GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_Byte;
 /** Value: "bytesPerSecond" */
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_BytesPerSecond;
+/** Value: "framesPerSecond" */
+GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_FramesPerSecond;
 /** Value: "kibibyte" */
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_Kibibyte;
 /** Value: "percent" */
@@ -90,6 +97,8 @@ GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_SampleSeries
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_CpuTotal;
 /** Value: "cpuUser" */
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_CpuUser;
+/** Value: "graphicsFrameRate" */
+GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_GraphicsFrameRate;
 /** Value: "memoryRssPrivate" */
 GTLR_EXTERN NSString * const kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_MemoryRssPrivate;
 /** Value: "memoryRssShared" */
@@ -140,6 +149,8 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Outcome_Summary_Unset;
 
 /** Value: "cpu" */
 GTLR_EXTERN NSString * const kGTLRToolResults_PerfMetricsSummary_PerfMetrics_Cpu;
+/** Value: "graphics" */
+GTLR_EXTERN NSString * const kGTLRToolResults_PerfMetricsSummary_PerfMetrics_Graphics;
 /** Value: "memory" */
 GTLR_EXTERN NSString * const kGTLRToolResults_PerfMetricsSummary_PerfMetrics_Memory;
 /** Value: "network" */
@@ -173,6 +184,9 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  *  Example 3: Pack and unpack a message in Python.
  *  foo = Foo(...) any = Any() any.Pack(foo) ... if any.Is(Foo.DESCRIPTOR):
  *  any.Unpack(foo) ...
+ *  Example 4: Pack and unpack a message in Go
+ *  foo := &pb.Foo{...} any, err := ptypes.MarshalAny(foo) ... foo := &pb.Foo{}
+ *  if err := ptypes.UnmarshalAny(any, foo); err != nil { ... }
  *  The pack methods provided by protobuf library will by default use
  *  'type.googleapis.com/full.type.name' as the type URL and the unpack methods
  *  only use the fully qualified type name after the last '/' in the type URL,
@@ -224,6 +238,29 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
 
 
 /**
+ *  GTLRToolResults_AppStartTime
+ */
+@interface GTLRToolResults_AppStartTime : GTLRObject
+
+/**
+ *  Optional. The time from app start to reaching the developer-reported "fully
+ *  drawn" time. This is only stored if the app includes a call to
+ *  Activity.reportFullyDrawn(). See
+ *  https://developer.android.com/topic/performance/launch-time.html#time-full
+ */
+@property(nonatomic, strong, nullable) GTLRToolResults_Duration *fullyDrawnTime;
+
+/**
+ *  The time from app start to the first displayed activity being drawn, as
+ *  reported in Logcat. See
+ *  https://developer.android.com/topic/performance/launch-time.html#time-initial
+ */
+@property(nonatomic, strong, nullable) GTLRToolResults_Duration *initialDisplayTime;
+
+@end
+
+
+/**
  *  Encapsulates the metadata for basic sample series represented by a line
  *  chart
  */
@@ -235,6 +272,8 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  *  Likely values:
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Cpu Value
  *        "cpu"
+ *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Graphics
+ *        Value "graphics"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Memory Value
  *        "memory"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfMetricType_Network
@@ -248,8 +287,11 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  *  perfUnit
  *
  *  Likely values:
+ *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_Byte Value "byte"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_BytesPerSecond
  *        Value "bytesPerSecond"
+ *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_FramesPerSecond
+ *        Value "framesPerSecond"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_Kibibyte Value
  *        "kibibyte"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_PerfUnit_Percent Value
@@ -269,6 +311,8 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  *        Value "cpuTotal"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_CpuUser
  *        Value "cpuUser"
+ *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_GraphicsFrameRate
+ *        Value "graphicsFrameRate"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_MemoryRssPrivate
  *        Value "memoryRssPrivate"
  *    @arg @c kGTLRToolResults_BasicPerfSampleSeries_SampleSeriesLabel_MemoryRssShared
@@ -389,7 +433,8 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
 
 /**
  *  Signed seconds of the span of time. Must be from -315,576,000,000 to
- *  +315,576,000,000 inclusive.
+ *  +315,576,000,000 inclusive. Note: these bounds are computed from: 60 sec/min
+ *  * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
  *
  *  Uses NSNumber of longLongValue.
  */
@@ -873,6 +918,8 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  */
 @interface GTLRToolResults_PerfMetricsSummary : GTLRObject
 
+@property(nonatomic, strong, nullable) GTLRToolResults_AppStartTime *appStartTime;
+
 /** A tool results execution ID. */
 @property(nonatomic, copy, nullable) NSString *executionId;
 
@@ -1035,7 +1082,7 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  *  error message is needed, put the localized message in the error details or
  *  localize it in the client. The optional error details may contain arbitrary
  *  information about the error. There is a predefined set of error detail types
- *  in the package `google.rpc` which can be used for common error conditions.
+ *  in the package `google.rpc` that can be used for common error conditions.
  *  # Language mapping
  *  The `Status` message is the logical representation of the error model, but
  *  it is not necessarily the actual wire format. When the `Status` message is
@@ -1051,7 +1098,7 @@ GTLR_EXTERN NSString * const kGTLRToolResults_Step_State_UnknownState;
  *  it may embed the `Status` in the normal response to indicate the partial
  *  errors.
  *  - Workflow errors. A typical workflow has multiple steps. Each step may have
- *  a `Status` message for error reporting purpose.
+ *  a `Status` message for error reporting.
  *  - Batch operations. If a client uses batch request and batch response, the
  *  `Status` message should be used directly inside batch response, one for each
  *  error sub-response.

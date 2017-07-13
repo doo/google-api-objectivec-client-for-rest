@@ -24,6 +24,8 @@
 @class GTLRCloudMachineLearningEngine_GoogleCloudMlV1PredictRequest;
 @class GTLRCloudMachineLearningEngine_GoogleCloudMlV1SetDefaultVersionRequest;
 @class GTLRCloudMachineLearningEngine_GoogleCloudMlV1Version;
+@class GTLRCloudMachineLearningEngine_GoogleIamV1SetIamPolicyRequest;
+@class GTLRCloudMachineLearningEngine_GoogleIamV1TestIamPermissionsRequest;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,10 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsGetConfigWithname:]
 
-/**
- *  Required. The project name.
- *  Authorization: requires `Viewer` role on the specified project.
- */
+/** Required. The project name. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -68,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  for training the model with Google Cloud Machine Learning.
  *
  *  @param name Required. The project name.
- *    Authorization: requires `Viewer` role on the specified project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsGetConfig
  */
@@ -88,10 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsJobsCancelWithObject:name:]
 
-/**
- *  Required. The name of the job to cancel.
- *  Authorization: requires `Editor` role on the parent project.
- */
+/** Required. The name of the job to cancel. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -103,7 +98,6 @@ NS_ASSUME_NONNULL_BEGIN
  *    GTLRCloudMachineLearningEngine_GoogleCloudMlV1CancelJobRequest to include
  *    in the query.
  *  @param name Required. The name of the job to cancel.
- *    Authorization: requires `Editor` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsJobsCancel
  */
@@ -124,10 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsJobsCreateWithObject:parent:]
 
-/**
- *  Required. The project name.
- *  Authorization: requires `Editor` role on the specified project.
- */
+/** Required. The project name. */
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
@@ -138,7 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param object The @c GTLRCloudMachineLearningEngine_GoogleCloudMlV1Job to
  *    include in the query.
  *  @param parent Required. The project name.
- *    Authorization: requires `Editor` role on the specified project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsJobsCreate
  */
@@ -159,10 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsJobsGetWithname:]
 
-/**
- *  Required. The name of the job to get the description of.
- *  Authorization: requires `Viewer` role on the parent project.
- */
+/** Required. The name of the job to get the description of. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -171,7 +158,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Describes a job.
  *
  *  @param name Required. The name of the job to get the description of.
- *    Authorization: requires `Viewer` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsJobsGet
  */
@@ -209,10 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, copy, nullable) NSString *pageToken;
 
-/**
- *  Required. The name of the project for which to list jobs.
- *  Authorization: requires `Viewer` role on the specified project.
- */
+/** Required. The name of the project for which to list jobs. */
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
@@ -221,7 +204,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Lists the jobs in the project.
  *
  *  @param parent Required. The name of the project for which to list jobs.
- *    Authorization: requires `Viewer` role on the specified project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsJobsList
  *
@@ -237,7 +219,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Creates a model which will later contain one or more versions.
  *  You must add at least one version before you can request predictions from
  *  the model. Add versions by calling
- *  [projects.models.versions.create](/ml/reference/rest/v1/projects.models.versions/create).
+ *  [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create).
  *
  *  Method: ml.projects.models.create
  *
@@ -248,10 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsCreateWithObject:parent:]
 
-/**
- *  Required. The project name.
- *  Authorization: requires `Editor` role on the specified project.
- */
+/** Required. The project name. */
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
@@ -260,12 +239,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  Creates a model which will later contain one or more versions.
  *  You must add at least one version before you can request predictions from
  *  the model. Add versions by calling
- *  [projects.models.versions.create](/ml/reference/rest/v1/projects.models.versions/create).
+ *  [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create).
  *
  *  @param object The @c GTLRCloudMachineLearningEngine_GoogleCloudMlV1Model to
  *    include in the query.
  *  @param parent Required. The project name.
- *    Authorization: requires `Editor` role on the specified project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsCreate
  */
@@ -278,7 +256,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Deletes a model.
  *  You can only delete a model if there are no versions in it. You can delete
  *  versions by calling
- *  [projects.models.versions.delete](/ml/reference/rest/v1/projects.models.versions/delete).
+ *  [projects.models.versions.delete](/ml-engine/reference/rest/v1/projects.models.versions/delete).
  *
  *  Method: ml.projects.models.delete
  *
@@ -289,10 +267,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsDeleteWithname:]
 
-/**
- *  Required. The name of the model.
- *  Authorization: requires `Editor` role on the parent project.
- */
+/** Required. The name of the model. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -301,10 +276,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  Deletes a model.
  *  You can only delete a model if there are no versions in it. You can delete
  *  versions by calling
- *  [projects.models.versions.delete](/ml/reference/rest/v1/projects.models.versions/delete).
+ *  [projects.models.versions.delete](/ml-engine/reference/rest/v1/projects.models.versions/delete).
  *
  *  @param name Required. The name of the model.
- *    Authorization: requires `Editor` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsDelete
  */
@@ -326,10 +300,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsGetWithname:]
 
-/**
- *  Required. The name of the model.
- *  Authorization: requires `Viewer` role on the parent project.
- */
+/** Required. The name of the model. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -340,11 +311,47 @@ NS_ASSUME_NONNULL_BEGIN
  *  been deployed).
  *
  *  @param name Required. The name of the model.
- *    Authorization: requires `Viewer` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsGet
  */
 + (instancetype)queryWithName:(NSString *)name;
+
+@end
+
+/**
+ *  Gets the access control policy for a resource.
+ *  Returns an empty policy if the resource exists and does not have a policy
+ *  set.
+ *
+ *  Method: ml.projects.models.getIamPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCloudMachineLearningEngineCloudPlatform
+ */
+@interface GTLRCloudMachineLearningEngineQuery_ProjectsModelsGetIamPolicy : GTLRCloudMachineLearningEngineQuery
+// Previous library name was
+//   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsGetIamPolicyWithresource:]
+
+/**
+ *  REQUIRED: The resource for which the policy is being requested.
+ *  See the operation documentation for the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRCloudMachineLearningEngine_GoogleIamV1Policy.
+ *
+ *  Gets the access control policy for a resource.
+ *  Returns an empty policy if the resource exists and does not have a policy
+ *  set.
+ *
+ *  @param resource REQUIRED: The resource for which the policy is being
+ *    requested.
+ *    See the operation documentation for the appropriate value for this field.
+ *
+ *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsGetIamPolicy
+ */
++ (instancetype)queryWithResource:(NSString *)resource;
 
 @end
 
@@ -377,10 +384,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, copy, nullable) NSString *pageToken;
 
-/**
- *  Required. The name of the project whose models are to be listed.
- *  Authorization: requires `Viewer` role on the specified project.
- */
+/** Required. The name of the project whose models are to be listed. */
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
@@ -393,7 +397,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param parent Required. The name of the project whose models are to be
  *    listed.
- *    Authorization: requires `Viewer` role on the specified project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsList
  *
@@ -406,13 +409,100 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Sets the access control policy on the specified resource. Replaces any
+ *  existing policy.
+ *
+ *  Method: ml.projects.models.setIamPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCloudMachineLearningEngineCloudPlatform
+ */
+@interface GTLRCloudMachineLearningEngineQuery_ProjectsModelsSetIamPolicy : GTLRCloudMachineLearningEngineQuery
+// Previous library name was
+//   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsSetIamPolicyWithObject:resource:]
+
+/**
+ *  REQUIRED: The resource for which the policy is being specified.
+ *  See the operation documentation for the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRCloudMachineLearningEngine_GoogleIamV1Policy.
+ *
+ *  Sets the access control policy on the specified resource. Replaces any
+ *  existing policy.
+ *
+ *  @param object The @c
+ *    GTLRCloudMachineLearningEngine_GoogleIamV1SetIamPolicyRequest to include
+ *    in the query.
+ *  @param resource REQUIRED: The resource for which the policy is being
+ *    specified.
+ *    See the operation documentation for the appropriate value for this field.
+ *
+ *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsSetIamPolicy
+ */
++ (instancetype)queryWithObject:(GTLRCloudMachineLearningEngine_GoogleIamV1SetIamPolicyRequest *)object
+                       resource:(NSString *)resource;
+
+@end
+
+/**
+ *  Returns permissions that a caller has on the specified resource.
+ *  If the resource does not exist, this will return an empty set of
+ *  permissions, not a NOT_FOUND error.
+ *  Note: This operation is designed to be used for building permission-aware
+ *  UIs and command-line tools, not for authorization checking. This operation
+ *  may "fail open" without warning.
+ *
+ *  Method: ml.projects.models.testIamPermissions
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCloudMachineLearningEngineCloudPlatform
+ */
+@interface GTLRCloudMachineLearningEngineQuery_ProjectsModelsTestIamPermissions : GTLRCloudMachineLearningEngineQuery
+// Previous library name was
+//   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsTestIamPermissionsWithObject:resource:]
+
+/**
+ *  REQUIRED: The resource for which the policy detail is being requested.
+ *  See the operation documentation for the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c
+ *  GTLRCloudMachineLearningEngine_GoogleIamV1TestIamPermissionsResponse.
+ *
+ *  Returns permissions that a caller has on the specified resource.
+ *  If the resource does not exist, this will return an empty set of
+ *  permissions, not a NOT_FOUND error.
+ *  Note: This operation is designed to be used for building permission-aware
+ *  UIs and command-line tools, not for authorization checking. This operation
+ *  may "fail open" without warning.
+ *
+ *  @param object The @c
+ *    GTLRCloudMachineLearningEngine_GoogleIamV1TestIamPermissionsRequest to
+ *    include in the query.
+ *  @param resource REQUIRED: The resource for which the policy detail is being
+ *    requested.
+ *    See the operation documentation for the appropriate value for this field.
+ *
+ *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsTestIamPermissions
+ */
++ (instancetype)queryWithObject:(GTLRCloudMachineLearningEngine_GoogleIamV1TestIamPermissionsRequest *)object
+                       resource:(NSString *)resource;
+
+@end
+
+/**
  *  Creates a new version of a model from a trained TensorFlow model.
  *  If the version created in the cloud by this call is the first deployed
  *  version of the specified model, it will be made the default version of the
  *  model. When you add a version to a model that already has one or more
  *  versions, the default version does not automatically change. If you want a
  *  new version to be the default, you must call
- *  [projects.models.versions.setDefault](/ml/reference/rest/v1/projects.models.versions/setDefault).
+ *  [projects.models.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault).
  *
  *  Method: ml.projects.models.versions.create
  *
@@ -423,10 +513,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsVersionsCreateWithObject:parent:]
 
-/**
- *  Required. The name of the model.
- *  Authorization: requires `Editor` role on the parent project.
- */
+/** Required. The name of the model. */
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
@@ -438,12 +525,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  model. When you add a version to a model that already has one or more
  *  versions, the default version does not automatically change. If you want a
  *  new version to be the default, you must call
- *  [projects.models.versions.setDefault](/ml/reference/rest/v1/projects.models.versions/setDefault).
+ *  [projects.models.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault).
  *
  *  @param object The @c GTLRCloudMachineLearningEngine_GoogleCloudMlV1Version
  *    to include in the query.
  *  @param parent Required. The name of the model.
- *    Authorization: requires `Editor` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsVersionsCreate
  */
@@ -471,8 +557,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Required. The name of the version. You can get the names of all the
  *  versions of a model by calling
- *  [projects.models.versions.list](/ml/reference/rest/v1/projects.models.versions/list).
- *  Authorization: requires `Editor` role on the parent project.
+ *  [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list).
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -488,8 +573,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param name Required. The name of the version. You can get the names of all
  *    the
  *    versions of a model by calling
- *    [projects.models.versions.list](/ml/reference/rest/v1/projects.models.versions/list).
- *    Authorization: requires `Editor` role on the parent project.
+ *    [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list).
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsVersionsDelete
  */
@@ -500,7 +584,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Gets information about a model version.
  *  Models can have multiple versions. You can call
- *  [projects.models.versions.list](/ml/reference/rest/v1/projects.models.versions/list)
+ *  [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list)
  *  to get the same information that this method returns for all of the
  *  versions of a model.
  *
@@ -513,10 +597,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Previous library name was
 //   +[GTLQueryCloudMachineLearningEngine queryForProjectsModelsVersionsGetWithname:]
 
-/**
- *  Required. The name of the version.
- *  Authorization: requires `Viewer` role on the parent project.
- */
+/** Required. The name of the version. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -524,12 +605,11 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Gets information about a model version.
  *  Models can have multiple versions. You can call
- *  [projects.models.versions.list](/ml/reference/rest/v1/projects.models.versions/list)
+ *  [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list)
  *  to get the same information that this method returns for all of the
  *  versions of a model.
  *
  *  @param name Required. The name of the version.
- *    Authorization: requires `Viewer` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsVersionsGet
  */
@@ -567,10 +647,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, copy, nullable) NSString *pageToken;
 
-/**
- *  Required. The name of the model for which to list the version.
- *  Authorization: requires `Viewer` role on the parent project.
- */
+/** Required. The name of the model for which to list the version. */
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
@@ -583,7 +660,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  be retrieved in batches (called pages):
  *
  *  @param parent Required. The name of the model for which to list the version.
- *    Authorization: requires `Viewer` role on the parent project.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsVersionsList
  *
@@ -615,8 +691,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Required. The name of the version to make the default for the model. You
  *  can get the names of all the versions of a model by calling
- *  [projects.models.versions.list](/ml/reference/rest/v1/projects.models.versions/list).
- *  Authorization: requires `Editor` role on the parent project.
+ *  [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list).
+ *  Authorization: `ml.models.update` permission is required on the parent
+ *  model.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -636,8 +713,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param name Required. The name of the version to make the default for the
  *    model. You
  *    can get the names of all the versions of a model by calling
- *    [projects.models.versions.list](/ml/reference/rest/v1/projects.models.versions/list).
- *    Authorization: requires `Editor` role on the parent project.
+ *    [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list).
+ *    Authorization: `ml.models.update` permission is required on the parent
+ *    model.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsModelsVersionsSetDefault
  */
@@ -761,8 +839,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Lists operations that match the specified filter in the request. If the
  *  server doesn't support this method, it returns `UNIMPLEMENTED`.
- *  NOTE: the `name` binding below allows API services to override the binding
- *  to use different resource name schemes, such as `users/ * /operations`.
+ *  NOTE: the `name` binding allows API services to override the binding
+ *  to use different resource name schemes, such as `users/ * /operations`. To
+ *  override the binding, API services can add a binding such as
+ *  `"/v1/{name=users/ *}/operations"` to their service configuration.
+ *  For backwards compatibility, the default name includes the operations
+ *  collection id, however overriding users must ensure the name binding
+ *  is the parent resource, without the operations collection id.
  *
  *  Method: ml.projects.operations.list
  *
@@ -776,7 +859,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** The standard list filter. */
 @property(nonatomic, copy, nullable) NSString *filter;
 
-/** The name of the operation collection. */
+/** The name of the operation's parent resource. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /** The standard list page size. */
@@ -791,10 +874,15 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Lists operations that match the specified filter in the request. If the
  *  server doesn't support this method, it returns `UNIMPLEMENTED`.
- *  NOTE: the `name` binding below allows API services to override the binding
- *  to use different resource name schemes, such as `users/ * /operations`.
+ *  NOTE: the `name` binding allows API services to override the binding
+ *  to use different resource name schemes, such as `users/ * /operations`. To
+ *  override the binding, API services can add a binding such as
+ *  `"/v1/{name=users/ *}/operations"` to their service configuration.
+ *  For backwards compatibility, the default name includes the operations
+ *  collection id, however overriding users must ensure the name binding
+ *  is the parent resource, without the operations collection id.
  *
- *  @param name The name of the operation collection.
+ *  @param name The name of the operation's parent resource.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsOperationsList
  *
@@ -821,7 +909,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Required. The resource name of a model or a version.
- *  Authorization: requires `Viewer` role on the parent project.
+ *  Authorization: requires the `predict` permission on the specified resource.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -835,7 +923,8 @@ NS_ASSUME_NONNULL_BEGIN
  *    GTLRCloudMachineLearningEngine_GoogleCloudMlV1PredictRequest to include in
  *    the query.
  *  @param name Required. The resource name of a model or a version.
- *    Authorization: requires `Viewer` role on the parent project.
+ *    Authorization: requires the `predict` permission on the specified
+ *    resource.
  *
  *  @returns GTLRCloudMachineLearningEngineQuery_ProjectsPredict
  */

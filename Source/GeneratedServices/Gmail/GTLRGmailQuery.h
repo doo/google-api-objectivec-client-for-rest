@@ -1086,7 +1086,7 @@ GTLR_EXTERN NSString * const kGTLRGmailInternalDateSourceReceivedTime;
  *  @param userId The user's email address. The special value me can be used to
  *    indicate the authenticated user. (Default me)
  *  @param uploadParameters The media to include in this query. Maximum size
- *    35MB. Accepted MIME type: message/rfc822
+ *    50MB. Accepted MIME type: message/rfc822
  *
  *  @returns GTLRGmailQuery_UsersMessagesImport
  */
@@ -1149,7 +1149,7 @@ GTLR_EXTERN NSString * const kGTLRGmailInternalDateSourceReceivedTime;
  *  @param userId The user's email address. The special value me can be used to
  *    indicate the authenticated user. (Default me)
  *  @param uploadParameters The media to include in this query. Maximum size
- *    35MB. Accepted MIME type: message/rfc822
+ *    50MB. Accepted MIME type: message/rfc822
  *
  *  @returns GTLRGmailQuery_UsersMessagesInsert
  */
@@ -1199,8 +1199,8 @@ GTLR_EXTERN NSString * const kGTLRGmailInternalDateSourceReceivedTime;
 /**
  *  Only return messages matching the specified query. Supports the same query
  *  format as the Gmail search box. For example, "from:someuser\@example.com
- *  rfc822msgid: is:unread". Parameter cannot be used when accessing the api
- *  using the gmail.metadata scope.
+ *  rfc822msgid:<somemsgid\@example.com> is:unread". Parameter cannot be used
+ *  when accessing the api using the gmail.metadata scope.
  */
 @property(nonatomic, copy, nullable) NSString *q;
 

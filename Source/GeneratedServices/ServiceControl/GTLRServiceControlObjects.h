@@ -397,7 +397,8 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ApiKeyExpired;
  */
 GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ApiKeyInvalid;
 /**
- *  Consumer cannot access the service because billing is disabled.
+ *  Consumer cannot access the service because the service requires active
+ *  billing.
  *
  *  Value: "BILLING_NOT_ACTIVE"
  */
@@ -408,20 +409,6 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_BillingNotActiv
  *  Value: "BILLING_STATUS_UNAVAILABLE"
  */
 GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_BillingStatusUnavailable;
-/**
- *  Client application of the consumer request is invalid for the
- *  specific consumer project.
- *
- *  Value: "CLIENT_APP_BLOCKED"
- */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ClientAppBlocked;
-/**
- *  IP address of the consumer is invalid for the specific consumer
- *  project.
- *
- *  Value: "IP_ADDRESS_BLOCKED"
- */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_IpAddressBlocked;
 /**
  *  The consumer's LOAS role is invalid.
  *
@@ -441,23 +428,11 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_NoLoasProject;
  */
 GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ProjectDeleted;
 /**
- *  Consumer's project number or ID does not represent a valid project.
- *
- *  Value: "PROJECT_INVALID"
- */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ProjectInvalid;
-/**
  *  The backend server for looking up project id/number is unavailable.
  *
- *  Value: "PROJECT_STATUS_UNVAILABLE"
+ *  Value: "PROJECT_STATUS_UNAVAILABLE"
  */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ProjectStatusUnvailable;
-/**
- *  Consumer project has been suspended.
- *
- *  Value: "PROJECT_SUSPENDED"
- */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ProjectSuspended;
+GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ProjectStatusUnavailable;
 /**
  *  The backend server for checking quota limits is unavailable.
  *
@@ -465,25 +440,12 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ProjectSuspende
  */
 GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_QuotaSystemUnavailable;
 /**
- *  Referer address of the consumer request is invalid for the specific
- *  consumer project.
- *
- *  Value: "REFERER_BLOCKED"
- */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_RefererBlocked;
-/**
  *  Quota allocation failed.
  *  Same as google.rpc.Code.RESOURCE_EXHAUSTED.
  *
  *  Value: "RESOURCE_EXHAUSTED"
  */
 GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ResourceExhausted;
-/**
- *  Consumer has not enabled the service.
- *
- *  Value: "SERVICE_NOT_ENABLED"
- */
-GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaError_Code_ServiceNotEnabled;
 /**
  *  The backend server for checking service status is unavailable.
  *
@@ -1142,6 +1104,15 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
  *  2. Value for each quota limit associated with the metrics will be specified
  *  using the following gauge metric:
  *  "serviceruntime.googleapis.com/quota/limit"
+ *  3. Delta value of the usage after the reconciliation for limits associated
+ *  with the metrics will be specified using the following metric:
+ *  "serviceruntime.googleapis.com/allocation/reconciliation_delta"
+ *  The delta value is defined as:
+ *  new_usage_from_client - existing_value_in_spanner.
+ *  This metric is not defined in serviceruntime.yaml or in Cloud Monarch.
+ *  This metric is meant for callers' use only. Since this metric is not
+ *  defined in the monitoring backend, reporting on this metric will result in
+ *  an error.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRServiceControl_MetricValueSet *> *quotaMetrics;
 
@@ -1662,17 +1633,11 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
  *    @arg @c kGTLRServiceControl_QuotaError_Code_ApiKeyInvalid Specified API
  *        key is invalid. (Value: "API_KEY_INVALID")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_BillingNotActive Consumer
- *        cannot access the service because billing is disabled. (Value:
- *        "BILLING_NOT_ACTIVE")
+ *        cannot access the service because the service requires active
+ *        billing. (Value: "BILLING_NOT_ACTIVE")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_BillingStatusUnavailable The
  *        backend server for checking billing status is unavailable. (Value:
  *        "BILLING_STATUS_UNAVAILABLE")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_ClientAppBlocked Client
- *        application of the consumer request is invalid for the
- *        specific consumer project. (Value: "CLIENT_APP_BLOCKED")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_IpAddressBlocked IP address of
- *        the consumer is invalid for the specific consumer
- *        project. (Value: "IP_ADDRESS_BLOCKED")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_LoasRoleInvalid The consumer's
  *        LOAS role is invalid. (Value: "LOAS_ROLE_INVALID")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_NoLoasProject The consumer's
@@ -1680,26 +1645,16 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
  *    @arg @c kGTLRServiceControl_QuotaError_Code_ProjectDeleted Consumer's
  *        project has been marked as deleted (soft deletion). (Value:
  *        "PROJECT_DELETED")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_ProjectInvalid Consumer's
- *        project number or ID does not represent a valid project. (Value:
- *        "PROJECT_INVALID")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_ProjectStatusUnvailable The
+ *    @arg @c kGTLRServiceControl_QuotaError_Code_ProjectStatusUnavailable The
  *        backend server for looking up project id/number is unavailable.
- *        (Value: "PROJECT_STATUS_UNVAILABLE")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_ProjectSuspended Consumer
- *        project has been suspended. (Value: "PROJECT_SUSPENDED")
+ *        (Value: "PROJECT_STATUS_UNAVAILABLE")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_QuotaSystemUnavailable The
  *        backend server for checking quota limits is unavailable. (Value:
  *        "QUOTA_SYSTEM_UNAVAILABLE")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_RefererBlocked Referer address
- *        of the consumer request is invalid for the specific
- *        consumer project. (Value: "REFERER_BLOCKED")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_ResourceExhausted Quota
  *        allocation failed.
  *        Same as google.rpc.Code.RESOURCE_EXHAUSTED. (Value:
  *        "RESOURCE_EXHAUSTED")
- *    @arg @c kGTLRServiceControl_QuotaError_Code_ServiceNotEnabled Consumer has
- *        not enabled the service. (Value: "SERVICE_NOT_ENABLED")
  *    @arg @c kGTLRServiceControl_QuotaError_Code_ServiceStatusUnavailable The
  *        backend server for checking service status is unavailable. (Value:
  *        "SERVICE_STATUS_UNAVAILABLE")
@@ -1896,11 +1851,6 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
 
 /**
  *  Represents the properties needed for quota operations.
- *  Use the metric_value_sets field in Operation message to provide cost
- *  override with metric_name in <service_name>/quota/<quota_group_name>/cost
- *  format. Overrides for unmatched quota groups will be ignored.
- *  Costs are expected to be >= 0. Cost 0 will cause no quota check,
- *  but still traffic restrictions will be enforced.
  */
 @interface GTLRServiceControl_QuotaProperties : GTLRObject
 
@@ -2133,6 +2083,7 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
  *  + `AppEngine-Google; (+http://code.google.com/appengine; appid:
  *  s~my-project`:
  *  The request was made from the `my-project` App Engine app.
+ *  NOLINT
  */
 @property(nonatomic, copy, nullable) NSString *callerSuppliedUserAgent;
 
@@ -2206,7 +2157,7 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
  *  error message is needed, put the localized message in the error details or
  *  localize it in the client. The optional error details may contain arbitrary
  *  information about the error. There is a predefined set of error detail types
- *  in the package `google.rpc` which can be used for common error conditions.
+ *  in the package `google.rpc` that can be used for common error conditions.
  *  # Language mapping
  *  The `Status` message is the logical representation of the error model, but
  *  it
@@ -2224,7 +2175,7 @@ GTLR_EXTERN NSString * const kGTLRServiceControl_QuotaProperties_QuotaMode_Relea
  *  it may embed the `Status` in the normal response to indicate the partial
  *  errors.
  *  - Workflow errors. A typical workflow has multiple steps. Each step may
- *  have a `Status` message for error reporting purpose.
+ *  have a `Status` message for error reporting.
  *  - Batch operations. If a client uses batch request and batch response, the
  *  `Status` message should be used directly inside batch response, one for
  *  each error sub-response.

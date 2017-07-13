@@ -27,17 +27,9 @@
 #import "GTLRObject.h"
 #import "GTLRQuery.h"
 
-#if !defined(GTLR_USE_FRAMEWORK_IMPORTS)
-  #define GTLR_USE_FRAMEWORK_IMPORTS 0
-#endif
-
-#if GTLR_USE_FRAMEWORK_IMPORTS
-  #import <GTMSessionFetcher/GTMSessionFetcher.h>
-  #import <GTMSessionFetcher/GTMSessionFetcherService.h>
-#else
-  #import "GTMSessionFetcher.h"
-  #import "GTMSessionFetcherService.h"
-#endif  // GTLR_USE_FRAMEWORK_IMPORTS
+@class GTMSessionFetcher;
+@class GTMSessionFetcherService;
+@protocol GTMFetcherAuthorizationProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -581,7 +573,7 @@ typedef void (^GTLRServiceTestBlock)(GTLRServiceTicket *testTicket,
  *
  *  Example usage is in the unit test method @c testService_MockService_Succeeding
  *
- *  @param objectOrNil An object derived from GTLRObject to be passed to query completion handlers.
+ *  @param object An object derived from GTLRObject to be passed to query completion handlers.
  *  @param error       An error to be passed to query completion handlers.
  *
  *  @return A mock instance of the service, suitable for unit testing.

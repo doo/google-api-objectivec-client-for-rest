@@ -4,8 +4,7 @@
 // API:
 //   Firebase Dynamic Links API (firebasedynamiclinks/v1)
 // Description:
-//   Firebase Dynamic Links API enables third party developers to
-//   programmatically create and manage Dynamic Links.
+//   Programmatically creates and manages Firebase Dynamic Links.
 // Documentation:
 //   https://firebase.google.com/docs/dynamic-links/
 
@@ -21,6 +20,7 @@
 
 @class GTLRFirebaseDynamicLinks_AnalyticsInfo;
 @class GTLRFirebaseDynamicLinks_AndroidInfo;
+@class GTLRFirebaseDynamicLinks_DynamicLinkEventStat;
 @class GTLRFirebaseDynamicLinks_DynamicLinkInfo;
 @class GTLRFirebaseDynamicLinks_DynamicLinkWarning;
 @class GTLRFirebaseDynamicLinks_GooglePlayAnalytics;
@@ -34,6 +34,80 @@ NS_ASSUME_NONNULL_BEGIN
 
 // ----------------------------------------------------------------------------
 // Constants - For some of the classes' properties below.
+
+// ----------------------------------------------------------------------------
+// GTLRFirebaseDynamicLinks_DynamicLinkEventStat.event
+
+/**
+ *  Indicates that the app is opened for the first time after an install
+ *  triggered by FDLs
+ *
+ *  Value: "APP_FIRST_OPEN"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_AppFirstOpen;
+/**
+ *  Indicates that an FDL triggers an app install from Play store, currently
+ *  it's impossible to get stats from App store.
+ *
+ *  Value: "APP_INSTALL"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_AppInstall;
+/**
+ *  Indicates that the app is opened via an FDL for non-first time.
+ *
+ *  Value: "APP_RE_OPEN"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_AppReOpen;
+/**
+ *  Indicates that an FDL is clicked by users.
+ *
+ *  Value: "CLICK"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_Click;
+/**
+ *  Unspecified type.
+ *
+ *  Value: "DYNAMIC_LINK_EVENT_UNSPECIFIED"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_DynamicLinkEventUnspecified;
+/**
+ *  Indicates that an FDL redirects users to fallback link.
+ *
+ *  Value: "REDIRECT"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_Redirect;
+
+// ----------------------------------------------------------------------------
+// GTLRFirebaseDynamicLinks_DynamicLinkEventStat.platform
+
+/**
+ *  Represents Android platform.
+ *  All apps and browsers on Android are classfied in this category.
+ *
+ *  Value: "ANDROID"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_Android;
+/**
+ *  Represents desktop.
+ *  Note: other platforms like Windows, Blackberry, Amazon fall into this
+ *  category.
+ *
+ *  Value: "DESKTOP"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_Desktop;
+/**
+ *  Unspecified platform.
+ *
+ *  Value: "DYNAMIC_LINK_PLATFORM_UNSPECIFIED"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_DynamicLinkPlatformUnspecified;
+/**
+ *  Represents iOS platform.
+ *  All apps and browsers on iOS are classfied in this category.
+ *
+ *  Value: "IOS"
+ */
+GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_Ios;
 
 // ----------------------------------------------------------------------------
 // GTLRFirebaseDynamicLinks_DynamicLinkWarning.warningCode
@@ -317,26 +391,85 @@ GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_Suffix_Option_Unguessable
 
 
 /**
+ *  Dynamic Link event stat.
+ */
+@interface GTLRFirebaseDynamicLinks_DynamicLinkEventStat : GTLRObject
+
+/**
+ *  The number of times this event occurred.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *count;
+
+/**
+ *  Link event.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_AppFirstOpen
+ *        Indicates that the app is opened for the first time after an install
+ *        triggered by FDLs (Value: "APP_FIRST_OPEN")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_AppInstall
+ *        Indicates that an FDL triggers an app install from Play store,
+ *        currently
+ *        it's impossible to get stats from App store. (Value: "APP_INSTALL")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_AppReOpen
+ *        Indicates that the app is opened via an FDL for non-first time.
+ *        (Value: "APP_RE_OPEN")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_Click
+ *        Indicates that an FDL is clicked by users. (Value: "CLICK")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_DynamicLinkEventUnspecified
+ *        Unspecified type. (Value: "DYNAMIC_LINK_EVENT_UNSPECIFIED")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Event_Redirect
+ *        Indicates that an FDL redirects users to fallback link. (Value:
+ *        "REDIRECT")
+ */
+@property(nonatomic, copy, nullable) NSString *event;
+
+/**
+ *  Requested platform.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_Android
+ *        Represents Android platform.
+ *        All apps and browsers on Android are classfied in this category.
+ *        (Value: "ANDROID")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_Desktop
+ *        Represents desktop.
+ *        Note: other platforms like Windows, Blackberry, Amazon fall into this
+ *        category. (Value: "DESKTOP")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_DynamicLinkPlatformUnspecified
+ *        Unspecified platform. (Value: "DYNAMIC_LINK_PLATFORM_UNSPECIFIED")
+ *    @arg @c kGTLRFirebaseDynamicLinks_DynamicLinkEventStat_Platform_Ios
+ *        Represents iOS platform.
+ *        All apps and browsers on iOS are classfied in this category. (Value:
+ *        "IOS")
+ */
+@property(nonatomic, copy, nullable) NSString *platform;
+
+@end
+
+
+/**
  *  Information about a Dynamic Link.
  */
 @interface GTLRFirebaseDynamicLinks_DynamicLinkInfo : GTLRObject
 
 /**
  *  Parameters used for tracking. See all tracking parameters in the
- *  [documentation](https://firebase.google.com/docs/dynamic-links/android#create-a-dynamic-link-programmatically).
+ *  [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
  */
 @property(nonatomic, strong, nullable) GTLRFirebaseDynamicLinks_AnalyticsInfo *analyticsInfo;
 
 /**
  *  Android related information. See Android related parameters in the
- *  [documentation](https://firebase.google.com/docs/dynamic-links/android#create-a-dynamic-link-programmatically).
+ *  [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
  */
 @property(nonatomic, strong, nullable) GTLRFirebaseDynamicLinks_AndroidInfo *androidInfo;
 
 /**
  *  Dynamic Links domain that the project owns, e.g. abcd.app.goo.gl
- *  [Learn
- *  more](https://firebase.google.com/docs/dynamic-links/android#set-up-firebase-and-the-dynamic-links-sdk)
+ *  [Learn more](https://firebase.google.com/docs/dynamic-links/android/receive)
  *  on how to set up Dynamic Link domain associated with your Firebase project.
  *  Required.
  */
@@ -344,7 +477,7 @@ GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_Suffix_Option_Unguessable
 
 /**
  *  iOS related information. See iOS related parameters in the
- *  [documentation](https://firebase.google.com/docs/dynamic-links/ios#create-a-dynamic-link-programmatically).
+ *  [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
  */
 @property(nonatomic, strong, nullable) GTLRFirebaseDynamicLinks_IosInfo *iosInfo;
 
@@ -352,7 +485,7 @@ GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_Suffix_Option_Unguessable
  *  The link your app will open, You can specify any URL your app can handle.
  *  This link must be a well-formatted URL, be properly URL-encoded, and use
  *  the HTTP or HTTPS scheme. See 'link' parameters in the
- *  [documentation](https://firebase.google.com/docs/dynamic-links/android#create-a-dynamic-link-programmatically).
+ *  [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
  *  Required.
  */
 @property(nonatomic, copy, nullable) NSString *link;
@@ -365,6 +498,17 @@ GTLR_EXTERN NSString * const kGTLRFirebaseDynamicLinks_Suffix_Option_Unguessable
  *  Used to set meta tag data for link previews on social sites.
  */
 @property(nonatomic, strong, nullable) GTLRFirebaseDynamicLinks_SocialMetaTagInfo *socialMetaTagInfo;
+
+@end
+
+
+/**
+ *  Analytics stats of a Dynamic Link for a given timeframe.
+ */
+@interface GTLRFirebaseDynamicLinks_DynamicLinkStats : GTLRObject
+
+/** Dynamic Link event stats. */
+@property(nonatomic, strong, nullable) NSArray<GTLRFirebaseDynamicLinks_DynamicLinkEventStat *> *linkEventStats;
 
 @end
 

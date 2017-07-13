@@ -19,7 +19,10 @@
 #endif
 
 @class GTLRStorage_Bucket;
+@class GTLRStorage_Bucket_Billing;
 @class GTLRStorage_Bucket_Cors_Item;
+@class GTLRStorage_Bucket_Encryption;
+@class GTLRStorage_Bucket_Labels;
 @class GTLRStorage_Bucket_Lifecycle;
 @class GTLRStorage_Bucket_Lifecycle_Rule_Item;
 @class GTLRStorage_Bucket_Lifecycle_Rule_Item_Action;
@@ -33,6 +36,8 @@
 @class GTLRStorage_Channel_Params;
 @class GTLRStorage_ComposeRequest_SourceObjects_Item;
 @class GTLRStorage_ComposeRequest_SourceObjects_Item_ObjectPreconditions;
+@class GTLRStorage_Notification;
+@class GTLRStorage_Notification_CustomAttributes;
 @class GTLRStorage_Object;
 @class GTLRStorage_Object_CustomerEncryption;
 @class GTLRStorage_Object_Metadata;
@@ -51,6 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** Access controls on the bucket. */
 @property(nonatomic, strong, nullable) NSArray<GTLRStorage_BucketAccessControl *> *acl;
 
+/** The bucket's billing configuration. */
+@property(nonatomic, strong, nullable) GTLRStorage_Bucket_Billing *billing;
+
 /** The bucket's Cross-Origin Resource Sharing (CORS) configuration. */
 @property(nonatomic, strong, nullable) NSArray<GTLRStorage_Bucket_Cors_Item *> *cors;
 
@@ -58,6 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Default access controls to apply to new objects when no ACL is provided.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRStorage_ObjectAccessControl *> *defaultObjectAcl;
+
+/**
+ *  Encryption configuration used by default for newly inserted objects, when no
+ *  encryption config is specified.
+ */
+@property(nonatomic, strong, nullable) GTLRStorage_Bucket_Encryption *encryption;
 
 /** HTTP 1.1 Entity tag for the bucket. */
 @property(nonatomic, copy, nullable) NSString *ETag;
@@ -71,6 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The kind of item this is. For buckets, this is always storage#bucket. */
 @property(nonatomic, copy, nullable) NSString *kind;
+
+/** User-provided labels, in key/value pairs. */
+@property(nonatomic, strong, nullable) GTLRStorage_Bucket_Labels *labels;
 
 /**
  *  The bucket's lifecycle configuration. See lifecycle management for more
@@ -145,6 +162,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ *  The bucket's billing configuration.
+ */
+@interface GTLRStorage_Bucket_Billing : GTLRObject
+
+/**
+ *  When set to true, bucket is requester pays.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *requesterPays;
+
+@end
+
+
+/**
  *  GTLRStorage_Bucket_Cors_Item
  */
 @interface GTLRStorage_Bucket_Cors_Item : GTLRObject
@@ -176,6 +208,29 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *responseHeader;
 
+@end
+
+
+/**
+ *  Encryption configuration used by default for newly inserted objects, when no
+ *  encryption config is specified.
+ */
+@interface GTLRStorage_Bucket_Encryption : GTLRObject
+
+@property(nonatomic, copy, nullable) NSString *defaultKmsKeyName;
+
+@end
+
+
+/**
+ *  User-provided labels, in key/value pairs.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRStorage_Bucket_Labels : GTLRObject
 @end
 
 
@@ -616,6 +671,98 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ *  A subscription to receive Google PubSub notifications.
+ */
+@interface GTLRStorage_Notification : GTLRObject
+
+/**
+ *  An optional list of additional attributes to attach to each Cloud PubSub
+ *  message published for this notification subscription.
+ */
+@property(nonatomic, strong, nullable) GTLRStorage_Notification_CustomAttributes *customAttributes;
+
+/** HTTP 1.1 Entity tag for this subscription notification. */
+@property(nonatomic, copy, nullable) NSString *ETag;
+
+/**
+ *  If present, only send notifications about listed event types. If empty, sent
+ *  notifications for all event types.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *eventTypes;
+
+/**
+ *  The ID of the notification.
+ *
+ *  identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
+ */
+@property(nonatomic, copy, nullable) NSString *identifier;
+
+/**
+ *  The kind of item this is. For notifications, this is always
+ *  storage#notification.
+ */
+@property(nonatomic, copy, nullable) NSString *kind;
+
+/**
+ *  If present, only apply this notification configuration to object names that
+ *  begin with this prefix.
+ */
+@property(nonatomic, copy, nullable) NSString *objectNamePrefix;
+
+/** The desired content of the Payload. */
+@property(nonatomic, copy, nullable) NSString *payloadFormat;
+
+/** The canonical URL of this notification. */
+@property(nonatomic, copy, nullable) NSString *selfLink;
+
+/**
+ *  The Cloud PubSub topic to which this subscription publishes. Formatted as:
+ *  '//pubsub.googleapis.com/projects/{project-identifier}/topics/{my-topic}'
+ */
+@property(nonatomic, copy, nullable) NSString *topic;
+
+@end
+
+
+/**
+ *  An optional list of additional attributes to attach to each Cloud PubSub
+ *  message published for this notification subscription.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRStorage_Notification_CustomAttributes : GTLRObject
+@end
+
+
+/**
+ *  A list of notification subscriptions.
+ *
+ *  @note This class supports NSFastEnumeration and indexed subscripting over
+ *        its "items" property.
+ */
+@interface GTLRStorage_Notifications : GTLRCollectionObject
+
+/**
+ *  The list of items.
+ *
+ *  @note This property is used to support NSFastEnumeration and indexed
+ *        subscripting on this class.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRStorage_Notification *> *items;
+
+/**
+ *  The kind of item this is. For lists of notifications, this is always
+ *  storage#notifications.
+ */
+@property(nonatomic, copy, nullable) NSString *kind;
+
+@end
+
+
+/**
  *  An object.
  */
 @interface GTLRStorage_Object : GTLRObject
@@ -688,6 +835,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The kind of item this is. For objects, this is always storage#object. */
 @property(nonatomic, copy, nullable) NSString *kind;
+
+/**
+ *  Cloud KMS Key used to encrypt this object, if the object is encrypted by
+ *  such a key.
+ */
+@property(nonatomic, copy, nullable) NSString *kmsKeyName;
 
 /**
  *  MD5 hash of the data; encoded using base64. For more information about using
@@ -1064,7 +1217,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The total size of the object being copied in bytes. This property is always
  *  present in the response.
  *
- *  Uses NSNumber of unsignedLongLongValue.
+ *  Uses NSNumber of longLongValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *objectSize;
 
@@ -1084,9 +1237,26 @@ NS_ASSUME_NONNULL_BEGIN
  *  The total bytes written so far, which can be used to provide a waiting user
  *  with a progress indicator. This property is always present in the response.
  *
- *  Uses NSNumber of unsignedLongLongValue.
+ *  Uses NSNumber of longLongValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *totalBytesRewritten;
+
+@end
+
+
+/**
+ *  A subscription to receive Google PubSub notifications.
+ */
+@interface GTLRStorage_ServiceAccount : GTLRObject
+
+/** The ID of the notification. */
+@property(nonatomic, copy, nullable) NSString *emailAddress;
+
+/**
+ *  The kind of item this is. For notifications, this is always
+ *  storage#notification.
+ */
+@property(nonatomic, copy, nullable) NSString *kind;
 
 @end
 

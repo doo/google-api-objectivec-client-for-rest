@@ -31,6 +31,7 @@
 @class GTLRSpanner_Delete;
 @class GTLRSpanner_ExecuteSqlRequest_Params;
 @class GTLRSpanner_ExecuteSqlRequest_ParamTypes;
+@class GTLRSpanner_Expr;
 @class GTLRSpanner_Field;
 @class GTLRSpanner_Instance;
 @class GTLRSpanner_Instance_Labels;
@@ -98,6 +99,28 @@ GTLR_EXTERN NSString * const kGTLRSpanner_AuditLogConfig_LogType_DataWrite;
 GTLR_EXTERN NSString * const kGTLRSpanner_AuditLogConfig_LogType_LogTypeUnspecified;
 
 // ----------------------------------------------------------------------------
+// GTLRSpanner_CloudAuditOptions.logName
+
+/**
+ *  Corresponds to "cloudaudit.googleapis.com/activity"
+ *
+ *  Value: "ADMIN_ACTIVITY"
+ */
+GTLR_EXTERN NSString * const kGTLRSpanner_CloudAuditOptions_LogName_AdminActivity;
+/**
+ *  Corresponds to "cloudaudit.googleapis.com/data_access"
+ *
+ *  Value: "DATA_ACCESS"
+ */
+GTLR_EXTERN NSString * const kGTLRSpanner_CloudAuditOptions_LogName_DataAccess;
+/**
+ *  Default. Should not be used.
+ *
+ *  Value: "UNSPECIFIED_LOG_NAME"
+ */
+GTLR_EXTERN NSString * const kGTLRSpanner_CloudAuditOptions_LogName_UnspecifiedLogName;
+
+// ----------------------------------------------------------------------------
 // GTLRSpanner_Condition.iam
 
 /**
@@ -108,7 +131,6 @@ GTLR_EXTERN NSString * const kGTLRSpanner_AuditLogConfig_LogType_LogTypeUnspecif
  *  member of the specified group. Approvers can only grant additional
  *  access, and are thus only used in a strictly positive context
  *  (e.g. ALLOW/IN or DENY/NOT_IN).
- *  See: go/rpc-security-policy-dynamicauth.
  *
  *  Value: "APPROVER"
  */
@@ -126,6 +148,18 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Iam_Attribution;
  *  Value: "AUTHORITY"
  */
 GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Iam_Authority;
+/**
+ *  What types of justifications have been supplied with this request.
+ *  String values should match enum names from tech.iam.JustificationType,
+ *  e.g. "MANUAL_STRING". It is not permitted to grant access based on
+ *  the *absence* of a justification, so justification conditions can only
+ *  be used in a "positive" context (e.g., ALLOW/IN or DENY/NOT_IN).
+ *  Multiple justifications, e.g., a Buganizer ID and a manually-entered
+ *  reason, are normal and supported.
+ *
+ *  Value: "JUSTIFICATION_TYPE"
+ */
+GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Iam_JustificationType;
 /**
  *  Default non-attribute.
  *
@@ -160,7 +194,8 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Op_Discharged;
  */
 GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Op_Equals;
 /**
- *  Set-inclusion check.
+ *  The condition is true if the subject (or any element of it if it is
+ *  a set) matches any of the supplied values.
  *
  *  Value: "IN"
  */
@@ -178,7 +213,8 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Op_NoOp;
  */
 GTLR_EXTERN NSString * const kGTLRSpanner_Condition_Op_NotEquals;
 /**
- *  Set-exclusion check.
+ *  The condition is true if the subject (or every element of it if it is
+ *  a set) matches none of the supplied values.
  *
  *  Value: "NOT_IN"
  */
@@ -431,9 +467,52 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 /**
  *  Specifies the audit configuration for a service.
- *  It consists of which permission types are logged, and what identities, if
- *  any, are exempted from logging.
- *  An AuditConifg must have one or more AuditLogConfigs.
+ *  The configuration determines which permission types are logged, and what
+ *  identities, if any, are exempted from logging.
+ *  An AuditConfig must have one or more AuditLogConfigs.
+ *  If there are AuditConfigs for both `allServices` and a specific service,
+ *  the union of the two AuditConfigs is used for that service: the log_types
+ *  specified in each AuditConfig are enabled, and the exempted_members in each
+ *  AuditConfig are exempted.
+ *  Example Policy with multiple AuditConfigs:
+ *  {
+ *  "audit_configs": [
+ *  {
+ *  "service": "allServices"
+ *  "audit_log_configs": [
+ *  {
+ *  "log_type": "DATA_READ",
+ *  "exempted_members": [
+ *  "user:foo\@gmail.com"
+ *  ]
+ *  },
+ *  {
+ *  "log_type": "DATA_WRITE",
+ *  },
+ *  {
+ *  "log_type": "ADMIN_READ",
+ *  }
+ *  ]
+ *  },
+ *  {
+ *  "service": "fooservice.googleapis.com"
+ *  "audit_log_configs": [
+ *  {
+ *  "log_type": "DATA_READ",
+ *  },
+ *  {
+ *  "log_type": "DATA_WRITE",
+ *  "exempted_members": [
+ *  "user:bar\@gmail.com"
+ *  ]
+ *  }
+ *  ]
+ *  }
+ *  ]
+ *  }
+ *  For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+ *  logging. It also exempts foo\@gmail.com from DATA_READ logging, and
+ *  bar\@gmail.com from DATA_WRITE logging.
  */
 @interface GTLRSpanner_AuditConfig : GTLRObject
 
@@ -443,17 +522,11 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRSpanner_AuditLogConfig *> *auditLogConfigs;
 
-/**
- *  Specifies the identities that are exempted from "data access" audit
- *  logging for the `service` specified above.
- *  Follows the same format of Binding.members.
- *  This field is deprecated in favor of per-permission-type exemptions.
- */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *exemptedMembers;
 
 /**
  *  Specifies a service that will be enabled for audit logging.
- *  For example, `resourcemanager`, `storage`, `compute`.
+ *  For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
  *  `allServices` is a special value that covers all services.
  */
 @property(nonatomic, copy, nullable) NSString *service;
@@ -524,6 +597,15 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 @interface GTLRSpanner_Binding : GTLRObject
 
 /**
+ *  The condition that is associated with this binding.
+ *  NOTE: an unsatisfied condition will not allow user access via current
+ *  binding. Different bindings, including their conditions, are examined
+ *  independently.
+ *  This field is GOOGLE_INTERNAL.
+ */
+@property(nonatomic, strong, nullable) GTLRSpanner_Expr *condition;
+
+/**
  *  Specifies the identities requesting access for a Cloud Platform resource.
  *  `members` can have the following values:
  *  * `allUsers`: A special identifier that represents anyone who is
@@ -591,6 +673,20 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  *  Write a Cloud Audit log
  */
 @interface GTLRSpanner_CloudAuditOptions : GTLRObject
+
+/**
+ *  The log_name to populate in the Cloud Audit Record.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSpanner_CloudAuditOptions_LogName_AdminActivity Corresponds
+ *        to "cloudaudit.googleapis.com/activity" (Value: "ADMIN_ACTIVITY")
+ *    @arg @c kGTLRSpanner_CloudAuditOptions_LogName_DataAccess Corresponds to
+ *        "cloudaudit.googleapis.com/data_access" (Value: "DATA_ACCESS")
+ *    @arg @c kGTLRSpanner_CloudAuditOptions_LogName_UnspecifiedLogName Default.
+ *        Should not be used. (Value: "UNSPECIFIED_LOG_NAME")
+ */
+@property(nonatomic, copy, nullable) NSString *logName;
+
 @end
 
 
@@ -657,14 +753,21 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  *        associated with the request matches the specified principal, or is a
  *        member of the specified group. Approvers can only grant additional
  *        access, and are thus only used in a strictly positive context
- *        (e.g. ALLOW/IN or DENY/NOT_IN).
- *        See: go/rpc-security-policy-dynamicauth. (Value: "APPROVER")
+ *        (e.g. ALLOW/IN or DENY/NOT_IN). (Value: "APPROVER")
  *    @arg @c kGTLRSpanner_Condition_Iam_Attribution The principal (even if an
  *        authority selector is present), which
  *        must only be used for attribution, not authorization. (Value:
  *        "ATTRIBUTION")
  *    @arg @c kGTLRSpanner_Condition_Iam_Authority Either principal or (if
  *        present) authority selector. (Value: "AUTHORITY")
+ *    @arg @c kGTLRSpanner_Condition_Iam_JustificationType What types of
+ *        justifications have been supplied with this request.
+ *        String values should match enum names from tech.iam.JustificationType,
+ *        e.g. "MANUAL_STRING". It is not permitted to grant access based on
+ *        the *absence* of a justification, so justification conditions can only
+ *        be used in a "positive" context (e.g., ALLOW/IN or DENY/NOT_IN).
+ *        Multiple justifications, e.g., a Buganizer ID and a manually-entered
+ *        reason, are normal and supported. (Value: "JUSTIFICATION_TYPE")
  *    @arg @c kGTLRSpanner_Condition_Iam_NoAttr Default non-attribute. (Value:
  *        "NO_ATTR")
  *    @arg @c kGTLRSpanner_Condition_Iam_SecurityRealm Any of the security
@@ -687,12 +790,15 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  *        "DISCHARGED")
  *    @arg @c kGTLRSpanner_Condition_Op_Equals DEPRECATED. Use IN instead.
  *        (Value: "EQUALS")
- *    @arg @c kGTLRSpanner_Condition_Op_In Set-inclusion check. (Value: "IN")
+ *    @arg @c kGTLRSpanner_Condition_Op_In The condition is true if the subject
+ *        (or any element of it if it is
+ *        a set) matches any of the supplied values. (Value: "IN")
  *    @arg @c kGTLRSpanner_Condition_Op_NoOp Default no-op. (Value: "NO_OP")
  *    @arg @c kGTLRSpanner_Condition_Op_NotEquals DEPRECATED. Use NOT_IN
  *        instead. (Value: "NOT_EQUALS")
- *    @arg @c kGTLRSpanner_Condition_Op_NotIn Set-exclusion check. (Value:
- *        "NOT_IN")
+ *    @arg @c kGTLRSpanner_Condition_Op_NotIn The condition is true if the
+ *        subject (or every element of it if it is
+ *        a set) matches none of the supplied values. (Value: "NOT_IN")
  */
 @property(nonatomic, copy, nullable) NSString *op;
 
@@ -759,6 +865,8 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  *  Required. A `CREATE DATABASE` statement, which specifies the ID of the
  *  new database. The database ID must conform to the regular expression
  *  `a-z*[a-z0-9]` and be between 2 and 30 characters in length.
+ *  If the database ID is a reserved word or if it contains a hyphen, the
+ *  database ID must be enclosed in backticks (`` ` ``).
  */
 @property(nonatomic, copy, nullable) NSString *createStatement;
 
@@ -1003,6 +1111,46 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 
 /**
+ *  Represents an expression text. Example:
+ *  title: "User account presence"
+ *  description: "Determines whether the request has a user account"
+ *  expression: "size(request.user) > 0"
+ */
+@interface GTLRSpanner_Expr : GTLRObject
+
+/**
+ *  An optional description of the expression. This is a longer text which
+ *  describes the expression, e.g. when hovered over it in a UI.
+ *
+ *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
+ */
+@property(nonatomic, copy, nullable) NSString *descriptionProperty;
+
+/**
+ *  Textual representation of an expression in
+ *  [Common Expression Language](http://go/api-expr) syntax.
+ *  The application context of the containing message determines which
+ *  well-known feature set of CEL is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *expression;
+
+/**
+ *  An optional string indicating the location of the expression for error
+ *  reporting, e.g. a file name and a position in the file.
+ */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/**
+ *  An optional title for the expression, i.e. a short string describing
+ *  its purpose. This can be used e.g. in UIs which allow to enter the
+ *  expression.
+ */
+@property(nonatomic, copy, nullable) NSString *title;
+
+@end
+
+
+/**
  *  Message representing a single field of a struct.
  */
 @interface GTLRSpanner_Field : GTLRObject
@@ -1095,7 +1243,8 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
- *  Required. The number of nodes allocated to this instance.
+ *  Required. The number of nodes allocated to this instance. This may be zero
+ *  in API responses for instances that are not yet in state `READY`.
  *
  *  Uses NSNumber of intValue.
  */
@@ -1418,23 +1567,6 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 /**
  *  Specifies what kind of log the caller must write
- *  Increment a streamz counter with the specified metric and field names.
- *  Metric names should start with a '/', generally be lowercase-only,
- *  and end in "_count". Field names should not contain an initial slash.
- *  The actual exported metric names will have "/iam/policy" prepended.
- *  Field names correspond to IAM request parameters and field values are
- *  their respective values.
- *  At present the only supported field names are
- *  - "iam_principal", corresponding to IAMContext.principal;
- *  - "" (empty string), resulting in one aggretated counter with no field.
- *  Examples:
- *  counter { metric: "/debug_access_count" field: "iam_principal" }
- *  ==> increment counter /iam/policy/backend_debug_access_count
- *  {iam_principal=[value of IAMContext.principal]}
- *  At this time we do not support:
- *  * multiple field names (though this may be supported in the future)
- *  * decrementing the counter
- *  * incrementing it by anything other than 1
  */
 @interface GTLRSpanner_LogConfig : GTLRObject
 
@@ -1825,7 +1957,6 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 /**
  *  Associates a list of `members` to a `role`.
- *  Multiple `bindings` must not be specified for the same `role`.
  *  `bindings` with no members will result in an error.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRSpanner_Binding *> *bindings;
@@ -1892,7 +2023,7 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 
 /**
- *  Options for read-only transactions.
+ *  Message type to initiate a read-only transaction.
  */
 @interface GTLRSpanner_ReadOnly : GTLRObject
 
@@ -2029,7 +2160,8 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 
 /**
- *  Options for read-write transactions.
+ *  Message type to initiate a read-write transaction. Currently this
+ *  transaction type has no options.
  */
 @interface GTLRSpanner_ReadWrite : GTLRObject
 @end
@@ -2243,8 +2375,8 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
 
 /**
  *  OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
- *  the fields in the mask will be modified. If no mask is provided, a default
- *  mask is used:
+ *  the fields in the mask will be modified. If no mask is provided, the
+ *  following default mask is used:
  *  paths: "bindings, etag"
  *  This field is only used by Cloud IAM.
  *
@@ -2313,7 +2445,7 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  *  error message is needed, put the localized message in the error details or
  *  localize it in the client. The optional error details may contain arbitrary
  *  information about the error. There is a predefined set of error detail types
- *  in the package `google.rpc` which can be used for common error conditions.
+ *  in the package `google.rpc` that can be used for common error conditions.
  *  # Language mapping
  *  The `Status` message is the logical representation of the error model, but
  *  it
@@ -2331,7 +2463,7 @@ GTLR_EXTERN NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified;
  *  it may embed the `Status` in the normal response to indicate the partial
  *  errors.
  *  - Workflow errors. A typical workflow has multiple steps. Each step may
- *  have a `Status` message for error reporting purpose.
+ *  have a `Status` message for error reporting.
  *  - Batch operations. If a client uses batch request and batch response, the
  *  `Status` message should be used directly inside batch response, one for
  *  each error sub-response.

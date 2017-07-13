@@ -28,8 +28,10 @@
 @class GTLRDeploymentManager_DeploymentLabelEntry;
 @class GTLRDeploymentManager_DeploymentUpdate;
 @class GTLRDeploymentManager_DeploymentUpdateLabelEntry;
+@class GTLRDeploymentManager_Expr;
 @class GTLRDeploymentManager_ImportFile;
 @class GTLRDeploymentManager_LogConfig;
+@class GTLRDeploymentManager_LogConfigCloudAuditOptions;
 @class GTLRDeploymentManager_LogConfigCounterOptions;
 @class GTLRDeploymentManager_Manifest;
 @class GTLRDeploymentManager_Operation;
@@ -55,20 +57,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Specifies the audit configuration for a service. The configuration
  *  determines which permission types are logged, and what identities, if any,
- *  are exempted from logging. An AuditConifg must have one or more
+ *  are exempted from logging. An AuditConfig must have one or more
  *  AuditLogConfigs.
  *  If there are AuditConfigs for both `allServices` and a specific service, the
  *  union of the two AuditConfigs is used for that service: the log_types
  *  specified in each AuditConfig are enabled, and the exempted_members in each
- *  AuditConfig are exempted. Example Policy with multiple AuditConfigs: {
- *  "audit_configs": [ { "service": "allServices" "audit_log_configs": [ {
+ *  AuditConfig are exempted.
+ *  Example Policy with multiple AuditConfigs:
+ *  { "audit_configs": [ { "service": "allServices" "audit_log_configs": [ {
  *  "log_type": "DATA_READ", "exempted_members": [ "user:foo\@gmail.com" ] }, {
  *  "log_type": "DATA_WRITE", }, { "log_type": "ADMIN_READ", } ] }, { "service":
- *  "fooservice\@googleapis.com" "audit_log_configs": [ { "log_type":
+ *  "fooservice.googleapis.com" "audit_log_configs": [ { "log_type":
  *  "DATA_READ", }, { "log_type": "DATA_WRITE", "exempted_members": [
- *  "user:bar\@gmail.com" ] } ] } ] } For fooservice, this policy enables
- *  DATA_READ, DATA_WRITE and ADMIN_READ logging. It also exempts foo\@gmail.com
- *  from DATA_READ logging, and bar\@gmail.com from DATA_WRITE logging.
+ *  "user:bar\@gmail.com" ] } ] } ] }
+ *  For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+ *  logging. It also exempts foo\@gmail.com from DATA_READ logging, and
+ *  bar\@gmail.com from DATA_WRITE logging.
  */
 @interface GTLRDeploymentManager_AuditConfig : GTLRObject
 
@@ -112,6 +116,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  Associates `members` with a `role`.
  */
 @interface GTLRDeploymentManager_Binding : GTLRObject
+
+/**
+ *  The condition that is associated with this binding. NOTE: an unsatisfied
+ *  condition will not allow user access via current binding. Different
+ *  bindings, including their conditions, are examined independently. This field
+ *  is GOOGLE_INTERNAL.
+ */
+@property(nonatomic, strong, nullable) GTLRDeploymentManager_Expr *condition;
 
 /**
  *  Specifies the identities requesting access for a Cloud Platform resource.
@@ -401,6 +413,44 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ *  Represents an expression text. Example:
+ *  title: "User account presence" description: "Determines whether the request
+ *  has a user account" expression: "size(request.user) > 0"
+ */
+@interface GTLRDeploymentManager_Expr : GTLRObject
+
+/**
+ *  An optional description of the expression. This is a longer text which
+ *  describes the expression, e.g. when hovered over it in a UI.
+ *
+ *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
+ */
+@property(nonatomic, copy, nullable) NSString *descriptionProperty;
+
+/**
+ *  Textual representation of an expression in Common Expression Language
+ *  syntax.
+ *  The application context of the containing message determines which
+ *  well-known feature set of CEL is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *expression;
+
+/**
+ *  An optional string indicating the location of the expression for error
+ *  reporting, e.g. a file name and a position in the file.
+ */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/**
+ *  An optional title for the expression, i.e. a short string describing its
+ *  purpose. This can be used e.g. in UIs which allow to enter the expression.
+ */
+@property(nonatomic, copy, nullable) NSString *title;
+
+@end
+
+
+/**
  *  GTLRDeploymentManager_ImportFile
  */
 @interface GTLRDeploymentManager_ImportFile : GTLRObject
@@ -419,8 +469,22 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRDeploymentManager_LogConfig : GTLRObject
 
+/** Cloud audit options. */
+@property(nonatomic, strong, nullable) GTLRDeploymentManager_LogConfigCloudAuditOptions *cloudAudit;
+
 /** Counter options. */
 @property(nonatomic, strong, nullable) GTLRDeploymentManager_LogConfigCounterOptions *counter;
+
+@end
+
+
+/**
+ *  Write a Cloud Audit log
+ */
+@interface GTLRDeploymentManager_LogConfigCloudAuditOptions : GTLRObject
+
+/** The log_name to populate in the Cloud Audit Record. */
+@property(nonatomic, copy, nullable) NSString *logName;
 
 @end
 
@@ -787,9 +851,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) NSArray<GTLRDeploymentManager_AuditConfig *> *auditConfigs;
 
 /**
- *  Associates a list of `members` to a `role`. Multiple `bindings` must not be
- *  specified for the same `role`. `bindings` with no members will result in an
- *  error.
+ *  Associates a list of `members` to a `role`. `bindings` with no members will
+ *  result in an error.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRDeploymentManager_Binding *> *bindings;
 

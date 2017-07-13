@@ -4,7 +4,7 @@
 // API:
 //   Google Cloud Key Management Service (KMS) API (cloudkms/v1)
 // Description:
-//   Manages encryption for your cloud services the same way you do on-premise.
+//   Manages encryption for your cloud services the same way you do on-premises.
 //   You can generate, use, rotate, and destroy AES256 encryption keys.
 // Documentation:
 //   https://cloud.google.com/kms/
@@ -28,6 +28,7 @@
 @class GTLRCloudKMS_CryptoKey;
 @class GTLRCloudKMS_CryptoKeyVersion;
 @class GTLRCloudKMS_DataAccessOptions;
+@class GTLRCloudKMS_Expr;
 @class GTLRCloudKMS_KeyRing;
 @class GTLRCloudKMS_Location;
 @class GTLRCloudKMS_Location_Labels;
@@ -70,6 +71,28 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_DataWrite;
 GTLR_EXTERN NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_LogTypeUnspecified;
 
 // ----------------------------------------------------------------------------
+// GTLRCloudKMS_CloudAuditOptions.logName
+
+/**
+ *  Corresponds to "cloudaudit.googleapis.com/activity"
+ *
+ *  Value: "ADMIN_ACTIVITY"
+ */
+GTLR_EXTERN NSString * const kGTLRCloudKMS_CloudAuditOptions_LogName_AdminActivity;
+/**
+ *  Corresponds to "cloudaudit.googleapis.com/data_access"
+ *
+ *  Value: "DATA_ACCESS"
+ */
+GTLR_EXTERN NSString * const kGTLRCloudKMS_CloudAuditOptions_LogName_DataAccess;
+/**
+ *  Default. Should not be used.
+ *
+ *  Value: "UNSPECIFIED_LOG_NAME"
+ */
+GTLR_EXTERN NSString * const kGTLRCloudKMS_CloudAuditOptions_LogName_UnspecifiedLogName;
+
+// ----------------------------------------------------------------------------
 // GTLRCloudKMS_Condition.iam
 
 /**
@@ -80,7 +103,6 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_LogTypeUnspeci
  *  member of the specified group. Approvers can only grant additional
  *  access, and are thus only used in a strictly positive context
  *  (e.g. ALLOW/IN or DENY/NOT_IN).
- *  See: go/rpc-security-policy-dynamicauth.
  *
  *  Value: "APPROVER"
  */
@@ -297,7 +319,7 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
  *  Specifies the audit configuration for a service.
  *  The configuration determines which permission types are logged, and what
  *  identities, if any, are exempted from logging.
- *  An AuditConifg must have one or more AuditLogConfigs.
+ *  An AuditConfig must have one or more AuditLogConfigs.
  *  If there are AuditConfigs for both `allServices` and a specific service,
  *  the union of the two AuditConfigs is used for that service: the log_types
  *  specified in each AuditConfig are enabled, and the exempted_members in each
@@ -323,7 +345,7 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
  *  ]
  *  },
  *  {
- *  "service": "fooservice\@googleapis.com"
+ *  "service": "fooservice.googleapis.com"
  *  "audit_log_configs": [
  *  {
  *  "log_type": "DATA_READ",
@@ -414,6 +436,15 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
 @interface GTLRCloudKMS_Binding : GTLRObject
 
 /**
+ *  The condition that is associated with this binding.
+ *  NOTE: an unsatisfied condition will not allow user access via current
+ *  binding. Different bindings, including their conditions, are examined
+ *  independently.
+ *  This field is GOOGLE_INTERNAL.
+ */
+@property(nonatomic, strong, nullable) GTLRCloudKMS_Expr *condition;
+
+/**
  *  Specifies the identities requesting access for a Cloud Platform resource.
  *  `members` can have the following values:
  *  * `allUsers`: A special identifier that represents anyone who is
@@ -445,6 +476,20 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
  *  Write a Cloud Audit log
  */
 @interface GTLRCloudKMS_CloudAuditOptions : GTLRObject
+
+/**
+ *  The log_name to populate in the Cloud Audit Record.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRCloudKMS_CloudAuditOptions_LogName_AdminActivity Corresponds
+ *        to "cloudaudit.googleapis.com/activity" (Value: "ADMIN_ACTIVITY")
+ *    @arg @c kGTLRCloudKMS_CloudAuditOptions_LogName_DataAccess Corresponds to
+ *        "cloudaudit.googleapis.com/data_access" (Value: "DATA_ACCESS")
+ *    @arg @c kGTLRCloudKMS_CloudAuditOptions_LogName_UnspecifiedLogName
+ *        Default. Should not be used. (Value: "UNSPECIFIED_LOG_NAME")
+ */
+@property(nonatomic, copy, nullable) NSString *logName;
+
 @end
 
 
@@ -464,8 +509,7 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
  *        associated with the request matches the specified principal, or is a
  *        member of the specified group. Approvers can only grant additional
  *        access, and are thus only used in a strictly positive context
- *        (e.g. ALLOW/IN or DENY/NOT_IN).
- *        See: go/rpc-security-policy-dynamicauth. (Value: "APPROVER")
+ *        (e.g. ALLOW/IN or DENY/NOT_IN). (Value: "APPROVER")
  *    @arg @c kGTLRCloudKMS_Condition_Iam_Attribution The principal (even if an
  *        authority selector is present), which
  *        must only be used for attribution, not authorization. (Value:
@@ -771,6 +815,46 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
 
 
 /**
+ *  Represents an expression text. Example:
+ *  title: "User account presence"
+ *  description: "Determines whether the request has a user account"
+ *  expression: "size(request.user) > 0"
+ */
+@interface GTLRCloudKMS_Expr : GTLRObject
+
+/**
+ *  An optional description of the expression. This is a longer text which
+ *  describes the expression, e.g. when hovered over it in a UI.
+ *
+ *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
+ */
+@property(nonatomic, copy, nullable) NSString *descriptionProperty;
+
+/**
+ *  Textual representation of an expression in
+ *  Common Expression Language syntax.
+ *  The application context of the containing message determines which
+ *  well-known feature set of CEL is supported.
+ */
+@property(nonatomic, copy, nullable) NSString *expression;
+
+/**
+ *  An optional string indicating the location of the expression for error
+ *  reporting, e.g. a file name and a position in the file.
+ */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/**
+ *  An optional title for the expression, i.e. a short string describing
+ *  its purpose. This can be used e.g. in UIs which allow to enter the
+ *  expression.
+ */
+@property(nonatomic, copy, nullable) NSString *title;
+
+@end
+
+
+/**
  *  A KeyRing is a toplevel logical grouping of CryptoKeys.
  */
 @interface GTLRCloudKMS_KeyRing : GTLRObject
@@ -1041,7 +1125,6 @@ GTLR_EXTERN NSString * const kGTLRCloudKMS_Rule_Action_NoAction;
 
 /**
  *  Associates a list of `members` to a `role`.
- *  Multiple `bindings` must not be specified for the same `role`.
  *  `bindings` with no members will result in an error.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRCloudKMS_Binding *> *bindings;

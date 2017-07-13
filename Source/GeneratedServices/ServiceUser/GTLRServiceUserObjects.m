@@ -131,7 +131,7 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_AuthenticationRule
-@dynamic allowWithoutCredential, oauth, requirements, selector;
+@dynamic allowWithoutCredential, customAuth, oauth, requirements, selector;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -202,7 +202,7 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_BackendRule
-@dynamic address, deadline, selector;
+@dynamic address, deadline, minDeadline, selector;
 @end
 
 
@@ -250,6 +250,16 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 
 @implementation GTLRServiceUser_Control
 @dynamic environment;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRServiceUser_CustomAuthRequirements
+//
+
+@implementation GTLRServiceUser_CustomAuthRequirements
+@dynamic provider;
 @end
 
 
@@ -357,7 +367,7 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_Endpoint
-@dynamic aliases, allowCors, apis, features, name;
+@dynamic aliases, allowCors, apis, features, name, target;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -449,7 +459,7 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_Http
-@dynamic rules;
+@dynamic fullyDecodeReservedExpansion, rules;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -468,7 +478,8 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 
 @implementation GTLRServiceUser_HttpRule
 @dynamic additionalBindings, body, custom, deleteProperty, get, mediaDownload,
-         mediaUpload, patch, post, put, responseBody, selector;
+         mediaUpload, patch, post, put, responseBody, restCollection,
+         restMethodName, selector;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"deleteProperty" : @"delete" };
@@ -586,7 +597,8 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_MediaDownload
-@dynamic downloadService, enabled;
+@dynamic completeNotification, downloadService, dropzone, enabled,
+         maxDirectDownloadSize, useDirectDownload;
 @end
 
 
@@ -596,7 +608,16 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_MediaUpload
-@dynamic enabled, uploadService;
+@dynamic completeNotification, dropzone, enabled, maxSize, mimeTypes,
+         progressNotification, startNotification, uploadService;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"mimeTypes" : [NSString class]
+  };
+  return map;
+}
+
 @end
 
 
@@ -637,6 +658,30 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
     @"labels" : [GTLRServiceUser_LabelDescriptor class]
   };
   return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRServiceUser_MetricRule
+//
+
+@implementation GTLRServiceUser_MetricRule
+@dynamic metricCosts, selector;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRServiceUser_MetricRule_MetricCosts
+//
+
+@implementation GTLRServiceUser_MetricRule_MetricCosts
+
++ (Class)classForAdditionalProperties {
+  return [NSNumber class];
 }
 
 @end
@@ -832,6 +877,55 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRServiceUser_Quota
+//
+
+@implementation GTLRServiceUser_Quota
+@dynamic limits, metricRules;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"limits" : [GTLRServiceUser_QuotaLimit class],
+    @"metricRules" : [GTLRServiceUser_MetricRule class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRServiceUser_QuotaLimit
+//
+
+@implementation GTLRServiceUser_QuotaLimit
+@dynamic defaultLimit, descriptionProperty, displayName, duration, freeTier,
+         maxLimit, metric, name, unit, values;
+
++ (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
+  return @{ @"descriptionProperty" : @"description" };
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRServiceUser_QuotaLimit_Values
+//
+
+@implementation GTLRServiceUser_QuotaLimit_Values
+
++ (Class)classForAdditionalProperties {
+  return [NSNumber class];
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRServiceUser_SearchServicesResponse
 //
 
@@ -861,8 +955,8 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 @dynamic apis, authentication, backend, configVersion, context, control,
          customError, documentation, endpoints, enums, experimental, http,
          identifier, logging, logs, metrics, monitoredResources, monitoring,
-         name, producerProjectId, sourceInfo, systemParameters, systemTypes,
-         title, types, usage, visibility;
+         name, producerProjectId, quota, sourceInfo, systemParameters,
+         systemTypes, title, types, usage, visibility;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"identifier" : @"id" };
@@ -1065,7 +1159,7 @@ NSString * const kGTLRServiceUser_Type_Syntax_SyntaxProto3 = @"SYNTAX_PROTO3";
 //
 
 @implementation GTLRServiceUser_UsageRule
-@dynamic allowUnregisteredCalls, selector;
+@dynamic allowUnregisteredCalls, selector, skipServiceControl;
 @end
 
 

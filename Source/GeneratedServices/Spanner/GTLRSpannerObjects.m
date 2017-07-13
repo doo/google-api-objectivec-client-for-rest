@@ -20,12 +20,18 @@ NSString * const kGTLRSpanner_AuditLogConfig_LogType_DataRead  = @"DATA_READ";
 NSString * const kGTLRSpanner_AuditLogConfig_LogType_DataWrite = @"DATA_WRITE";
 NSString * const kGTLRSpanner_AuditLogConfig_LogType_LogTypeUnspecified = @"LOG_TYPE_UNSPECIFIED";
 
+// GTLRSpanner_CloudAuditOptions.logName
+NSString * const kGTLRSpanner_CloudAuditOptions_LogName_AdminActivity = @"ADMIN_ACTIVITY";
+NSString * const kGTLRSpanner_CloudAuditOptions_LogName_DataAccess = @"DATA_ACCESS";
+NSString * const kGTLRSpanner_CloudAuditOptions_LogName_UnspecifiedLogName = @"UNSPECIFIED_LOG_NAME";
+
 // GTLRSpanner_Condition.iam
-NSString * const kGTLRSpanner_Condition_Iam_Approver      = @"APPROVER";
-NSString * const kGTLRSpanner_Condition_Iam_Attribution   = @"ATTRIBUTION";
-NSString * const kGTLRSpanner_Condition_Iam_Authority     = @"AUTHORITY";
-NSString * const kGTLRSpanner_Condition_Iam_NoAttr        = @"NO_ATTR";
-NSString * const kGTLRSpanner_Condition_Iam_SecurityRealm = @"SECURITY_REALM";
+NSString * const kGTLRSpanner_Condition_Iam_Approver          = @"APPROVER";
+NSString * const kGTLRSpanner_Condition_Iam_Attribution       = @"ATTRIBUTION";
+NSString * const kGTLRSpanner_Condition_Iam_Authority         = @"AUTHORITY";
+NSString * const kGTLRSpanner_Condition_Iam_JustificationType = @"JUSTIFICATION_TYPE";
+NSString * const kGTLRSpanner_Condition_Iam_NoAttr            = @"NO_ATTR";
+NSString * const kGTLRSpanner_Condition_Iam_SecurityRealm     = @"SECURITY_REALM";
 
 // GTLRSpanner_Condition.op
 NSString * const kGTLRSpanner_Condition_Op_Discharged = @"DISCHARGED";
@@ -135,7 +141,7 @@ NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified = @"TYPE_CODE_UNSPEC
 //
 
 @implementation GTLRSpanner_Binding
-@dynamic members, role;
+@dynamic condition, members, role;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -163,6 +169,7 @@ NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified = @"TYPE_CODE_UNSPEC
 //
 
 @implementation GTLRSpanner_CloudAuditOptions
+@dynamic logName;
 @end
 
 
@@ -341,6 +348,21 @@ NSString * const kGTLRSpanner_Type_Code_TypeCodeUnspecified = @"TYPE_CODE_UNSPEC
 
 + (Class)classForAdditionalProperties {
   return [GTLRSpanner_Type class];
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSpanner_Expr
+//
+
+@implementation GTLRSpanner_Expr
+@dynamic descriptionProperty, expression, location, title;
+
++ (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
+  return @{ @"descriptionProperty" : @"description" };
 }
 
 @end

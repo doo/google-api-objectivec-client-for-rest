@@ -4,7 +4,7 @@
 // API:
 //   Google Cloud Key Management Service (KMS) API (cloudkms/v1)
 // Description:
-//   Manages encryption for your cloud services the same way you do on-premise.
+//   Manages encryption for your cloud services the same way you do on-premises.
 //   You can generate, use, rotate, and destroy AES256 encryption keys.
 // Documentation:
 //   https://cloud.google.com/kms/
@@ -19,6 +19,11 @@ NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_AdminRead = @"ADMIN_READ";
 NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_DataRead = @"DATA_READ";
 NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_DataWrite = @"DATA_WRITE";
 NSString * const kGTLRCloudKMS_AuditLogConfig_LogType_LogTypeUnspecified = @"LOG_TYPE_UNSPECIFIED";
+
+// GTLRCloudKMS_CloudAuditOptions.logName
+NSString * const kGTLRCloudKMS_CloudAuditOptions_LogName_AdminActivity = @"ADMIN_ACTIVITY";
+NSString * const kGTLRCloudKMS_CloudAuditOptions_LogName_DataAccess = @"DATA_ACCESS";
+NSString * const kGTLRCloudKMS_CloudAuditOptions_LogName_UnspecifiedLogName = @"UNSPECIFIED_LOG_NAME";
 
 // GTLRCloudKMS_Condition.iam
 NSString * const kGTLRCloudKMS_Condition_Iam_Approver          = @"APPROVER";
@@ -104,7 +109,7 @@ NSString * const kGTLRCloudKMS_Rule_Action_NoAction     = @"NO_ACTION";
 //
 
 @implementation GTLRCloudKMS_Binding
-@dynamic members, role;
+@dynamic condition, members, role;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -122,6 +127,7 @@ NSString * const kGTLRCloudKMS_Rule_Action_NoAction     = @"NO_ACTION";
 //
 
 @implementation GTLRCloudKMS_CloudAuditOptions
+@dynamic logName;
 @end
 
 
@@ -228,6 +234,21 @@ NSString * const kGTLRCloudKMS_Rule_Action_NoAction     = @"NO_ACTION";
 
 @implementation GTLRCloudKMS_EncryptResponse
 @dynamic ciphertext, name;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_Expr
+//
+
+@implementation GTLRCloudKMS_Expr
+@dynamic descriptionProperty, expression, location, title;
+
++ (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
+  return @{ @"descriptionProperty" : @"description" };
+}
+
 @end
 
 
