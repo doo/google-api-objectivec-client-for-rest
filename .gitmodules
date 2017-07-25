@@ -1,10 +1,10 @@
 [submodule "Deps/gtm-session-fetcher"]
 	path = Deps/gtm-session-fetcher
-	url = https://github.com/google/gtm-session-fetcher.git
+	url = git@github.com:google/gtm-session-fetcher.git
 	branch = master
 [submodule "Deps/GTMAppAuth"]
 	path = Deps/GTMAppAuth
-	url = https://github.com/google/GTMAppAuth.git
+	url = git@github.com:google/GTMAppAuth.git
 [submodule "Deps/AppAuthFork"]
 	path = Deps/AppAuthFork
 	url = git@github.com:doo/AppAuth-iOS.git
