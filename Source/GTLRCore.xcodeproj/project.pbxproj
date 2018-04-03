@@ -2553,6 +2553,25 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wundeclared-selector",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+					"-Wformat=2",
+					"-Wformat-security",
+					"-Wreorder",
+					"-Wsign-promo",
+					"-Wstrict-selector-match",
+					"-Wno-unused-parameter",
+					"-Wno-unknown-pragmas",
+					"-Widiomatic-parentheses",
+					"-Wimplicit-atomic-properties",
+				);
 			};
 			name = AppStoreFree;
 		};
@@ -2746,6 +2765,25 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wundeclared-selector",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+					"-Wformat=2",
+					"-Wformat-security",
+					"-Wreorder",
+					"-Wsign-promo",
+					"-Wstrict-selector-match",
+					"-Wno-unused-parameter",
+					"-Wno-unknown-pragmas",
+					"-Widiomatic-parentheses",
+					"-Wimplicit-atomic-properties",
+				);
 			};
 			name = AppStorePro;
 		};
@@ -2946,6 +2984,25 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wundeclared-selector",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+					"-Wformat=2",
+					"-Wformat-security",
+					"-Wreorder",
+					"-Wsign-promo",
+					"-Wstrict-selector-match",
+					"-Wno-unused-parameter",
+					"-Wno-unknown-pragmas",
+					"-Widiomatic-parentheses",
+					"-Wimplicit-atomic-properties",
+				);
 			};
 			name = Debug;
 		};
@@ -2970,6 +3027,25 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wundeclared-selector",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+					"-Wformat=2",
+					"-Wformat-security",
+					"-Wreorder",
+					"-Wsign-promo",
+					"-Wstrict-selector-match",
+					"-Wno-unused-parameter",
+					"-Wno-unknown-pragmas",
+					"-Widiomatic-parentheses",
+					"-Wimplicit-atomic-properties",
+				);
 			};
 			name = Release;
 		};
