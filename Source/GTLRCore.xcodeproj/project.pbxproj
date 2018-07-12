@@ -2248,6 +2248,225 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		08F3A60A20F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = GTMAPPAUTH_USER_IMPORTS;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Werror",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wundeclared-selector",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+					"-Wformat=2",
+					"-Wformat-security",
+					"-Wreorder",
+					"-Wsign-promo",
+					"-Wstrict-selector-match",
+					"-Wno-unused-parameter",
+					"-Wno-unknown-pragmas",
+					"-Widiomatic-parentheses",
+					"-Wimplicit-atomic-properties",
+				);
+			};
+			name = RetailDemo;
+		};
+		08F3A60B20F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Resources/GTLROSXFramework-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(BUILT_PRODUCTS_DIR)/libAppAuth-macOS.a",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTLR;
+				PRODUCT_NAME = GTLR;
+				STRIP_STYLE = "non-global";
+			};
+			name = RetailDemo;
+		};
+		08F3A60C20F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/GTLRiOSFramework-Info.plist";
+				INSTALL_PATH = "@loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(BUILT_PRODUCTS_DIR)/libAppAuth-iOS.a",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTLR;
+				PRODUCT_NAME = GTLR;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wundeclared-selector",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+					"-Wformat=2",
+					"-Wformat-security",
+					"-Wreorder",
+					"-Wsign-promo",
+					"-Wstrict-selector-match",
+					"-Wno-unused-parameter",
+					"-Wno-unknown-pragmas",
+					"-Widiomatic-parentheses",
+					"-Wimplicit-atomic-properties",
+				);
+			};
+			name = RetailDemo;
+		};
+		08F3A60D20F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/GTLRtvOSFramework-Info.plist";
+				INSTALL_PATH = "@loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(BUILT_PRODUCTS_DIR)/libAppAuth-tvOS.a",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTLR;
+				PRODUCT_NAME = GTLR;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = RetailDemo;
+		};
+		08F3A60E20F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = GTLRtvOSCore;
+			};
+			name = RetailDemo;
+		};
+		08F3A60F20F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Resources/GTLRUnitTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTLRUnitTests;
+				PRODUCT_NAME = GTLROSXUnitTests;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = RetailDemo;
+		};
+		08F3A61020F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Resources/GTLRUnitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTLRUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+			};
+			name = RetailDemo;
+		};
+		08F3A61120F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Resources/GTLRUnitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTLRUnitTests;
+				PRODUCT_NAME = GTLRtvOSUnitTests;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = RetailDemo;
+		};
+		08F3A61220F76FEE001237CD /* RetailDemo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Resources/DevTestTool-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.DevelopmentTestApplication;
+				PRODUCT_NAME = OSXDevTool;
+			};
+			name = RetailDemo;
+		};
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3162,6 +3381,7 @@
 				1DEB913F08733D840010E9CD /* Debug */,
 				1DEB914008733D840010E9CD /* Release */,
 				479B95A01E8BE44A00C0149B /* AppStorePro */,
+				08F3A60A20F76FEE001237CD /* RetailDemo */,
 				479B95961E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3173,6 +3393,7 @@
 				4F14A9E00B1276B70072EBB8 /* Debug */,
 				4F14A9E10B1276B70072EBB8 /* Release */,
 				479B95A41E8BE44A00C0149B /* AppStorePro */,
+				08F3A60F20F76FEE001237CD /* RetailDemo */,
 				479B959A1E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3184,6 +3405,7 @@
 				4F1AD9090B71606100DC0485 /* Debug */,
 				4F1AD90A0B71606100DC0485 /* Release */,
 				479B95A71E8BE44A00C0149B /* AppStorePro */,
+				08F3A61220F76FEE001237CD /* RetailDemo */,
 				479B959D1E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3195,6 +3417,7 @@
 				4F38F7120B66EF2C00B24B81 /* Debug */,
 				4F38F7130B66EF2C00B24B81 /* Release */,
 				479B95A11E8BE44A00C0149B /* AppStorePro */,
+				08F3A60B20F76FEE001237CD /* RetailDemo */,
 				479B95971E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3206,6 +3429,7 @@
 				F4368F781B8233C000E17643 /* Debug */,
 				F4368F791B8233C000E17643 /* Release */,
 				479B95A51E8BE44A00C0149B /* AppStorePro */,
+				08F3A61020F76FEE001237CD /* RetailDemo */,
 				479B959B1E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3217,6 +3441,7 @@
 				F4469DB21C40229D00BCFAA1 /* Debug */,
 				F4469DB31C40229D00BCFAA1 /* Release */,
 				479B95A21E8BE44A00C0149B /* AppStorePro */,
+				08F3A60C20F76FEE001237CD /* RetailDemo */,
 				479B95981E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3228,6 +3453,7 @@
 				F4A872411DAD1AA400D69E09 /* Debug */,
 				F4A872421DAD1AA400D69E09 /* Release */,
 				479B95A31E8BE44A00C0149B /* AppStorePro */,
+				08F3A60D20F76FEE001237CD /* RetailDemo */,
 				479B95991E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3239,6 +3465,7 @@
 				F4A872861DAD1FA000D69E09 /* Debug */,
 				F4A872871DAD1FA000D69E09 /* Release */,
 				479B95A61E8BE44A00C0149B /* AppStorePro */,
+				08F3A61120F76FEE001237CD /* RetailDemo */,
 				479B959C1E8BE44400C0149B /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3250,6 +3477,7 @@
 				F4B18FE21F10035400E55018 /* Debug */,
 				F4B18FE31F10035400E55018 /* Release */,
 				472480411F18B3EF006432AF /* AppStorePro */,
+				08F3A60E20F76FEE001237CD /* RetailDemo */,
 				472480421F18B3EF006432AF /* AppStoreFree */,
 			);
 			defaultConfigurationIsVisible = 0;
